@@ -93,6 +93,43 @@
     .card small{color:var(--cyan);letter-spacing:.16em}
     .card h3{font-family:Georgia,'Times New Roman',serif;font-size:25px;font-weight:400;margin:10px 0}
     .card p{font-size:12px;margin:0;color:#aeb5b2}
+    .edit-images-button{min-height:44px;padding:0 13px;border:1px dashed rgba(255,225,172,.5);border-radius:7px;background:rgba(7,16,11,.8);color:#f2dfb9;font-size:12px}
+    .image-editor{position:fixed;inset:50% auto auto 50%;transform:translate(-50%,-50%);width:calc(100% - 32px);max-width:1100px;max-height:90svh;margin:0;padding:0;border:1px solid #435045;border-radius:12px;background:#0e1912;color:var(--ink);overflow:auto;overscroll-behavior:contain}
+    .image-editor::backdrop{background:rgba(0,0,0,.78)}
+    .editor-top{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 26px;background:#132017;border-bottom:1px solid var(--line)}
+    .editor-top h2{font-family:Georgia,serif;font-weight:400;font-size:28px;margin:5px 0 0}
+    .editor-top small{color:#e1cda7;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+    .editor-body{padding:22px 26px 26px}
+    .editor-note{max-width:850px;margin:0 0 22px;color:#b5c1b7;font-size:13px;line-height:1.65}
+    .editor-picker{display:flex;align-items:end;gap:14px;margin-bottom:22px}
+    .editor-picker label{display:grid;gap:8px;flex:1;font-size:12px;color:#cad4cc}
+    .editor-picker select{width:100%;min-height:46px;padding:10px 14px;border:1px solid #536354;border-radius:7px;background:#15261b;color:var(--ink);font:inherit}
+    .editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .editor-image-card{padding:18px;border:1px solid var(--line);border-radius:9px;background:#132017;min-width:0}
+    .editor-image-card h3{font-weight:400;font-family:Georgia,serif;font-size:23px;margin:0 0 8px}
+    .editor-image-card p{font-size:12px;line-height:1.6;color:#adbaaf;min-height:38px;margin:0 0 14px}
+    .editor-image-preview{width:100%;aspect-ratio:16/9;display:grid;place-items:center;overflow:hidden;background:#07100a;border:1px solid rgba(255,255,255,.1);border-radius:7px;margin-bottom:12px}
+    .editor-image-preview img{display:block;width:100%;height:100%;object-fit:cover;min-height:0}
+    .editor-image-preview.circle-preview img{width:140px;height:140px;border-radius:50%;border:10px solid #25352a}
+    .editor-file-info{font-size:11px;color:#bfcec1;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;min-height:18px;margin-bottom:14px}
+    .editor-card-actions{display:flex;gap:9px;flex-wrap:wrap}
+    .editor-card-actions button,.editor-tools button{min-height:44px}
+    .editor-secondary{min-height:44px;padding:0 14px;border:1px solid #4a5c4d;border-radius:7px;background:#14231a;color:#e4ebe4;font-size:12px}
+    .editor-primary{min-height:44px;padding:0 16px;border:1px solid #c7b58e;border-radius:7px;background:#e8d8b4;color:#142018;font-size:12px;font-weight:700}
+    .image-editor button:disabled,.image-editor select:disabled{opacity:.45;cursor:wait}
+    .editor-tools{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+    .editor-tools-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .editor-summary{font-size:12px;color:#b0c0b3}
+    .editor-message{font-size:13px;line-height:1.6;margin:17px 0 0;min-height:21px;color:#d6e8d3}
+    .editor-message[data-error="true"]{color:#ffd5a7}
+    .editor-close{flex-shrink:0}
+    @media(max-width:700px){
+      .edit-images-button{text-align:left;width:100%;margin-top:12px;padding:0 12px}
+      .image-editor{width:calc(100% - 20px);max-height:94svh}
+      .editor-top{padding:16px;gap:10px}.editor-top h2{font-size:24px}.editor-body{padding:18px 16px}
+      .editor-picker{align-items:stretch;flex-direction:column}.editor-grid{grid-template-columns:1fr}
+      .editor-tools{align-items:start;flex-direction:column}.editor-image-card{padding:14px}
+    }
     @media(min-width:701px){.med,.center,.nav-arrow{top:55%}}
     @media(max-width:1000px){
       .universe-card{padding:18px;gap:12px}
@@ -160,6 +197,7 @@
       <a href="#inicio" aria-current="location">Início</a>
       <a href="#colecoes">Universos</a>
       <a class="nav-contact" href="#contato">Crie seu projeto <span aria-hidden="true">&nbsp;↗</span></a>
+      <button class="edit-images-button" id="editImages" type="button" aria-haspopup="dialog">Editar imagens</button>
     </nav>
   </header>
   <main>
@@ -193,6 +231,22 @@
       <div class="cards" id="cards"></div>
     </div>
   </dialog>
+  <dialog class="image-editor" id="imageEditor" aria-labelledby="imageEditorTitle" aria-describedby="imageEditorNote">
+    <div class="editor-top"><div><small>Ferramenta provisória</small><h2 id="imageEditorTitle">Editar imagens</h2></div><button class="close editor-close" id="closeImageEditor" type="button" aria-label="Fechar editor de imagens">Fechar ×</button></div>
+    <div class="editor-body">
+      <p class="editor-note" id="imageEditorNote">Troque as imagens dos nove universos. As mudanças aparecem só neste navegador e ficam salvas após recarregar. Para compartilhar comigo e publicar as escolhas no site, use <strong>Exportar imagens</strong>.</p>
+      <div class="editor-picker"><label for="editorUniverse">Universo que você quer editar<select id="editorUniverse"></select></label><button class="editor-secondary" id="viewEditedUniverse" type="button">Ver no site ↗</button></div>
+      <div class="editor-grid">
+        <section class="editor-image-card" aria-labelledby="editorBackgroundTitle"><h3 id="editorBackgroundTitle">Fundo da aba</h3><p>Imagem de fundo da abertura e da página deste universo.</p><div class="editor-image-preview"><img id="editorBackgroundPreview" alt="Prévia do fundo selecionado"></div><div class="editor-file-info" id="editorBackgroundInfo">Imagem original</div><div class="editor-card-actions"><button class="editor-primary" id="chooseBackgroundImage" type="button">Trocar fundo</button><button class="editor-secondary" id="resetBackgroundImage" type="button">Restaurar fundo</button></div></section>
+        <section class="editor-image-card" aria-labelledby="editorCircleTitle"><h3 id="editorCircleTitle">Imagem do círculo</h3><p>Usada também no cartão e na imagem circular da página deste universo.</p><div class="editor-image-preview circle-preview"><img id="editorCirclePreview" alt="Prévia da imagem circular selecionada"></div><div class="editor-file-info" id="editorCircleInfo">Imagem original</div><div class="editor-card-actions"><button class="editor-primary" id="chooseCircleImage" type="button">Trocar círculo</button><button class="editor-secondary" id="resetCircleImage" type="button">Restaurar círculo</button></div></section>
+      </div>
+      <div class="editor-tools"><div class="editor-tools-actions"><button class="editor-secondary" id="exportImages" type="button">Exportar imagens</button><button class="editor-secondary" id="importImages" type="button">Importar arquivo</button></div><span class="editor-summary" id="editorSummary">0 de 18 imagens personalizadas</span></div>
+      <p class="editor-message" id="imageEditorMessage" role="status" aria-live="polite" aria-atomic="true">Use JPG, PNG, WebP ou AVIF. Você pode restaurar cada imagem separadamente.</p>
+      <input id="backgroundImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
+      <input id="circleImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
+      <input id="imageConfigFile" type="file" accept="application/json,.json" hidden>
+    </div>
+  </dialog>
   <script>
     (() => {
       const items = [
@@ -207,12 +261,16 @@
         ['VISIOARTES','Arte, design e tecnologia em novas formas','https://images.pexels.com/photos/36793072/pexels-photo-36793072.jpeg?auto=compress&cs=tinysrgb&w=2400']
       ];
       const $ = id => document.getElementById(id);
-      const hero = $('inicio'), orbit = $('orbit'), modal = $('modal');
+      const hero = $('inicio'), orbit = $('orbit'), modal = $('modal'), imageEditor = $('imageEditor');
       const menu = $('mainNav'), menuToggle = $('menuToggle');
       const motion = matchMedia('(prefers-reduced-motion: reduce)'), mobile = matchMedia('(max-width: 700px)');
       const wrap = v => ((v % items.length) + items.length) % items.length;
       const shortest = d => wrap(d + items.length / 2) - items.length / 2;
-      const imageSize = (url, size) => url.replace('w=2400', 'w=' + size);
+      const imageSize = (url, size) => /^(data:|blob:)/.test(url) ? url : url.replace('w=2400', 'w=' + size);
+      const customImages = items.map(() => ({background:null,circle:null}));
+      const backgroundSource = i => customImages[i].background?.dataUrl || items[i][2];
+      const circleSource = i => customImages[i].circle?.dataUrl || items[i][2];
+      const cardImages = [];
       let pos = 0, target = 0, current = -1, drag = false, startX = 0, startY = 0, startPos = 0;
       let lastInteraction = performance.now(), lastAuto = lastInteraction;
       let returnFocus = null, hoveredMed = false, heroVisible = true;
@@ -247,11 +305,12 @@
         const img = new Image();
         bgRequests[i] = img;
         img.onload = () => {
+          if (bgRequests[i] !== img) return;
           bgEls[i].style.backgroundImage = `url("${img.src}")`;
           bgReady[i] = true; showBackground(i);
         };
-        img.onerror = () => { bgRequests[i] = null; };
-        img.src = imageSize(items[i][2], mobile.matches ? 1200 : 2400);
+        img.onerror = () => { if (bgRequests[i] === img) bgRequests[i] = null; };
+        img.src = imageSize(backgroundSource(i), mobile.matches ? 1200 : 2400);
       }
       function selectIndex(i) {
         pauseAuto();
@@ -262,7 +321,7 @@
         b.type = 'button'; b.className = 'med';
         b.setAttribute('aria-label', 'Abrir ' + it[0]);
         b.setAttribute('aria-haspopup', 'dialog');
-        b.innerHTML = `<svg class="med-contour" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><ellipse cx="120" cy="120" rx="114" ry="88" transform="rotate(-28 120 120)" stroke-width="2.3"/><ellipse cx="120" cy="120" rx="111" ry="93" transform="rotate(39 120 120)" stroke-width="1.1" opacity=".65"/><circle cx="120" cy="120" r="96" stroke-width=".8" opacity=".24"/></svg><img alt="" src="${imageSize(it[2], 320)}" width="100" height="100" draggable="false"><span class="med-label" aria-hidden="true">${it[0]}</span>`;
+        b.innerHTML = `<svg class="med-contour" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><ellipse cx="120" cy="120" rx="114" ry="88" transform="rotate(-28 120 120)" stroke-width="2.3"/><ellipse cx="120" cy="120" rx="111" ry="93" transform="rotate(39 120 120)" stroke-width="1.1" opacity=".65"/><circle cx="120" cy="120" r="96" stroke-width=".8" opacity=".24"/></svg><img alt="" src="${imageSize(circleSource(i), 320)}" width="100" height="100" draggable="false"><span class="med-label" aria-hidden="true">${it[0]}</span>`;
         b.addEventListener('click', () => { selectIndex(i); openUniverse(i, b); });
         b.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hoveredMed = true; });
         b.addEventListener('pointerleave', () => { hoveredMed = false; pauseAuto(); });
@@ -273,6 +332,7 @@
         card.innerHTML = `<img src="${imageSize(it[2], 320)}" alt="" loading="lazy" width="66" height="66"><span class="universe-copy"><strong>${it[0]}</strong><small>${it[1]}</small></span><span class="card-arrow" aria-hidden="true">↗</span>`;
         card.addEventListener('click', () => { selectIndex(i); openUniverse(i, card); });
         $('universeGrid').append(card);
+        cardImages.push(card.querySelector('img'));
         return b;
       });
       function step(dir) { pauseAuto(); target = Math.round(target) + dir; }
@@ -283,8 +343,9 @@
         pauseAuto(); returnFocus = trigger;
         $('modalTitle').textContent = items[i][0];
         $('modalText').textContent = items[i][1] + '. Esta área está pronta para receber imagens, especificações, projetos e conteúdo real da VISIOARTES.';
-        $('modalBg').style.backgroundImage = `url("${imageSize(items[i][2], mobile.matches ? 1200 : 2400)}")`;
-        $('modalImg').src = imageSize(items[i][2], 640);
+        modal.dataset.universe = String(i);
+        $('modalBg').style.backgroundImage = `url("${imageSize(backgroundSource(i), mobile.matches ? 1200 : 2400)}")`;
+        $('modalImg').src = imageSize(circleSource(i), 640);
         $('modalImg').alt = items[i][0];
         $('cards').innerHTML = ['Conceito','Desenvolvimento','Personalização'].map((x,n) => `<article class="card"><small>0${n+1}</small><h3>${x}</h3><p>Conteúdo preparado para este universo. Vamos substituir por informações reais durante o desenvolvimento.</p></article>`).join('');
         if (!modal.open) modal.showModal();
@@ -300,6 +361,198 @@
       $('close').addEventListener('click', () => closeUniverse());
       modal.addEventListener('cancel', e => { e.preventDefault(); closeUniverse(); });
       $('budget').addEventListener('click', () => { closeUniverse(false); $('contactTitle').focus({preventScroll:true}); });
+
+      let editorIndex = 0, editorBusy = false, editorReturnFocus = null;
+      const imageDataPattern = /^data:image\/(png|jpeg|webp|avif);base64,[A-Za-z0-9+/=]+$/;
+      const databasePromise = new Promise((resolve, reject) => {
+        const request = indexedDB.open('visioartes-image-editor', 1);
+        request.onupgradeneeded = () => request.result.createObjectStore('images', {keyPath:'id'});
+        request.onsuccess = () => { request.result.onversionchange = () => request.result.close(); resolve(request.result); };
+        request.onerror = () => reject(new Error('Não foi possível abrir o salvamento neste navegador.'));
+        request.onblocked = () => reject(new Error('Feche outras abas do editor e tente novamente.'));
+      }).catch(() => null);
+
+      function editorMessage(message, error = false) {
+        $('imageEditorMessage').textContent = message;
+        $('imageEditorMessage').dataset.error = String(error);
+      }
+      function refreshUniverseImages(i) {
+        meds[i].querySelector('img').src = imageSize(circleSource(i), 320);
+        cardImages[i].src = imageSize(circleSource(i), 320);
+        bgReady[i] = false; bgRequests[i] = null;
+        if (current < 0 || [current,wrap(current + 1),wrap(current - 1)].includes(i)) loadBackground(i);
+        if (modal.dataset.universe === String(i)) {
+          $('modalBg').style.backgroundImage = `url("${imageSize(backgroundSource(i), mobile.matches ? 1200 : 2400)}")`;
+          $('modalImg').src = imageSize(circleSource(i), 640);
+        }
+      }
+      function updateEditorPreviews() {
+        const values = customImages[editorIndex];
+        $('editorBackgroundPreview').src = imageSize(backgroundSource(editorIndex), 800);
+        $('editorCirclePreview').src = imageSize(circleSource(editorIndex), 400);
+        $('editorBackgroundPreview').alt = 'Fundo de ' + items[editorIndex][0];
+        $('editorCirclePreview').alt = 'Círculo de ' + items[editorIndex][0];
+        for (const kind of ['background','circle']) {
+          const record = values[kind];
+          $(kind === 'background' ? 'editorBackgroundInfo' : 'editorCircleInfo').textContent = record ? `${record.name} · ${record.width} × ${record.height}` : 'Imagem original';
+          $(kind === 'background' ? 'resetBackgroundImage' : 'resetCircleImage').disabled = editorBusy || !record;
+        }
+        const count = customImages.reduce((total, value) => total + Number(Boolean(value.background)) + Number(Boolean(value.circle)), 0);
+        $('editorSummary').textContent = `${count} de 18 imagens personalizadas`;
+      }
+      function setEditorBusy(busy) {
+        editorBusy = busy;
+        imageEditor.querySelectorAll('button,select').forEach(el => { if (el.id !== 'closeImageEditor') el.disabled = busy; });
+        updateEditorPreviews();
+      }
+      async function writeImageChanges(change) {
+        const db = await databasePromise;
+        if (!db) throw new Error('O navegador não permitiu salvar as imagens. Tente abrir o site fora do modo privado ou em outro navegador.');
+        await new Promise((resolve, reject) => {
+          const tx = db.transaction('images', 'readwrite');
+          tx.oncomplete = resolve;
+          tx.onerror = () => reject(new Error('Não foi possível salvar. Verifique o espaço disponível no navegador e tente novamente.'));
+          tx.onabort = () => reject(new Error('O salvamento foi interrompido. Tente novamente.'));
+          change(tx.objectStore('images'));
+        });
+      }
+      const initialImagesReady = (async () => {
+        const db = await databasePromise;
+        if (!db) return;
+        const records = await new Promise((resolve, reject) => {
+          const tx = db.transaction('images', 'readonly');
+          const request = tx.objectStore('images').getAll();
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = reject;
+        });
+        for (const record of records) {
+          if (Number.isInteger(record.universe) && record.universe >= 0 && record.universe < items.length && ['background','circle'].includes(record.kind) && typeof record.dataUrl === 'string' && imageDataPattern.test(record.dataUrl)) {
+            customImages[record.universe][record.kind] = {dataUrl:record.dataUrl,name:String(record.name || 'Imagem personalizada').slice(0,160),width:record.width,height:record.height};
+          }
+        }
+        customImages.forEach((entry,i) => { if (entry.background || entry.circle) refreshUniverseImages(i); });
+      })().catch(() => editorMessage('Não foi possível recuperar as imagens salvas. Você pode tentar importar seu arquivo exportado.', true));
+
+      items.forEach((item,i) => {
+        const option = document.createElement('option'); option.value = String(i); option.textContent = item[0]; $('editorUniverse').append(option);
+      });
+      $('editorUniverse').addEventListener('change', () => { editorIndex = Number($('editorUniverse').value); updateEditorPreviews(); });
+      $('editImages').addEventListener('click', async e => {
+        editorReturnFocus = e.currentTarget;
+        setMenu(false); pauseAuto();
+        editorIndex = Math.max(0,current);
+        $('editorUniverse').value = String(editorIndex);
+        imageEditor.showModal(); document.body.style.overflow = 'hidden';
+        imageEditor.scrollTop = 0; $('closeImageEditor').focus({preventScroll:true});
+        updateEditorPreviews();
+        await initialImagesReady; updateEditorPreviews();
+      });
+      function closeImageEditor(restore = true) {
+        imageEditor.close(); document.body.style.overflow = ''; pauseAuto();
+        const focusTarget = mobile.matches ? menuToggle : editorReturnFocus;
+        if (restore && focusTarget?.isConnected) focusTarget.focus({preventScroll:true});
+      }
+      $('closeImageEditor').addEventListener('click', () => closeImageEditor());
+      imageEditor.addEventListener('cancel', e => { e.preventDefault(); closeImageEditor(); });
+      $('viewEditedUniverse').addEventListener('click', () => {
+        selectIndex(editorIndex); closeImageEditor(false);
+        hero.scrollIntoView({behavior:motion.matches ? 'instant' : 'smooth'});
+        $('explore').focus({preventScroll:true});
+      });
+      function readDataUrl(blob) {
+        return new Promise((resolve,reject) => {
+          const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = () => reject(new Error('Não foi possível ler o arquivo.')); reader.readAsDataURL(blob);
+        });
+      }
+      function decodeImage(dataUrl) {
+        return new Promise((resolve,reject) => {
+          const img = new Image(); img.onload = () => resolve(img); img.onerror = () => reject(new Error('Não foi possível abrir essa imagem. Use JPG, PNG, WebP ou AVIF.')); img.src = dataUrl;
+        });
+      }
+      async function prepareImage(dataUrl, kind, name) {
+        if (!imageDataPattern.test(dataUrl)) throw new Error('Formato de imagem inválido. Use JPG, PNG, WebP ou AVIF.');
+        const img = await decodeImage(dataUrl);
+        if (!img.naturalWidth || !img.naturalHeight || img.naturalWidth * img.naturalHeight > 80000000) throw new Error('Essa imagem é muito grande. Escolha uma versão menor.');
+        const limit = kind === 'background' ? 2560 : 1024;
+        const ratio = Math.min(1,limit / Math.max(img.naturalWidth,img.naturalHeight));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1,Math.round(img.naturalWidth * ratio)); canvas.height = Math.max(1,Math.round(img.naturalHeight * ratio));
+        canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+        const blob = await new Promise(resolve => canvas.toBlob(resolve,'image/webp',.9));
+        if (!blob) throw new Error('Não foi possível preparar a imagem. Tente outro arquivo.');
+        const record = {dataUrl:await readDataUrl(blob),name:String(name || 'Imagem personalizada').slice(0,160),width:canvas.width,height:canvas.height};
+        canvas.width = canvas.height = 1;
+        return record;
+      }
+      async function runEditorOperation(operation) {
+        if (editorBusy) return;
+        setEditorBusy(true);
+        try { await initialImagesReady; await operation(); }
+        catch (error) { editorMessage(error.message || 'Não foi possível concluir a operação. Tente novamente.',true); }
+        finally { setEditorBusy(false); }
+      }
+      for (const kind of ['background','circle']) {
+        const input = $(kind === 'background' ? 'backgroundImageFile' : 'circleImageFile');
+        $(kind === 'background' ? 'chooseBackgroundImage' : 'chooseCircleImage').addEventListener('click', () => { input.value = ''; input.click(); });
+        input.addEventListener('change', () => {
+          const file = input.files?.[0]; if (!file) return;
+          const i = editorIndex;
+          runEditorOperation(async () => {
+            if (file.size > 20 * 1024 * 1024) throw new Error('Escolha uma imagem de até 20 MB.');
+            if (!/^image\/(jpeg|png|webp|avif)$/.test(file.type)) throw new Error('Use uma imagem JPG, PNG, WebP ou AVIF.');
+            editorMessage('Preparando e salvando a imagem…');
+            const record = await prepareImage(await readDataUrl(file),kind,file.name);
+            await writeImageChanges(store => store.put({...record,id:`${i}:${kind}`,universe:i,kind}));
+            customImages[i][kind] = record; refreshUniverseImages(i);
+            editorMessage(`${kind === 'background' ? 'Fundo' : 'Círculo'} de ${items[i][0]} salvo neste navegador.`);
+          });
+        });
+        $(kind === 'background' ? 'resetBackgroundImage' : 'resetCircleImage').addEventListener('click', () => {
+          const i = editorIndex;
+          runEditorOperation(async () => {
+            await writeImageChanges(store => store.delete(`${i}:${kind}`));
+            customImages[i][kind] = null; refreshUniverseImages(i);
+            editorMessage(`${kind === 'background' ? 'Fundo' : 'Círculo'} original de ${items[i][0]} restaurado.`);
+          });
+        });
+      }
+      $('exportImages').addEventListener('click', () => runEditorOperation(async () => {
+        const config = {format:'visioartes-images',version:1,exportedAt:new Date().toISOString(),universes:customImages.map((images,i) => ({id:i,name:items[i][0],background:images.background,circle:images.circle}))};
+        const url = URL.createObjectURL(new Blob([JSON.stringify(config)],{type:'application/json'}));
+        const link = document.createElement('a'); link.href = url; link.download = `visioartes-imagens-${new Date().toISOString().slice(0,10)}.json`;
+        document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url),1000);
+        editorMessage('Arquivo exportado. Guarde uma cópia ou envie aqui no chat para publicarmos suas escolhas.');
+      }));
+      $('importImages').addEventListener('click', () => { $('imageConfigFile').value = ''; $('imageConfigFile').click(); });
+      $('imageConfigFile').addEventListener('change', () => {
+        const file = $('imageConfigFile').files?.[0]; if (!file) return;
+        runEditorOperation(async () => {
+          if (file.size > 80 * 1024 * 1024) throw new Error('Esse arquivo é muito grande. Importe um arquivo exportado por este editor.');
+          let config;
+          try { config = JSON.parse(await file.text()); } catch { throw new Error('Arquivo inválido. Escolha o arquivo JSON exportado pelo editor.'); }
+          if (config?.format !== 'visioartes-images' || config.version !== 1 || !Array.isArray(config.universes) || config.universes.length !== items.length) throw new Error('Esse arquivo não é uma exportação válida de imagens da VISIOARTES.');
+          const incoming = items.map(() => ({background:null,circle:null})), seen = new Set();
+          editorMessage('Conferindo as imagens do arquivo…');
+          for (const entry of config.universes) {
+            if (!Number.isInteger(entry?.id) || entry.id < 0 || entry.id >= items.length || seen.has(entry.id)) throw new Error('A lista de universos do arquivo está inválida.');
+            seen.add(entry.id);
+            for (const kind of ['background','circle']) {
+              const record = entry[kind]; if (record == null) continue;
+              if (typeof record !== 'object' || typeof record.dataUrl !== 'string' || record.dataUrl.length > 15000000) throw new Error('Uma das imagens do arquivo está inválida.');
+              if (!imageDataPattern.test(record.dataUrl)) throw new Error('Uma das imagens do arquivo está em um formato inválido.');
+              const img = await decodeImage(record.dataUrl), limit = kind === 'background' ? 2560 : 1024;
+              if (!img.naturalWidth || !img.naturalHeight || Math.max(img.naturalWidth,img.naturalHeight) > limit) throw new Error('Uma imagem do arquivo ultrapassa o tamanho aceito. Use uma exportação deste editor.');
+              incoming[entry.id][kind] = {dataUrl:record.dataUrl,name:String(record.name || 'Imagem personalizada').slice(0,160),width:img.naturalWidth,height:img.naturalHeight};
+            }
+          }
+          await writeImageChanges(store => {
+            store.clear();
+            incoming.forEach((entry,i) => { for (const kind of ['background','circle']) if (entry[kind]) store.put({...entry[kind],id:`${i}:${kind}`,universe:i,kind}); });
+          });
+          incoming.forEach((entry,i) => { customImages[i] = entry; refreshUniverseImages(i); });
+          editorMessage('Arquivo importado. As imagens foram aplicadas e salvas neste navegador.');
+        });
+      });
       hero.addEventListener('keydown', e => {
         if (e.target.closest('select,input,textarea,[contenteditable="true"]') || e.altKey || e.ctrlKey || e.metaKey) return;
         if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); step(e.key === 'ArrowRight' ? 1 : -1); }
@@ -349,7 +602,7 @@
       motion.addEventListener('change', pauseAuto);
       function frame(now) {
         const focused = hero.contains(document.activeElement);
-        if (!drag && !motion.matches && !modal.open && !focused && !hoveredMed && !document.hidden && heroVisible && menuToggle.getAttribute('aria-expanded') !== 'true' && now - lastInteraction > 6000 && now - lastAuto > 4800) {
+        if (!drag && !motion.matches && !modal.open && !imageEditor.open && !focused && !hoveredMed && !document.hidden && heroVisible && menuToggle.getAttribute('aria-expanded') !== 'true' && now - lastInteraction > 6000 && now - lastAuto > 4800) {
           target = Math.round(target) + 1; lastAuto = now;
         }
         pos = motion.matches ? target : pos + (target - pos) * .075;
