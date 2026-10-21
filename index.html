@@ -53,18 +53,6 @@
     .nav-arrow:hover{background:rgba(18,25,23,.75);border-color:var(--cyan)}
     .nav-arrow.left{left:clamp(16px,3vw,44px)}
     .nav-arrow.right{right:clamp(16px,3vw,44px)}
-    .explorer{position:absolute;z-index:40;left:50%;bottom:36px;transform:translateX(-50%);display:flex;align-items:center;gap:18px;max-width:calc(100% - 40px)}
-    .category-control{display:flex;align-items:center;gap:16px}
-    .category-control label{font-size:9px;letter-spacing:.17em;line-height:1.6;text-transform:uppercase;color:#d0d5d2;max-width:90px}
-    .select-shell{position:relative}
-    .select-shell:after{content:'⌄';position:absolute;right:15px;top:12px;pointer-events:none;color:var(--cyan)}
-    .category-select{appearance:none;width:232px;min-height:46px;padding:10px 38px 10px 16px;border:1px solid var(--line);border-radius:7px;background:#0b1512;color:var(--ink);font-size:12px;cursor:pointer}
-    .category-select option{background:#0b1512;color:var(--ink)}
-    .counter{font-size:11px;letter-spacing:.13em;color:#b7c1bc;white-space:nowrap;font-variant-numeric:tabular-nums}
-    .counter strong{color:var(--cyan);font-weight:400}
-    .rotation-toggle{display:flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:7px;background:rgba(8,17,13,.85);color:var(--ink);font-size:11px;white-space:nowrap}
-    .rotation-toggle:hover{border-color:var(--cyan)}
-    .rotation-icon{font-size:14px;min-width:14px}
     .hint{position:absolute;z-index:35;left:50%;bottom:13px;width:calc(100% - 36px);transform:translateX(-50%);text-align:center;font-size:9px;line-height:1.5;letter-spacing:.09em;color:#bdc7c1}
     .section{padding:100px clamp(20px,5vw,80px);background:#08100e;scroll-margin-top:0}
     .wrap{max-width:1200px;margin:auto}
@@ -127,16 +115,9 @@
       .center p{font-size:11px;line-height:1.6}
       .center .actions{margin-top:17px}
       .center .btn{min-width:0;width:100%;max-width:202px;min-height:44px;padding:0 8px;font-size:11px;gap:7px}
-      .nav-arrow{width:44px;height:44px;font-size:27px;top:auto;bottom:103px;transform:none;background:rgba(5,10,9,.6)}
+      .nav-arrow{width:44px;height:44px;font-size:27px;top:auto;bottom:36px;transform:none;background:rgba(5,10,9,.6)}
       .nav-arrow.left{left:calc(50% - 71px)}
       .nav-arrow.right{right:calc(50% - 71px)}
-      .explorer{bottom:36px;gap:10px;width:calc(100% - 36px);max-width:440px;justify-content:center}
-      .category-control{flex:1;min-width:0;display:block}
-      .category-control label{display:none}
-      .category-select{width:100%;font-size:11px;padding-left:12px}
-      .counter{position:absolute;bottom:82px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.04em}
-      .rotation-toggle{width:46px;padding:0;flex-shrink:0}
-      .rotation-label{display:none}
       .hint{font-size:8px;letter-spacing:.03em;bottom:12px}
       .section{padding:66px 20px}
       .section-heading{display:block;margin-bottom:28px}
@@ -187,12 +168,7 @@
         <p id="subtitle">Volumes esculturais para ambientes únicos</p>
         <div class="actions"><button class="btn primary" id="explore" type="button">Explorar universo <span aria-hidden="true">↗</span></button><a class="btn" href="#contato">Crie seu projeto</a></div>
       </div>
-      <div class="explorer">
-        <div class="category-control"><label for="categorySelect">Escolha um universo</label><div class="select-shell"><select class="category-select" id="categorySelect" aria-label="Escolha um universo"></select></div></div>
-        <div class="counter" aria-hidden="true"><strong id="currentNumber">01</strong> / 09</div>
-        <button class="rotation-toggle" id="rotationToggle" type="button" aria-label="Pausar rotação automática"><span class="rotation-icon" id="rotationIcon" aria-hidden="true">Ⅱ</span><span class="rotation-label" id="rotationLabel">Pausar</span></button>
-      </div>
-      <div class="hint" id="heroHelp">Arraste, escolha um universo ou use as setas</div>
+      <div class="hint" id="heroHelp">Arraste, toque nos círculos ou use as setas</div>
     </section>
     <section class="section" id="colecoes" aria-labelledby="universeTitle" tabindex="-1">
       <div class="wrap">
@@ -225,14 +201,14 @@
         ['VISIOARTES','Arte, design e tecnologia em novas formas','https://images.pexels.com/photos/36793072/pexels-photo-36793072.jpeg?auto=compress&cs=tinysrgb&w=2400']
       ];
       const $ = id => document.getElementById(id);
-      const hero = $('inicio'), orbit = $('orbit'), modal = $('modal'), selector = $('categorySelect');
+      const hero = $('inicio'), orbit = $('orbit'), modal = $('modal');
       const menu = $('mainNav'), menuToggle = $('menuToggle');
       const motion = matchMedia('(prefers-reduced-motion: reduce)'), mobile = matchMedia('(max-width: 700px)');
       const wrap = v => ((v % items.length) + items.length) % items.length;
       const shortest = d => wrap(d + items.length / 2) - items.length / 2;
       const imageSize = (url, size) => url.replace('w=2400', 'w=' + size);
       let pos = 0, target = 0, current = -1, drag = false, startX = 0, startY = 0, startPos = 0;
-      let lastInteraction = performance.now(), lastAuto = lastInteraction, userPaused = motion.matches;
+      let lastInteraction = performance.now(), lastAuto = lastInteraction;
       let returnFocus = null, hoveredMed = false, heroVisible = true;
       let radiusX = 0, radiusY = 0;
       function pauseAuto() { lastInteraction = lastAuto = performance.now(); }
@@ -276,8 +252,6 @@
         target = Math.round(target) + shortest(i - wrap(Math.round(target)));
       }
       const meds = items.map((it, i) => {
-        const option = document.createElement('option');
-        option.value = String(i); option.textContent = it[0]; selector.append(option);
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'med';
         b.setAttribute('aria-label', 'Abrir ' + it[0]);
@@ -295,21 +269,10 @@
         $('universeGrid').append(card);
         return b;
       });
-      selector.addEventListener('change', () => selectIndex(Number(selector.value)));
       function step(dir) { pauseAuto(); target = Math.round(target) + dir; }
       $('prev').addEventListener('click', () => step(-1));
       $('next').addEventListener('click', () => step(1));
       $('explore').addEventListener('click', e => openUniverse(wrap(Math.round(pos)), e.currentTarget));
-      function updateRotation() {
-        const label = userPaused ? 'Iniciar rotação automática' : 'Pausar rotação automática';
-        $('rotationToggle').setAttribute('aria-label', label);
-        $('rotationToggle').title = label;
-        $('rotationIcon').textContent = userPaused ? '▷' : 'Ⅱ';
-        $('rotationLabel').textContent = userPaused ? 'Reproduzir' : 'Pausar';
-      }
-      $('rotationToggle').addEventListener('click', () => { userPaused = !userPaused; pauseAuto(); updateRotation(); });
-      motion.addEventListener('change', () => { if (motion.matches) userPaused = true; updateRotation(); });
-      updateRotation();
       function openUniverse(i, trigger) {
         pauseAuto(); returnFocus = trigger;
         $('modalTitle').textContent = items[i][0];
@@ -377,9 +340,10 @@
       }
       window.addEventListener('scroll', updateHeader, {passive:true}); updateHeader();
       document.addEventListener('visibilitychange', pauseAuto);
+      motion.addEventListener('change', pauseAuto);
       function frame(now) {
-        const focused = hero.contains(document.activeElement) && document.activeElement !== $('rotationToggle');
-        if (!drag && !userPaused && !modal.open && !focused && !hoveredMed && !document.hidden && heroVisible && menuToggle.getAttribute('aria-expanded') !== 'true' && now - lastInteraction > 6000 && now - lastAuto > 4800) {
+        const focused = hero.contains(document.activeElement);
+        if (!drag && !motion.matches && !modal.open && !focused && !hoveredMed && !document.hidden && heroVisible && menuToggle.getAttribute('aria-expanded') !== 'true' && now - lastInteraction > 6000 && now - lastAuto > 4800) {
           target = Math.round(target) + 1; lastAuto = now;
         }
         pos = motion.matches ? target : pos + (target - pos) * .075;
@@ -389,8 +353,6 @@
           current = focus;
           $('title').textContent = items[focus][0];
           $('subtitle').textContent = items[focus][1];
-          selector.value = String(focus);
-          $('currentNumber').textContent = String(focus + 1).padStart(2,'0');
           $('explore').setAttribute('aria-label', 'Explorar ' + items[focus][0]);
           loadBackground(focus);
           loadBackground(wrap(focus + 1));
