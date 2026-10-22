@@ -4,14 +4,19 @@
   const all = selector => [...document.querySelectorAll(selector)];
   const pages = ['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos'];
   const titles = ['Início','Peças','Como fazemos','Material e reciclagem','Máquinas','Software','Projetos sob medida + contato'];
-  const collections = [
-    {name:'Móveis',filter:'moveis',background:'https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=2400'},
-    {name:'Luminárias',filter:'luminarias',background:'assets/luminarias/hero.webp',circle:'assets/luminarias/espiral.webp'},
-    {name:'Objetos decorativos',filter:'objetos',background:'https://images.pexels.com/photos/14205545/pexels-photo-14205545.jpeg?auto=compress&cs=tinysrgb&w=2400'},
-    {name:'Formas da natureza',filter:'natureza',background:'https://images.pexels.com/photos/4011947/pexels-photo-4011947.jpeg?auto=compress&cs=tinysrgb&w=2400'}
+  const universes = [
+    {name:'Móveis',destination:'pecas/moveis',background:'https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=2400'},
+    {name:'Luminárias',destination:'pecas/luminarias',background:'assets/luminarias/hero.webp',circle:'assets/luminarias/espiral.webp'},
+    {name:'Objetos decorativos',destination:'pecas/objetos',background:'https://images.pexels.com/photos/14205545/pexels-photo-14205545.jpeg?auto=compress&cs=tinysrgb&w=2400'},
+    {name:'Formas da natureza',destination:'pecas/natureza',background:'https://images.pexels.com/photos/4011947/pexels-photo-4011947.jpeg?auto=compress&cs=tinysrgb&w=2400'},
+    {name:'Materiais',destination:'material-reciclagem',background:'https://images.pexels.com/photos/35999876/pexels-photo-35999876.jpeg?auto=compress&cs=tinysrgb&w=2400'},
+    {name:'Reciclagem',destination:'material-reciclagem',background:'assets/reciclagem/hero.webp',circle:'assets/reciclagem/coleta.webp'},
+    {name:'Tecnologia',destination:'software',background:'assets/tecnologia/fundo-v2.webp',circle:'assets/tecnologia/circulo-v2.webp'},
+    {name:'Projetos personalizados',destination:'projetos',background:'https://images.pexels.com/photos/38850583/pexels-photo-38850583.jpeg?auto=compress&cs=tinysrgb&w=2400'},
+    {name:'VISIOARTE',destination:'inicio/sobre',background:'https://images.pexels.com/photos/36793072/pexels-photo-36793072.jpeg?auto=compress&cs=tinysrgb&w=2400'}
   ];
   // Keep legacy record IDs so locally selected home images survive the reorganization.
-  const slots = collections.flatMap((c,i) => [
+  const slots = universes.flatMap((c,i) => [
     {id:i+':background',name:'Início / '+c.name+' / fundo',page:'inicio',source:c.background,kind:'background',collection:i},
     {id:i+':circle',name:'Início / '+c.name+' / círculo',page:'inicio',source:c.circle||c.background,kind:'circle',collection:i}
   ]);
@@ -52,7 +57,7 @@
 
   let filter='todos';
   function setFilter(value) {
-    filter=['todos',...collections.map(c=>c.filter)].includes(value)?value:'todos';
+    filter=all('[data-filter]').some(b=>b.dataset.filter===value)?value:'todos';
     all('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===filter)));
     let count=0;
     all('.piece-card').forEach(card=>{card.hidden=filter!=='todos'&&!card.dataset.categories.split(' ').includes(filter);if(!card.hidden)count++;});
@@ -72,19 +77,19 @@
     document.title=titles[pages.indexOf(page)]+' — VISIOARTE';
     $('skipLink').href='#page-'+page; setMenu(false);
     if(page==='pecas')setFilter(category||'todos');
-    requestAnimationFrame(()=>{if(page==='inicio')measure();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(pendingPhoto){all('[data-photo]').find(el=>el.dataset.photo===pendingPhoto)?.scrollIntoView({block:'center',behavior:'instant'});pendingPhoto=null;}});
+    requestAnimationFrame(()=>{if(page==='inicio')measure();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});if(pendingPhoto){all('[data-photo]').find(el=>el.dataset.photo===pendingPhoto)?.scrollIntoView({block:'center',behavior:'instant'});pendingPhoto=null;}});
     pauseAuto();
   }
   all('[data-project]').forEach(a=>a.addEventListener('click',()=>{if(!$('contactNeed').value.trim())$('contactNeed').value='Tenho interesse em: '+a.dataset.project+'.';}));
   $('skipLink').addEventListener('click',e=>{e.preventDefault();$('page-'+activePage).focus();});
 
   // The approved warm crossed-orbit contour and carousel movement are retained.
-  const wrap=v=>((v%collections.length)+collections.length)%collections.length;
-  const shortest=d=>wrap(d+collections.length/2)-collections.length/2;
+  const wrap=v=>((v%universes.length)+universes.length)%universes.length;
+  const shortest=d=>wrap(d+universes.length/2)-universes.length/2;
   let pos=0,target=0,current=-1,lastInteraction=performance.now(),lastAuto=lastInteraction;
   let drag=false,startX=0,startY=0,startPos=0,hovered=false,heroVisible=true,radiusX=0,radiusY=0;
   function pauseAuto(){lastInteraction=lastAuto=performance.now();}
-  const backgrounds=collections.map(()=>{const d=document.createElement('div');d.className='bg';$('bgs').append(d);return d;});
+  const backgrounds=universes.map(()=>{const d=document.createElement('div');d.className='bg';$('bgs').append(d);return d;});
   const backgroundTokens=[];
   function loadBackground(i) {
     const url=sized(source(slots[i*2]),mobile.matches?1200:2400);
@@ -93,17 +98,17 @@
     const image=new Image();image.onload=()=>{if(backgroundTokens[i]===url)backgrounds[i].style.backgroundImage='url("'+image.src+'")';};image.src=url;
   }
   const contour='<svg class="med-contour" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><ellipse cx="120" cy="120" rx="114" ry="88" transform="rotate(-28 120 120)" stroke-width="2.3"/><ellipse cx="120" cy="120" rx="111" ry="93" transform="rotate(39 120 120)" stroke-width="1.1" opacity=".65"/><circle cx="120" cy="120" r="96" stroke-width=".8" opacity=".24"/></svg>';
-  const meds=collections.map((c,i)=>{
-    const b=document.createElement('button'); b.type='button';b.className='med';b.setAttribute('aria-label','Ver peças: '+c.name);
+  const meds=universes.map((c,i)=>{
+    const b=document.createElement('button'); b.type='button';b.className='med';b.setAttribute('aria-label','Abrir '+c.name);
     b.innerHTML=contour+'<img alt="" width="100" height="100" draggable="false"><span class="med-label" aria-hidden="true"></span>';
     b.querySelector('img').src=sized(source(slots[i*2+1]),320);b.querySelector('.med-label').textContent=c.name;
-    b.addEventListener('click',()=>{target=Math.round(target)+shortest(i-wrap(Math.round(target)));location.hash='pecas/'+c.filter;});
+    b.addEventListener('click',()=>{target=Math.round(target)+shortest(i-wrap(Math.round(target)));pauseAuto();if(location.hash==='#'+c.destination)route();else location.hash=c.destination;});
     b.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hovered=true;});b.addEventListener('pointerleave',()=>{hovered=false;pauseAuto();});
     $('orbit').append(b);return b;
   });
   function step(dir){target=Math.round(target)+dir;pauseAuto();}
   $('prev').addEventListener('click',()=>step(-1));$('next').addEventListener('click',()=>step(1));
-  // "Ver peças" opens the complete gallery; individual circles select their collection.
+  // Each original universe links to its corresponding section or collection filter.
   hero.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});
   hero.addEventListener('focusin',pauseAuto);hero.addEventListener('focusout',pauseAuto);
   hero.addEventListener('pointerdown',e=>{if(e.target.closest('a,button')||e.button!==0)return;pauseAuto();drag=true;startX=e.clientX;startY=e.clientY;startPos=target;});
@@ -120,8 +125,8 @@
     if(!drag&&!motion.matches&&!document.querySelector('dialog[open]')&&activePage==='inicio'&&!hero.contains(document.activeElement)&&!hovered&&!document.hidden&&heroVisible&&toggle.getAttribute('aria-expanded')!=='true'&&now-lastInteraction>6000&&now-lastAuto>4800){target=Math.round(target)+1;lastAuto=now;}
     pos=motion.matches?target:pos+(target-pos)*.075;if(Math.abs(target-pos)<.001)pos=target;
     const focus=wrap(Math.round(pos));
-    if(focus!==current){current=focus;$('title').textContent=collections[focus].name;meds.forEach((b,i)=>{if(i===focus)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});backgrounds.forEach((b,i)=>b.classList.toggle('on',i===focus));loadBackground(focus);loadBackground(wrap(focus+1));loadBackground(wrap(focus-1));}
-    meds.forEach((m,i)=>{const off=shortest(i-pos),a=-Math.PI/2+off*Math.PI*2/collections.length,x=Math.cos(a)*radiusX,y=Math.sin(a)*radiusY,top=Math.max(0,1-Math.abs(off)),scale=.82+.28*top;m.style.transform=`translate(-50%,-50%) translate(${x}px,${y}px) scale(${scale})`;m.style.zIndex=String(100+Math.round(top*100-y*.01));});
+    if(focus!==current){current=focus;$('title').textContent=universes[focus].name;meds.forEach((b,i)=>{if(i===focus)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});backgrounds.forEach((b,i)=>b.classList.toggle('on',i===focus));loadBackground(focus);loadBackground(wrap(focus+1));loadBackground(wrap(focus-1));}
+    meds.forEach((m,i)=>{const off=shortest(i-pos),a=-Math.PI/2+off*Math.PI*2/universes.length,x=Math.cos(a)*radiusX,y=Math.sin(a)*radiusY,top=Math.max(0,1-Math.abs(off)),scale=.82+.28*top;m.style.transform=`translate(-50%,-50%) translate(${x}px,${y}px) scale(${scale})`;m.style.zIndex=String(100+Math.round(top*100-y*.01));});
     requestAnimationFrame(frame);
   }
 
@@ -136,7 +141,7 @@
   slots.forEach(slot=>{const option=new Option(slot.name,slot.id);$('editorSlot').add(option);});
   function refreshImages(){
     all('[data-photo]').forEach(el=>{const slot=slots.find(s=>s.photo===el.dataset.photo),url=source(slot),img=el.querySelector('img');el.classList.toggle('has-photo',Boolean(url));img.hidden=!url;el.querySelector('.photo-pending').hidden=Boolean(url);if(url)img.src=url;else img.removeAttribute('src');});
-    collections.forEach((c,i)=>{loadBackground(i);meds[i].querySelector('img').src=sized(source(slots[i*2+1]),320);});
+    universes.forEach((c,i)=>{loadBackground(i);meds[i].querySelector('img').src=sized(source(slots[i*2+1]),320);});
     refreshEditor();
   }
   function refreshEditor(){
