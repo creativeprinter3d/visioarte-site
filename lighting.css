@@ -100,3 +100,18 @@
 @media(max-width:950px){.lighting-mode .menu-toggle{display:flex}.lighting-mode .main-nav{display:none;top:76px;left:16px;right:16px;position:absolute;padding:12px;background:#0b1712fa;border:1px solid #ffffff30;border-radius:10px;flex-direction:column;align-items:stretch;gap:2px;z-index:3}.lighting-mode .main-nav.open{display:flex}.lighting-mode .main-nav a,.lighting-mode .main-nav button{min-height:44px;padding:0 14px}.lighting-mode .main-nav .nav-contact{margin:3px 0}.lighting-mode .lighting-search-tools{z-index:1}}
 @media(max-width:800px){.lighting-actions .btn:first-child,.lighting-actions .btn:nth-child(2){width:auto;padding:0 17px}.lighting-mode .top{padding-top:0}.lighting-categories{margin-right:0;padding-right:1px}}
 @media(max-width:360px){.lighting-actions .btn:first-child,.lighting-actions .btn:nth-child(2){padding:0 12px}}
+
+/* Retain the current seven-link navigation around the original lighting layout. */
+.lighting-mode .top{height:80px;padding:0 clamp(20px,3vw,48px);gap:20px}
+.lighting-mode .brand{font-size:12px;gap:12px;letter-spacing:.19em}
+.lighting-mode .mark{width:38px;height:38px;font-size:20px}
+.lighting-mode .main-nav{position:static;left:auto;right:auto;gap:clamp(14px,1.5vw,24px);font-size:12px}
+.lighting-mode .edit-images-button{height:auto;min-height:44px;font-size:11px;padding:0 10px}
+.lighting-mode .lighting-search-tools{position:static;gap:10px;margin-left:0}
+.lighting-mode .lighting-search{width:235px}
+.lighting-search input{min-height:0;padding:0;border-radius:0}
+.lighting-filter-panel input[type=checkbox]{width:16px;min-height:16px;height:16px;padding:0;flex:none;margin:3px 0}
+.lighting-concept-note{font-size:11px;line-height:1.6;color:#8e9b92;margin:18px 0 0}
+@media(max-width:1650px){.lighting-mode .lighting-search-tools{position:absolute;top:96px;right:3%;left:auto}.lighting-filter-panel{top:150px}.lighting-hero{height:540px}.lighting-benefits{top:166px}}
+@media(max-width:1250px){.lighting-mode .main-nav{position:absolute;top:80px;left:0;right:0;padding:16px 24px 24px;gap:0;max-height:calc(100svh - 80px);background:#0a1610;overflow:auto;border:0;border-bottom:1px solid var(--line);border-radius:0}.lighting-mode .main-nav a{font-size:14px;min-height:48px;padding:0 12px}.lighting-mode .main-nav .edit-images-button{margin-top:12px}.lighting-hero{height:585px}.lighting-benefits{top:195px}}
+@media(max-width:800px){.lighting-mode .top{height:68px;padding:0 18px}.lighting-mode .brand{font-size:11px;gap:9px}.lighting-mode .mark{width:32px;height:32px;font-size:18px}.lighting-mode .main-nav{top:68px;padding:12px 18px 20px;max-height:calc(100svh - 68px)}.lighting-mode .main-nav a{min-height:46px}.lighting-mode .lighting-search-tools{top:92px;left:20px;right:20px}.lighting-mode .lighting-search{width:auto}.lighting-hero{height:800px}.lighting-benefits{top:500px}}

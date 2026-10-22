@@ -6,7 +6,7 @@
   const titles = ['Início','Peças','Como fazemos','Material e reciclagem','Máquinas','Software','Projetos sob medida + contato'];
   const universes = [
     {name:'Móveis',destination:'pecas/moveis',background:'https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=2400'},
-    {name:'Luminárias',destination:'pecas/luminarias',background:'assets/luminarias/hero.webp',circle:'assets/luminarias/espiral.webp'},
+    {name:'Luminárias',destination:'luminarias',background:'assets/luminarias/hero.webp',circle:'assets/luminarias/espiral.webp'},
     {name:'Objetos decorativos',destination:'pecas/objetos',background:'https://images.pexels.com/photos/14205545/pexels-photo-14205545.jpeg?auto=compress&cs=tinysrgb&w=2400'},
     {name:'Formas da natureza',destination:'pecas/natureza',background:'https://images.pexels.com/photos/4011947/pexels-photo-4011947.jpeg?auto=compress&cs=tinysrgb&w=2400'},
     {name:'Materiais',destination:'material-reciclagem',background:'https://images.pexels.com/photos/35999876/pexels-photo-35999876.jpeg?auto=compress&cs=tinysrgb&w=2400'},
@@ -38,6 +38,7 @@
     'software-tekna':['Software / Visio Tekna','software']
   };
   for (const [photo,[name,page]] of Object.entries(photoNames)) slots.push({id:'8:photo-'+photo,photo,name,page,kind:'photo'});
+  for (const product of window.lightingCatalog.products) slots.push({id:'1:product-'+product.id,product:product.id,name:'Luminárias / Modelo '+product.name,page:'luminarias',source:'assets/luminarias/'+product.id+'.webp',kind:'photo'});
   const records = new Map();
   const source = slot => records.get(slot.id)?.dataUrl || slot.source || '';
   const sized = (url,size) => /^(data:|blob:)/.test(url) ? url : url.replace('w=2400','w='+size);
@@ -64,24 +65,28 @@
     $('galleryCount').textContent=count+' '+(count===1?'peça':'peças');
   }
   all('[data-filter]').forEach(b=>b.addEventListener('click',()=>{setFilter(b.dataset.filter);history.replaceState(null,'','#pecas'+(filter==='todos'?'':'/'+filter));}));
-  const aliases={colecoes:'pecas',contato:'projetos',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem'};
+  const aliases={colecoes:'pecas',contato:'projetos',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem'};
   const technologyHashes=['tecnologia','areas-tecnologia','conexoes-tecnologia'];
+  const lightingHashes=['luminarias','modelos-luminarias'];
   function route() {
     const raw=location.hash.slice(1)||'inicio';
-    const mapped=technologyHashes.includes(raw)?'tecnologia':aliases[raw]||raw;
+    const mapped=technologyHashes.includes(raw)?'tecnologia':lightingHashes.includes(raw)?'luminarias':aliases[raw]||raw;
     let [page,category]=mapped.split('/');
-    if(!pages.includes(page)&&page!=='tecnologia')page='inicio';
-    if(!technologyHashes.includes(raw)&&(mapped!==raw||!pages.includes(mapped.split('/')[0])))history.replaceState(null,'','#'+page+(category?'/'+category:''));
+    if(!pages.includes(page)&&!['tecnologia','luminarias'].includes(page))page='inicio';
+    if(!technologyHashes.includes(raw)&&!lightingHashes.includes(raw)&&(mapped!==raw||!pages.includes(mapped.split('/')[0])))history.replaceState(null,'','#'+page+(category?'/'+category:''));
     const changed=activePage!==page; activePage=page;
     all('[data-page]').forEach(el=>el.hidden=el.dataset.page!==page);
     menu.querySelectorAll('a').forEach(a=>{if(a.hash==='#'+page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
-    document.title=(page==='tecnologia'?'Tecnologia':titles[pages.indexOf(page)])+' — VISIOARTE';
+    document.title=(page==='tecnologia'?'Tecnologia':page==='luminarias'?'Luminárias':titles[pages.indexOf(page)])+' — VISIOARTE';
     document.body.classList.toggle('technology-mode',page==='tecnologia');
     if(page==='tecnologia')window.technologyPage.refresh(source(slots[12]),source(slots[13]));
     else window.technologyPage.close();
+    document.body.classList.toggle('lighting-mode',page==='luminarias');
+    if(page==='luminarias')window.lightingCatalog.refreshHero(source(slots[2]));
+    else window.lightingCatalog.close();
     $('skipLink').href='#page-'+page; setMenu(false);
     if(page==='pecas')setFilter(category||'todos');
-    requestAnimationFrame(()=>{if(page==='inicio')measure();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});if(page==='tecnologia'&&raw!=='tecnologia')$(raw).scrollIntoView({block:'start',behavior:'instant'});if(pendingPhoto){all('[data-photo]').find(el=>el.dataset.photo===pendingPhoto)?.scrollIntoView({block:'center',behavior:'instant'});pendingPhoto=null;}});
+    requestAnimationFrame(()=>{if(page==='inicio')measure();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});if(page==='tecnologia'&&raw!=='tecnologia'||page==='luminarias'&&raw==='modelos-luminarias')$(raw).scrollIntoView({block:'start',behavior:'instant'});if(pendingPhoto){all('[data-photo]').find(el=>el.dataset.photo===pendingPhoto)?.scrollIntoView({block:'center',behavior:'instant'});pendingPhoto=null;}});
     pauseAuto();
   }
   all('[data-project]').forEach(a=>a.addEventListener('click',()=>{if(!$('contactNeed').value.trim())$('contactNeed').value='Tenho interesse em: '+a.dataset.project+'.';}));
@@ -147,6 +152,9 @@
     all('[data-photo]').forEach(el=>{const slot=slots.find(s=>s.photo===el.dataset.photo),url=source(slot),img=el.querySelector('img');el.classList.toggle('has-photo',Boolean(url));img.hidden=!url;el.querySelector('.photo-pending').hidden=Boolean(url);if(url)img.src=url;else img.removeAttribute('src');});
     universes.forEach((c,i)=>{loadBackground(i);meds[i].querySelector('img').src=sized(source(slots[i*2+1]),320);});
     window.technologyPage.refresh(source(slots[12]),source(slots[13]));
+    window.lightingCatalog.refreshHero(source(slots[2]));
+    window.lightingCatalog.products.forEach(product=>{window.lightingCatalog.custom[product.id]=records.get('1:product-'+product.id)||null;});
+    window.lightingCatalog.render();
     refreshEditor();
   }
   function refreshEditor(){
@@ -159,7 +167,7 @@
   }
   const initialImagesReady=readRecords().then(saved=>{saved.forEach(r=>{if(typeof r.id==='string'&&dataPattern.test(r.dataUrl||''))records.set(r.id,r);});refreshImages();}).catch(()=>message('Não foi possível ler as imagens locais. Exporte uma cópia antes de limpar os dados do navegador.',true));
   function closeEditor(){if(editorBusy)return;$('imageEditor').close();pauseAuto();if(editorReturn?.isConnected)editorReturn.focus({preventScroll:true});}
-  $('editImages').addEventListener('click',async()=>{editorReturn=collapsed.matches?toggle:$('editImages');setMenu(false);await initialImagesReady;const first=activePage==='tecnologia'?slots[12]:slots.find(s=>s.page===activePage);if(first)$('editorSlot').value=first.id;refreshEditor();$('imageEditor').showModal();$('closeImageEditor').focus();});
+  $('editImages').addEventListener('click',async()=>{editorReturn=collapsed.matches?toggle:$('editImages');setMenu(false);await initialImagesReady;const first=activePage==='tecnologia'?slots[12]:activePage==='luminarias'?slots[2]:slots.find(s=>s.page===activePage);if(first)$('editorSlot').value=first.id;refreshEditor();$('imageEditor').showModal();$('closeImageEditor').focus();});
   $('closeImageEditor').addEventListener('click',closeEditor);$('imageEditor').addEventListener('cancel',e=>{e.preventDefault();closeEditor();});
   $('editorSlot').addEventListener('change',refreshEditor);
   $('viewImage').addEventListener('click',()=>{const slot=slots.find(s=>s.id===$('editorSlot').value);closeEditor();if(slot.collection!==undefined){target=Math.round(target)+shortest(slot.collection-wrap(Math.round(target)));pauseAuto();}pendingPhoto=slot.photo||null;if(location.hash==='#'+slot.page)route();else location.hash=slot.page;});
