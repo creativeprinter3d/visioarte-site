@@ -21,7 +21,7 @@
     "destination": "pecas/moveis",
     "tab": "Peças",
     "legacy": 0,
-    "background": "https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=2400",
+    "background": "assets/moveis/ambiente-impresso-3d.svg",
     "circle": "assets/moveis-exteriores/circulo-banco.svg"
   },
   {
