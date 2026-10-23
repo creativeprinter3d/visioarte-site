@@ -1,0 +1,5 @@
+/* Visioarte logo in the existing header and footer. */
+.brand .brand-logo{display:block;flex:0 0 auto;width:60px;height:60px;object-fit:contain;background:transparent;border:0}
+.top .brand{min-height:60px;gap:12px}
+.footer .brand .brand-logo{width:72px;height:72px}
+@media(max-width:700px){.top .brand .brand-logo{width:52px;height:52px}.top .brand{min-height:52px;gap:9px}.footer .brand .brand-logo{width:64px;height:64px}}
