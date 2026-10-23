@@ -1,0 +1,42 @@
+/* Cerâmica e Utilitários, within the existing Peças navigation. */
+#ceramicPage .decor-back{display:inline-flex;gap:12px;align-items:center;min-height:44px;margin-bottom:24px;font-size:12px;text-decoration:none;color:#b2c7bb}
+#ceramicPage .decor-back:hover{color:var(--cyan)}
+#ceramicPage .decor-hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(30px,6vw,80px);margin-bottom:60px}
+#ceramicPage .decor-hero h1{font:400 clamp(43px,5.3vw,76px)/1.06 Georgia,'Times New Roman',serif;letter-spacing:-.03em;margin:0 0 24px}
+#ceramicPage .decor-lead{font:400 clamp(23px,2.5vw,32px)/1.3 Georgia,serif;margin-bottom:20px;color:var(--ink)}
+#ceramicPage .decor-intro{font-size:14px;color:#b8c7bd;max-width:510px}
+#ceramicPage .decor-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+#ceramicPage .decor-actions .btn{min-height:50px;padding:12px 22px}
+#ceramicPage .decor-portrait{margin:0;overflow:hidden;border:1px solid #ffffff20;border-radius:12px;background:#0b1712;min-width:0}
+#ceramicPage .decor-portrait img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+#ceramicPage figcaption{font-size:10px;line-height:1.6;color:#96aea0;padding:14px 20px}
+#ceramicPage .decor-section{padding:50px 0;border-top:1px solid #ffffff20}
+#ceramicPage .decor-section-heading{max-width:760px;margin-bottom:32px}
+#ceramicPage .decor-section h2{font:400 clamp(31px,3.4vw,45px)/1.17 Georgia,serif;margin:0 0 20px}
+#ceramicPage .decor-section-heading>p:last-child{font-size:14px;color:var(--muted)}
+#ceramicPage .decor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+#ceramicPage .decor-card{display:flex;flex-direction:column;align-items:flex-start;padding:28px;border:1px solid #ffffff20;border-radius:10px;background:#0e1a15}
+#ceramicPage .decor-number{font-size:10px;letter-spacing:.16em;color:var(--cyan);margin-bottom:28px}
+#ceramicPage .decor-card h3{font:400 28px/1.2 Georgia,serif;margin:0 0 17px}
+#ceramicPage .decor-card p{font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 22px}
+#ceramicPage .decor-card .text-link{margin-top:auto;font-size:12px}
+#ceramicPage .decor-panorama{margin:0;background:#0b1712;border:1px solid #ffffff20;border-radius:12px;overflow:hidden}
+#ceramicPage .decor-panorama img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+#ceramicPage .decor-material{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px)}
+#ceramicPage .decor-material p:not(.eyebrow){font-size:14px;color:var(--muted)}
+#ceramicPage .decor-material ul{list-style:none;padding:0;margin:0}
+#ceramicPage .decor-material li{padding:22px 0;border-bottom:1px solid #ffffff20}
+#ceramicPage .decor-material li:first-child{padding-top:0}
+#ceramicPage .decor-material h3{font:400 25px/1.2 Georgia,serif;margin:0 0 12px}
+#ceramicPage .decor-material li p{font-size:13px!important;margin:0}
+#ceramicPage .decor-faq-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,7vw,90px)}
+#ceramicPage .decor-faq details{border-bottom:1px solid #ffffff20;padding-bottom:18px;margin-bottom:18px}
+#ceramicPage .decor-faq summary{min-height:44px;cursor:pointer;font-size:14px;line-height:1.6;padding:6px 0}
+#ceramicPage .decor-faq p{font-size:13px;color:var(--muted);line-height:1.8;margin:12px 0 0}
+#ceramicPage .decor-final{padding:36px 40px;border:1px solid #64e6f533;border-radius:12px;background:#0d211c;display:flex;align-items:center;justify-content:space-between;gap:30px}
+#ceramicPage .decor-final h2{font:400 clamp(29px,3vw,40px)/1.2 Georgia,serif;margin:0 0 14px}
+#ceramicPage .decor-final p{font-size:13px;line-height:1.8;color:#b3c9bd;max-width:580px;margin:0}
+#ceramicPage .decor-final .btn{flex-shrink:0;min-height:50px;padding:12px 22px}
+@media(max-width:950px){#ceramicPage .decor-grid{gap:16px}#ceramicPage .decor-card{padding:24px}#ceramicPage .decor-card h3{font-size:25px}}
+@media(max-width:700px){#ceramicPage .decor-hero,#ceramicPage .decor-grid,#ceramicPage .decor-material,#ceramicPage .decor-faq-layout{grid-template-columns:1fr;gap:26px}#ceramicPage .decor-hero{margin-bottom:40px}#ceramicPage .decor-hero h1{font-size:clamp(39px,10vw,58px)}#ceramicPage .decor-portrait{max-width:470px;width:100%;justify-self:center}#ceramicPage .decor-section{padding:38px 0}#ceramicPage .decor-number{margin-bottom:22px}#ceramicPage .decor-final{flex-direction:column;align-items:stretch;padding:26px;gap:24px}#ceramicPage .decor-final .btn{text-align:center}#ceramicPage .decor-panorama img{aspect-ratio:1.35}}
+@media(max-width:420px){#ceramicPage .decor-actions{flex-direction:column;align-items:stretch}#ceramicPage .decor-actions .btn{width:100%}}
