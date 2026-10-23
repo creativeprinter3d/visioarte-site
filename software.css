@@ -1,0 +1,43 @@
+/* Visio Slicer product presentation; scoped to Software. */
+#page-software{padding-top:124px}
+#page-software .slicer-product-hero{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(32px,6vw,90px);align-items:center;padding:30px 0 70px}
+#page-software .slicer-product-copy{min-width:0}
+#page-software .slicer-product-copy h1{font:400 clamp(54px,6.3vw,88px)/1.04 Georgia,'Times New Roman',serif;letter-spacing:-.035em;margin:18px 0 22px}
+#page-software .slicer-product-lead{font:400 clamp(24px,2.6vw,34px)/1.3 Georgia,serif;color:var(--ink);max-width:540px;margin-bottom:22px}
+#page-software .slicer-product-description{font-size:15px;color:#b9c5bd;max-width:520px}
+#page-software .slicer-product-actions{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 14px}
+#page-software .slicer-product-actions .btn{min-height:50px;padding:12px 23px;font-size:13px}
+#page-software .slicer-product-note{font-size:11px;color:#8da69a;margin:0}
+#page-software .slicer-product-visual{margin:0;border:1px solid #ffffff20;border-radius:14px;overflow:hidden;background:#08120e;min-width:0}
+#page-software .slicer-visual-label{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:19px 24px;border-bottom:1px solid #ffffff14;font-size:10px;letter-spacing:.13em;color:#b3cac1}
+#page-software .slicer-visual-label span:last-child{color:var(--cyan)}
+#page-software .slicer-product-visual img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;max-height:460px}
+#page-software .slicer-product-visual figcaption{font-size:10px;line-height:1.6;color:#8ba498;text-align:center;padding:0 22px 22px}
+#page-software .slicer-section{padding:60px 0;border-top:1px solid #ffffff20}
+#page-software .slicer-section-heading{max-width:720px;margin-bottom:32px}
+#page-software .slicer-section-heading h2,#page-software .slicer-workflow h2,#page-software .slicer-questions h2{font:400 clamp(30px,3.4vw,44px)/1.18 Georgia,serif;margin:0 0 18px}
+#page-software .slicer-section-heading>p:last-child{font-size:14px;color:var(--muted)}
+#page-software .slicer-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+#page-software .slicer-benefit{padding:30px;border:1px solid #ffffff20;border-radius:10px;background:#0e1a15}
+#page-software .slicer-benefit .slicer-feature-number{display:block;font-size:11px;letter-spacing:.15em;color:var(--cyan);margin-bottom:30px}
+#page-software .slicer-benefit h3{font:400 27px/1.2 Georgia,serif;margin:0 0 18px}
+#page-software .slicer-benefit p{font-size:13px;line-height:1.8;color:var(--muted);margin:0}
+#page-software .slicer-workflow,#page-software .slicer-questions{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,7vw,90px)}
+#page-software .slicer-workflow-intro>p:last-child{font-size:14px;color:var(--muted);max-width:390px}
+#page-software .slicer-steps{list-style:none;padding:0;margin:0}
+#page-software .slicer-steps li{display:grid;grid-template-columns:36px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid #ffffff17}
+#page-software .slicer-steps li:first-child{padding-top:0}
+#page-software .slicer-steps li>span{font-size:11px;letter-spacing:.1em;color:var(--cyan);padding-top:5px}
+#page-software .slicer-steps h3{font:400 25px Georgia,serif;margin:0 0 10px}
+#page-software .slicer-steps p{font-size:13px;color:var(--muted);margin:0}
+#page-software .slicer-faq{min-width:0}
+#page-software .slicer-faq details{border-bottom:1px solid #ffffff20;padding:0 0 20px;margin-bottom:20px}
+#page-software .slicer-faq summary{cursor:pointer;font-size:14px;line-height:1.6;padding:5px 0;min-height:44px}
+#page-software .slicer-faq details p{font-size:13px;color:var(--muted);margin:14px 0 0}
+#page-software .slicer-final{padding:40px;border:1px solid #64e6f533;border-radius:12px;background:#0d211c;display:flex;align-items:center;justify-content:space-between;gap:30px;margin-top:10px}
+#page-software .slicer-final h2{font:400 clamp(28px,3vw,40px)/1.2 Georgia,serif;margin:0 0 12px}
+#page-software .slicer-final p{font-size:13px;color:#b4c8bd;margin:0}
+#page-software .slicer-final .btn{flex-shrink:0;min-height:50px;padding:12px 22px}
+@media(max-width:950px){#page-software .slicer-product-hero{gap:32px}#page-software .slicer-benefit{padding:24px}#page-software .slicer-benefit h3{font-size:24px}}
+@media(max-width:700px){#page-software{padding-top:100px}#page-software .slicer-product-hero{grid-template-columns:1fr;padding:20px 0 42px;gap:32px}#page-software .slicer-product-copy h1{font-size:clamp(46px,12vw,66px)}#page-software .slicer-product-description{font-size:14px}#page-software .slicer-product-visual{width:100%}#page-software .slicer-product-visual img{max-height:330px}#page-software .slicer-benefits,#page-software .slicer-workflow,#page-software .slicer-questions{grid-template-columns:1fr;gap:20px}#page-software .slicer-section{padding:40px 0}#page-software .slicer-feature-number{margin-bottom:20px}#page-software .slicer-final{align-items:stretch;flex-direction:column;padding:26px;gap:24px}#page-software .slicer-final .btn{text-align:center}#page-software .slicer-visual-label{padding:16px 20px;font-size:9px}}
+@media(max-width:420px){#page-software .slicer-product-actions{flex-direction:column;align-items:stretch}#page-software .slicer-product-actions .btn{width:100%}#page-software .slicer-benefit{padding:24px}}
