@@ -17,7 +17,7 @@
   const records=new Map();
   const source=slot=>records.get(slot.id)?.dataUrl||slot.source||'';
   const sized=(url,size)=>/^(data:|blob:)/.test(url)?url:url.replace('w=2400','w='+size);
-  let activePage='inicio',editorBusy=false,editorReturn=null;
+  let activePage='inicio',activeDestination='inicio',editorBusy=false,editorReturn=null;
   const motion=matchMedia('(prefers-reduced-motion: reduce)'),mobile=matchMedia('(max-width:700px)'),collapsed=matchMedia('(max-width:1250px)');
   const menu=$('mainNav'),toggle=$('menuToggle'),hero=$('inicio');
   function setMenu(open){menu.classList.toggle('open',open);$('header').classList.toggle('menu-open',open);toggle.setAttribute('aria-expanded',String(open));$('menuLabel').textContent=open?'Fechar':'Menu';pauseAuto();}
@@ -33,17 +33,23 @@
     all('.collection-soon').forEach(card=>{card.hidden=filter!=='todos'&&!card.dataset.categories.split(' ').includes(filter);});
     $('galleryCount').textContent='Em breve';return filter;
   }
-  all('[data-filter]').forEach(b=>b.addEventListener('click',()=>{const filter=setFilter(b.dataset.filter);history.replaceState(null,'','#pecas'+(filter==='todos'?'':'/'+filter));}));
+  all('[data-filter]').forEach(b=>b.addEventListener('click',()=>{const filter=setFilter(b.dataset.filter);navigate('pecas'+(filter==='todos'?'':'/'+filter));}));
   const aliases={colecoes:'pecas',contato:'projetos',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem',tecnologia:'maquinas','areas-tecnologia':'maquinas','conexoes-tecnologia':'maquinas'};
   function route(){
     const raw=location.hash.slice(1)||'inicio',mapped=aliases[raw]||raw;
     let [page,category]=mapped.split('/');if(!pages.includes(page))page='inicio';
     if(mapped!==raw||!pages.includes(mapped.split('/')[0]))history.replaceState(null,'','#'+page+(category?'/'+category:''));
-    const changed=activePage!==page;activePage=page;
+    const destination=page+(category?'/'+category:'');const changed=activeDestination!==destination;activeDestination=destination;activePage=page;
     all('[data-page]').forEach(el=>el.hidden=el.dataset.page!==page);
     menu.querySelectorAll('a').forEach(a=>{if(a.hash==='#'+page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.title=titles[pages.indexOf(page)]+' — VISIOARTE';$('skipLink').href='#page-'+page;setMenu(false);
-    if(page==='pecas')setFilter(category||'todos');
+    if(page==='pecas'){
+      const furniture=category==='moveis';
+      $('piecesOverview').hidden=furniture;
+      $('furniturePage').hidden=!furniture;
+      setFilter(category||'todos');
+      if(furniture)document.title='Móveis impressos em 3D — VISIOARTE';
+    }
     requestAnimationFrame(()=>{if(page==='inicio')measure();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});});pauseAuto();
   }
   function navigate(destination){const hash='#'+destination;if(location.hash!==hash)history.pushState(null,'',hash);route();}
@@ -99,8 +105,13 @@
   function decode(url){return new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(Error('Imagem inválida. Use JPG, PNG, WebP ou AVIF.'));image.src=url;});}
   function message(text,error=false){$('imageEditorMessage').textContent=text;$('imageEditorMessage').dataset.error=String(error);}
   slots.forEach(slot=>{const option=new Option(slot.name,slot.id);$('editorSlot').add(option);});
+  function refreshFurnitureImage(){
+    const i=universes.findIndex(c=>c.destination==='pecas/moveis'),image=$('furnitureHeroImage');
+    if(image&&i>=0)image.src=sized(source(slots[i*2]),1600);
+  }
   function refreshImages(){
     universes.forEach((c,i)=>{loadBackground(i);meds[i].querySelector('img').src=sized(source(slots[i*2+1]),320);});
+    refreshFurnitureImage();
     refreshEditor();
   }
   function refreshEditor(){
@@ -113,10 +124,10 @@
   }
   const initialImagesReady=readRecords().then(saved=>{saved.forEach(r=>{if(typeof r.id==='string'&&dataPattern.test(r.dataUrl||''))records.set(r.id,r);});refreshImages();}).catch(()=>message('Não foi possível ler as imagens locais. Exporte uma cópia antes de limpar os dados do navegador.',true));
   function closeEditor(){if(editorBusy)return;$('imageEditor').close();pauseAuto();if(editorReturn?.isConnected)editorReturn.focus({preventScroll:true});}
-  $('editImages').addEventListener('click',async()=>{editorReturn=collapsed.matches?toggle:$('editImages');setMenu(false);await initialImagesReady;$('editorSlot').value=slots[wrap(Math.round(pos))*2].id;refreshEditor();$('imageEditor').showModal();$('closeImageEditor').focus();});
+  $('editImages').addEventListener('click',async()=>{editorReturn=collapsed.matches?toggle:$('editImages');setMenu(false);await initialImagesReady;const collection=activeDestination==='pecas/moveis'?universes.findIndex(c=>c.destination==='pecas/moveis'):wrap(Math.round(pos));$('editorSlot').value=slots[Math.max(0,collection)*2].id;refreshEditor();$('imageEditor').showModal();$('closeImageEditor').focus();});
   $('closeImageEditor').addEventListener('click',closeEditor);$('imageEditor').addEventListener('cancel',e=>{e.preventDefault();closeEditor();});
   $('editorSlot').addEventListener('change',refreshEditor);
-  $('viewImage').addEventListener('click',()=>{const slot=slots.find(s=>s.id===$('editorSlot').value);closeEditor();target=Math.round(target)+shortest(slot.collection-wrap(Math.round(target)));pauseAuto();navigate('inicio');});
+  $('viewImage').addEventListener('click',()=>{const slot=slots.find(s=>s.id===$('editorSlot').value),showFurniture=activeDestination==='pecas/moveis'&&universes[slot.collection]?.destination==='pecas/moveis';closeEditor();target=Math.round(target)+shortest(slot.collection-wrap(Math.round(target)));pauseAuto();navigate(showFurniture?'pecas/moveis':'inicio');});
   async function runEditor(operation){if(editorBusy)return;editorBusy=true;$('imageEditor').querySelectorAll('button,select').forEach(el=>el.disabled=true);try{await initialImagesReady;await operation();}catch(e){message(e.message||'Não foi possível concluir.',true);}finally{editorBusy=false;$('imageEditor').querySelectorAll('button,select').forEach(el=>el.disabled=false);refreshEditor();}}
   $('chooseImage').addEventListener('click',()=>{$('imageFile').value='';$('imageFile').click();});
   $('imageFile').addEventListener('change',()=>{const file=$('imageFile').files?.[0],slot=slots.find(s=>s.id===$('editorSlot').value);if(!file)return;runEditor(async()=>{if(file.size>20*1024*1024||!/^image\/(jpeg|png|webp|avif)$/.test(file.type))throw Error('Escolha JPG, PNG, WebP ou AVIF de até 20 MB.');message('Preparando e salvando a imagem…');const original=await readData(file),img=await decode(original);if(!img.naturalWidth||img.naturalWidth*img.naturalHeight>80000000)throw Error('Escolha uma versão menor desta imagem.');const max=slot.kind==='background'?2560:1600,ratio=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*ratio));canvas.height=Math.max(1,Math.round(img.naturalHeight*ratio));canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.9));if(!blob)throw Error('Não foi possível preparar a imagem.');const record={id:slot.id,universe:Number(slot.id.split(':')[0]),kind:slot.id.split(':')[1],name:file.name.slice(0,160),width:canvas.width,height:canvas.height,dataUrl:await readData(blob)};await writeRecords(store=>store.put(record));records.set(slot.id,record);refreshImages();message('Imagem salva apenas neste navegador. Exporte para compartilhar e publicar suas escolhas.');});});
