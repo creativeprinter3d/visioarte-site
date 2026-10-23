@@ -4,22 +4,157 @@
   const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos','areas'];
   const titles=['Início','Coleções','Como fazemos','Materiais e reciclagem','Máquinas','Software','Projetos + contato','Áreas'];
   const collections=[
-    {name:'Luminárias',kicker:'LUZ COMO MATÉRIA',phrase:'Luminárias de autor, impressas em 3D: pétalas, folhas e formas que só a nossa fábrica faz.',destination:'pecas/luminarias',tab:'Peças',legacy:1,background:'assets/luminarias/hero.webp',circle:'assets/luminarias/espiral.webp'},
-    {name:'Móveis',kicker:'FORMAS PARA VIVER',phrase:'Mesas e cadeiras de forma contínua, feitas em uma peça só, com material reciclado.',destination:'pecas/moveis',tab:'Peças',legacy:0,background:'https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=2400'},
-    {name:'Vasos e Decoração',kicker:'FORMAS PARA COMPOR',phrase:'Vasos, centros de mesa e peças decorativas. Design, curvas e texturas para dar identidade ao seu espaço.',destination:'pecas/vasos-decoracao',tab:'Peças',legacy:2,background:'assets/vasos-decoracao/fundo-conceito.svg',circle:'assets/vasos-decoracao/circulo-conceito.svg'},
-    {name:'Painéis e Divisórias',kicker:'IMPRESSÃO 3D + MADEIRA',phrase:'Texturas, formas e luz para transformar espaços. Painéis e divisórias em madeira e impressão 3D, pensados para o seu ambiente.',destination:'pecas/paineis-divisorias',tab:'Peças',legacy:9,background:'assets/paineis-divisorias/fundo-conceito.svg',circle:'assets/paineis-divisorias/circulo-conceito.svg'},
-    {name:'Arte e Esculturas',kicker:'DA IDEIA À FORMA. DA FORMA À ARTE.',phrase:'Esculturas autorais em impressão 3D. Curvas, vazios e volumes que dão uma nova presença ao seu espaço.',destination:'pecas/arte-esculturas',tab:'Peças',legacy:10,background:'assets/arte-esculturas/fundo-conceito.svg',circle:'assets/arte-esculturas/circulo-conceito.svg'},
-    {name:'Jardins e Áreas Externas',kicker:'DESIGN QUE ENCONTRA A NATUREZA',phrase:'Floreiras, bancos e peças escultóricas em material cimentício impresso em 3D. Novas formas para viver do lado de fora.',destination:'pecas/jardins-areas-externas',tab:'Peças',legacy:11,background:'assets/jardins-externos/fundo-conceito.svg',circle:'assets/jardins-externos/circulo-conceito.svg'},
-    {name:'Revestimentos e Fachadas',kicker:'A IDENTIDADE COMEÇA NA SUPERFÍCIE',phrase:'Relevos, módulos e materiais que dão expressão à arquitetura. Novas superfícies para paredes e fachadas.',destination:'pecas/revestimentos-fachadas',tab:'Peças',legacy:12,background:'assets/revestimentos-fachadas/fundo-conceito.svg',circle:'assets/revestimentos-fachadas/circulo-conceito.svg'},
-    {name:'Pets e Design',kicker:'UM LUGAR PARA ELES. DESIGN PARA SUA CASA.',phrase:'Camas, tocas, circuitos e suportes para comedouros. Mobiliário pet em impressão 3D que faz parte da decoração.',destination:'pecas/pets-design',tab:'Peças',legacy:13,background:'assets/pets-design/fundo-conceito.svg',circle:'assets/pets-design/circulo-conceito.svg'},
-    {name:'Cubas e Lavabos',kicker:'CURVAS SUAVES. PRESENÇA EM CADA DETALHE.',phrase:'Cubas de apoio com proporções equilibradas e texturas em material cimentício. Um novo desenho para o seu lavabo.',destination:'pecas/cubas-lavabos',tab:'Peças',legacy:14,background:'assets/cubas-lavabos/fundo-conceito.svg',circle:'assets/cubas-lavabos/circulo-conceito.svg'},
-    {name:"Náutica e Componentes",kicker:"DO DESENHO AO COMPONENTE",phrase:"Moldes, protótipos, consoles e painéis. Desenvolvimento sob medida para explorar novas aplicações no setor náutico.",destination:'pecas/nautica-componentes',tab:'Peças',legacy:15,background:'assets/nautica-componentes/fundo-conceito.svg',circle:'assets/nautica-componentes/circulo-conceito.svg'},
-    {name:"Cerâmica e Utilitários",kicker:"TEXTURAS PARA A VIDA COTIDIANA",phrase:"Louças, recipientes e coleções de mesa. Formas orgânicas e camadas que dão identidade à matéria cerâmica.",destination:'pecas/ceramica-utilitarios',tab:'Peças',legacy:16,background:'assets/ceramica-utilitarios/fundo-conceito.svg',circle:'assets/ceramica-utilitarios/circulo-conceito.svg'},
-    {name:'Reciclagem',kicker:'A MATÉRIA RECOMEÇA',phrase:'Imprimimos com pellet e plástico reciclado. O que sobra é moído e volta para a produção.',destination:'material-reciclagem',tab:'Material e reciclagem',legacy:5,background:'assets/reciclagem/hero.webp',circle:'assets/reciclagem/coleta.webp'},
-    {name:'Sob medida',kicker:'SUA IDEIA, NOSSA FÁBRICA',phrase:'Traga um desenho, uma foto ou uma necessidade do seu espaço. Desenvolvemos a peça com você.',destination:'projetos',tab:'Projetos + contato',legacy:7,background:'https://images.pexels.com/photos/38850583/pexels-photo-38850583.jpeg?auto=compress&cs=tinysrgb&w=2400'},
-    {name:'Feito por nós',kicker:'DO DESENHO À MÁQUINA',phrase:'Nossas peças nascem no nosso software e saem das nossas máquinas, de grande porte. Tudo feito aqui.',destination:'maquinas',tab:'Máquinas',legacy:6,background:'assets/tecnologia/fundo-v2.webp',circle:'assets/tecnologia/circulo-v2.webp'},
-    {name:'Software',kicker:'NOSSO FATIADOR, NA WEB',phrase:'Crie vasos com textura e camadas não planas no navegador. Beta grátis, já no ar.',destination:'software',tab:'Software',legacy:8,fresh:true,background:'assets/software/visio-slicer-fundo.svg',circle:'assets/software/visio-slicer-circulo.svg'}
-  ];
+  {
+    "name": "Luminárias",
+    "kicker": "LUZ COMO MATÉRIA",
+    "phrase": "Luminárias de autor, impressas em 3D: pétalas, folhas e formas que só a nossa fábrica faz.",
+    "destination": "pecas/luminarias",
+    "tab": "Peças",
+    "legacy": 1,
+    "background": "assets/luminarias/hero.webp",
+    "circle": "assets/luminarias/espiral.webp"
+  },
+  {
+    "name": "Móveis",
+    "kicker": "FORMAS PARA VIVER",
+    "phrase": "Mesas e cadeiras de forma contínua, feitas em uma peça só, com material reciclado.",
+    "destination": "pecas/moveis",
+    "tab": "Peças",
+    "legacy": 0,
+    "background": "https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=2400",
+    "circle": "assets/moveis-exteriores/circulo-banco.svg"
+  },
+  {
+    "name": "Vasos e Decoração",
+    "kicker": "FORMAS PARA COMPOR",
+    "phrase": "Vasos, centros de mesa e peças decorativas. Design, curvas e texturas para dar identidade ao seu espaço.",
+    "destination": "pecas/vasos-decoracao",
+    "tab": "Peças",
+    "legacy": 2,
+    "background": "assets/vasos-decoracao/fundo-conceito.svg",
+    "circle": "assets/vasos-decoracao/circulo-conceito.svg"
+  },
+  {
+    "name": "Painéis e Divisórias",
+    "kicker": "IMPRESSÃO 3D + MADEIRA",
+    "phrase": "Texturas, formas e luz para transformar espaços. Painéis e divisórias em madeira e impressão 3D, pensados para o seu ambiente.",
+    "destination": "pecas/paineis-divisorias",
+    "tab": "Peças",
+    "legacy": 9,
+    "background": "assets/paineis-divisorias/fundo-conceito.svg",
+    "circle": "assets/paineis-divisorias/circulo-conceito.svg"
+  },
+  {
+    "name": "Arte e Esculturas",
+    "kicker": "DA IDEIA À FORMA. DA FORMA À ARTE.",
+    "phrase": "Esculturas autorais em impressão 3D. Curvas, vazios e volumes que dão uma nova presença ao seu espaço.",
+    "destination": "pecas/arte-esculturas",
+    "tab": "Peças",
+    "legacy": 10,
+    "background": "assets/arte-esculturas/fundo-conceito.svg",
+    "circle": "assets/arte-esculturas/circulo-conceito.svg"
+  },
+  {
+    "name": "Jardins e Áreas Externas",
+    "kicker": "DESIGN QUE ENCONTRA A NATUREZA",
+    "phrase": "Floreiras, bancos e peças escultóricas em material cimentício impresso em 3D. Novas formas para viver do lado de fora.",
+    "destination": "pecas/jardins-areas-externas",
+    "tab": "Peças",
+    "legacy": 11,
+    "background": "assets/jardins-externos/fundo-conceito.svg",
+    "circle": "assets/jardins-externos/circulo-conceito.svg"
+  },
+  {
+    "name": "Revestimentos e Fachadas",
+    "kicker": "A IDENTIDADE COMEÇA NA SUPERFÍCIE",
+    "phrase": "Relevos, módulos e materiais que dão expressão à arquitetura. Novas superfícies para paredes e fachadas.",
+    "destination": "pecas/revestimentos-fachadas",
+    "tab": "Peças",
+    "legacy": 12,
+    "background": "assets/revestimentos-fachadas/fundo-conceito.svg",
+    "circle": "assets/revestimentos-fachadas/circulo-conceito.svg"
+  },
+  {
+    "name": "Pets e Design",
+    "kicker": "UM LUGAR PARA ELES. DESIGN PARA SUA CASA.",
+    "phrase": "Camas, tocas, circuitos e suportes para comedouros. Mobiliário pet em impressão 3D que faz parte da decoração.",
+    "destination": "pecas/pets-design",
+    "tab": "Peças",
+    "legacy": 13,
+    "background": "assets/pets-design/fundo-conceito.svg",
+    "circle": "assets/pets-design/circulo-conceito.svg"
+  },
+  {
+    "name": "Cubas e Lavabos",
+    "kicker": "CURVAS SUAVES. PRESENÇA EM CADA DETALHE.",
+    "phrase": "Cubas de apoio com proporções equilibradas e texturas em material cimentício. Um novo desenho para o seu lavabo.",
+    "destination": "pecas/cubas-lavabos",
+    "tab": "Peças",
+    "legacy": 14,
+    "background": "assets/cubas-lavabos/fundo-conceito.svg",
+    "circle": "assets/cubas-lavabos/circulo-conceito.svg"
+  },
+  {
+    "name": "Náutica e Componentes",
+    "kicker": "DO DESENHO AO COMPONENTE",
+    "phrase": "Moldes, protótipos, consoles e painéis. Desenvolvimento sob medida para explorar novas aplicações no setor náutico.",
+    "destination": "pecas/nautica-componentes",
+    "tab": "Peças",
+    "legacy": 15,
+    "background": "assets/nautica-componentes/fundo-conceito.svg",
+    "circle": "assets/nautica-componentes/circulo-conceito.svg"
+  },
+  {
+    "name": "Cerâmica e Utilitários",
+    "kicker": "TEXTURAS PARA A VIDA COTIDIANA",
+    "phrase": "Louças, recipientes e coleções de mesa. Formas orgânicas e camadas que dão identidade à matéria cerâmica.",
+    "destination": "pecas/ceramica-utilitarios",
+    "tab": "Peças",
+    "legacy": 16,
+    "background": "assets/ceramica-utilitarios/fundo-conceito.svg",
+    "circle": "assets/ceramica-utilitarios/circulo-conceito.svg"
+  },
+  {
+    "name": "Reciclagem",
+    "kicker": "A MATÉRIA RECOMEÇA",
+    "phrase": "Imprimimos com pellet e plástico reciclado. O que sobra é moído e volta para a produção.",
+    "destination": "material-reciclagem",
+    "tab": "Material e reciclagem",
+    "legacy": 5,
+    "background": "assets/reciclagem/hero.webp",
+    "circle": "assets/reciclagem/coleta.webp"
+  },
+  {
+    "name": "Sob medida",
+    "kicker": "SUA IDEIA, NOSSA FÁBRICA",
+    "phrase": "Traga um desenho, uma foto ou uma necessidade do seu espaço. Desenvolvemos a peça com você.",
+    "destination": "projetos",
+    "tab": "Projetos + contato",
+    "legacy": 7,
+    "background": "https://images.pexels.com/photos/38850583/pexels-photo-38850583.jpeg?auto=compress&cs=tinysrgb&w=2400"
+  },
+  {
+    "name": "Feito por nós",
+    "kicker": "DO DESENHO À MÁQUINA",
+    "phrase": "Nossas peças nascem no nosso software e saem das nossas máquinas, de grande porte. Tudo feito aqui.",
+    "destination": "maquinas",
+    "tab": "Máquinas",
+    "legacy": 6,
+    "background": "assets/tecnologia/fundo-v2.webp",
+    "circle": "assets/tecnologia/circulo-v2.webp"
+  },
+  {
+    "name": "Software",
+    "kicker": "NOSSO FATIADOR, NA WEB",
+    "phrase": "Crie vasos com textura e camadas não planas no navegador. Beta grátis, já no ar.",
+    "destination": "software",
+    "tab": "Software",
+    "legacy": 8,
+    "fresh": true,
+    "background": "assets/software/visio-slicer-fundo.svg",
+    "circle": "assets/software/visio-slicer-circulo.svg"
+  }
+];
   // Keep each retained universe's record IDs, independently of its carousel position.
   const slots=collections.flatMap((c,i)=>['background','circle'].map(kind=>({id:c.legacy+':'+(c.fresh?'photo-slicer-':'')+kind,name:'Categorias / '+c.name+' / '+(kind==='background'?'fundo':'círculo'),page:'inicio',source:kind==='background'?c.background:c.circle||c.background,kind,collection:i})));
 
