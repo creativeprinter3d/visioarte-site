@@ -8,6 +8,7 @@
     {name:'Móveis',kicker:'FORMAS PARA VIVER',phrase:'Mesas e cadeiras de forma contínua, feitas em uma peça só, com material reciclado.',destination:'pecas/moveis',tab:'Peças',legacy:0,background:'https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=2400'},
     {name:'Vasos e Decoração',kicker:'FORMAS PARA COMPOR',phrase:'Vasos, centros de mesa e peças decorativas. Design, curvas e texturas para dar identidade ao seu espaço.',destination:'pecas/vasos-decoracao',tab:'Peças',legacy:2,background:'assets/vasos-decoracao/fundo-conceito.svg',circle:'assets/vasos-decoracao/circulo-conceito.svg'},
     {name:'Painéis e Divisórias',kicker:'IMPRESSÃO 3D + MADEIRA',phrase:'Texturas, formas e luz para transformar espaços. Painéis e divisórias em madeira e impressão 3D, pensados para o seu ambiente.',destination:'pecas/paineis-divisorias',tab:'Peças',legacy:9,background:'assets/paineis-divisorias/fundo-conceito.svg',circle:'assets/paineis-divisorias/circulo-conceito.svg'},
+    {name:'Arte e Esculturas',kicker:'DA IDEIA À FORMA. DA FORMA À ARTE.',phrase:'Esculturas autorais em impressão 3D. Curvas, vazios e volumes que dão uma nova presença ao seu espaço.',destination:'pecas/arte-esculturas',tab:'Peças',legacy:10,background:'assets/arte-esculturas/fundo-conceito.svg',circle:'assets/arte-esculturas/circulo-conceito.svg'},
     {name:'Reciclagem',kicker:'A MATÉRIA RECOMEÇA',phrase:'Imprimimos com pellet e plástico reciclado. O que sobra é moído e volta para a produção.',destination:'material-reciclagem',tab:'Material e reciclagem',legacy:5,background:'assets/reciclagem/hero.webp',circle:'assets/reciclagem/coleta.webp'},
     {name:'Sob medida',kicker:'SUA IDEIA, NOSSA FÁBRICA',phrase:'Traga um desenho, uma foto ou uma necessidade do seu espaço. Desenvolvemos a peça com você.',destination:'projetos',tab:'Projetos + contato',legacy:7,background:'https://images.pexels.com/photos/38850583/pexels-photo-38850583.jpeg?auto=compress&cs=tinysrgb&w=2400'},
     {name:'Feito por nós',kicker:'DO DESENHO À MÁQUINA',phrase:'Nossas peças nascem no nosso software e saem das nossas máquinas, de grande porte. Tudo feito aqui.',destination:'maquinas',tab:'Máquinas',legacy:6,background:'assets/tecnologia/fundo-v2.webp',circle:'assets/tecnologia/circulo-v2.webp'},
@@ -35,7 +36,7 @@
     $('galleryCount').textContent='Em breve';return filter;
   }
   all('[data-filter]').forEach(b=>b.addEventListener('click',()=>{const filter=setFilter(b.dataset.filter);navigate(filter==='objetos'?'pecas/vasos-decoracao':'pecas'+(filter==='todos'?'':'/'+filter));}));
-  const aliases={'paineis-divisorias':'pecas/paineis-divisorias','pecas/objetos':'pecas/vasos-decoracao',objetos:'pecas/vasos-decoracao','vasos-decoracao':'pecas/vasos-decoracao',colecoes:'pecas',contato:'projetos',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem',tecnologia:'maquinas','areas-tecnologia':'maquinas','conexoes-tecnologia':'maquinas'};
+  const aliases={'arte-esculturas':'pecas/arte-esculturas','paineis-divisorias':'pecas/paineis-divisorias','pecas/objetos':'pecas/vasos-decoracao',objetos:'pecas/vasos-decoracao','vasos-decoracao':'pecas/vasos-decoracao',colecoes:'pecas',contato:'projetos',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem',tecnologia:'maquinas','areas-tecnologia':'maquinas','conexoes-tecnologia':'maquinas'};
   function route(){
     const raw=location.hash.slice(1)||'inicio',mapped=aliases[raw]||raw;
     let [page,category]=mapped.split('/');if(!pages.includes(page))page='inicio';
@@ -45,15 +46,17 @@
     menu.querySelectorAll('a').forEach(a=>{if(a.hash==='#'+page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.title=titles[pages.indexOf(page)]+' — VISIOARTE';$('skipLink').href='#page-'+page;setMenu(false);
     if(page==='pecas'){
-      const furniture=category==='moveis',decoration=category==='vasos-decoracao',panels=category==='paineis-divisorias';
-      $('piecesOverview').hidden=furniture||decoration||panels;
+      const furniture=category==='moveis',decoration=category==='vasos-decoracao',panels=category==='paineis-divisorias',art=category==='arte-esculturas';
+      $('piecesOverview').hidden=furniture||decoration||panels||art;
       $('furniturePage').hidden=!furniture;
       $('decorPage').hidden=!decoration;
       $('panelsPage').hidden=!panels;
+      $('artPage').hidden=!art;
       setFilter(decoration?'objetos':category||'todos');
       if(furniture)document.title='Móveis impressos em 3D — VISIOARTE';
       if(decoration)document.title='Vasos e Decoração — VISIOARTE';
       if(panels)document.title='Painéis e Divisórias — VISIOARTE';
+      if(art)document.title='Arte e Esculturas — VISIOARTE';
     }
     requestAnimationFrame(()=>{if(page==='inicio')measure();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});});pauseAuto();
   }
@@ -127,10 +130,18 @@
     if(portrait)portrait.src=sized(source(slots[i*2+1]),1200);
     if(panorama)panorama.src=sized(source(slots[i*2]),2000);
   }
+  function refreshArtImages(){
+    const i=universes.findIndex(c=>c.destination==='pecas/arte-esculturas');
+    if(i<0)return;
+    const portrait=$('artHeroImage'),panorama=$('artPanoramaImage');
+    if(portrait)portrait.src=sized(source(slots[i*2+1]),1200);
+    if(panorama)panorama.src=sized(source(slots[i*2]),2000);
+  }
   function refreshImages(){
     universes.forEach((c,i)=>{loadBackground(i);meds[i].querySelector('img').src=sized(source(slots[i*2+1]),320);});
     refreshFurnitureImage();
     refreshPanelsImages();
+    refreshArtImages();
     refreshEditor();
   }
   function refreshEditor(){
@@ -164,7 +175,7 @@
     }else throw Error('Escolha um arquivo de imagens exportado pelo editor da VISIOARTE.');
     if(incoming.length>200)throw Error('Essa exportação contém imagens demais.');
     const checked=[],seen=new Set();message('Conferindo as imagens antes de importar…');
-    for(const record of incoming){if(!/^[0-9]:(background|circle|(?:photo|product|asset)-[a-z0-9-]+)$/.test(record?.id||'')||seen.has(record.id)||typeof record.dataUrl!=='string'||record.dataUrl.length>15000000||!dataPattern.test(record.dataUrl))throw Error('Uma das imagens da exportação é inválida.');seen.add(record.id);const img=await decode(record.dataUrl);if(!img.naturalWidth||Math.max(img.naturalWidth,img.naturalHeight)>2560)throw Error('Uma das imagens ultrapassa o tamanho aceito.');checked.push({id:record.id,universe:Number(record.id.split(':')[0]),kind:record.id.split(':')[1],name:String(record.name||'Imagem personalizada').slice(0,160),width:img.naturalWidth,height:img.naturalHeight,dataUrl:record.dataUrl});}
+    for(const record of incoming){if(!/^(?:[0-9]|10):(background|circle|(?:photo|product|asset)-[a-z0-9-]+)$/.test(record?.id||'')||seen.has(record.id)||typeof record.dataUrl!=='string'||record.dataUrl.length>15000000||!dataPattern.test(record.dataUrl))throw Error('Uma das imagens da exportação é inválida.');seen.add(record.id);const img=await decode(record.dataUrl);if(!img.naturalWidth||Math.max(img.naturalWidth,img.naturalHeight)>2560)throw Error('Uma das imagens ultrapassa o tamanho aceito.');checked.push({id:record.id,universe:Number(record.id.split(':')[0]),kind:record.id.split(':')[1],name:String(record.name||'Imagem personalizada').slice(0,160),width:img.naturalWidth,height:img.naturalHeight,dataUrl:record.dataUrl});}
     // Merge imports: missing slots and older collections must never erase existing choices.
     await writeRecords(store=>checked.forEach(r=>store.put(r)));checked.forEach(r=>records.set(r.id,r));refreshImages();message('Imagens importadas neste navegador. As demais escolhas foram preservadas.');
   });});
