@@ -1,0 +1,42 @@
+/* Cementitious garden pieces, within the existing Peças navigation. */
+#gardenPage .decor-back{display:inline-flex;gap:12px;align-items:center;min-height:44px;margin-bottom:24px;font-size:12px;text-decoration:none;color:#b2c7bb}
+#gardenPage .decor-back:hover{color:var(--cyan)}
+#gardenPage .decor-hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(30px,6vw,80px);margin-bottom:60px}
+#gardenPage .decor-hero h1{font:400 clamp(43px,5.3vw,76px)/1.06 Georgia,'Times New Roman',serif;letter-spacing:-.03em;margin:0 0 24px}
+#gardenPage .decor-lead{font:400 clamp(23px,2.5vw,32px)/1.3 Georgia,serif;margin-bottom:20px;color:var(--ink)}
+#gardenPage .decor-intro{font-size:14px;color:#b8c7bd;max-width:510px}
+#gardenPage .decor-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+#gardenPage .decor-actions .btn{min-height:50px;padding:12px 22px}
+#gardenPage .decor-portrait{margin:0;overflow:hidden;border:1px solid #ffffff20;border-radius:12px;background:#0b1712;min-width:0}
+#gardenPage .decor-portrait img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+#gardenPage figcaption{font-size:10px;line-height:1.6;color:#96aea0;padding:14px 20px}
+#gardenPage .decor-section{padding:50px 0;border-top:1px solid #ffffff20}
+#gardenPage .decor-section-heading{max-width:760px;margin-bottom:32px}
+#gardenPage .decor-section h2{font:400 clamp(31px,3.4vw,45px)/1.17 Georgia,serif;margin:0 0 20px}
+#gardenPage .decor-section-heading>p:last-child{font-size:14px;color:var(--muted)}
+#gardenPage .decor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+#gardenPage .decor-card{display:flex;flex-direction:column;align-items:flex-start;padding:28px;border:1px solid #ffffff20;border-radius:10px;background:#0e1a15}
+#gardenPage .decor-number{font-size:10px;letter-spacing:.16em;color:var(--cyan);margin-bottom:28px}
+#gardenPage .decor-card h3{font:400 28px/1.2 Georgia,serif;margin:0 0 17px}
+#gardenPage .decor-card p{font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 22px}
+#gardenPage .decor-card .text-link{margin-top:auto;font-size:12px}
+#gardenPage .decor-panorama{margin:0;background:#0b1712;border:1px solid #ffffff20;border-radius:12px;overflow:hidden}
+#gardenPage .decor-panorama img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+#gardenPage .decor-material{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px)}
+#gardenPage .decor-material p:not(.eyebrow){font-size:14px;color:var(--muted)}
+#gardenPage .decor-material ul{list-style:none;padding:0;margin:0}
+#gardenPage .decor-material li{padding:22px 0;border-bottom:1px solid #ffffff20}
+#gardenPage .decor-material li:first-child{padding-top:0}
+#gardenPage .decor-material h3{font:400 25px/1.2 Georgia,serif;margin:0 0 12px}
+#gardenPage .decor-material li p{font-size:13px!important;margin:0}
+#gardenPage .decor-faq-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,7vw,90px)}
+#gardenPage .decor-faq details{border-bottom:1px solid #ffffff20;padding-bottom:18px;margin-bottom:18px}
+#gardenPage .decor-faq summary{min-height:44px;cursor:pointer;font-size:14px;line-height:1.6;padding:6px 0}
+#gardenPage .decor-faq p{font-size:13px;color:var(--muted);line-height:1.8;margin:12px 0 0}
+#gardenPage .decor-final{padding:36px 40px;border:1px solid #64e6f533;border-radius:12px;background:#0d211c;display:flex;align-items:center;justify-content:space-between;gap:30px}
+#gardenPage .decor-final h2{font:400 clamp(29px,3vw,40px)/1.2 Georgia,serif;margin:0 0 14px}
+#gardenPage .decor-final p{font-size:13px;line-height:1.8;color:#b3c9bd;max-width:580px;margin:0}
+#gardenPage .decor-final .btn{flex-shrink:0;min-height:50px;padding:12px 22px}
+@media(max-width:950px){#gardenPage .decor-grid{gap:16px}#gardenPage .decor-card{padding:24px}#gardenPage .decor-card h3{font-size:25px}}
+@media(max-width:700px){#gardenPage .decor-hero,#gardenPage .decor-grid,#gardenPage .decor-material,#gardenPage .decor-faq-layout{grid-template-columns:1fr;gap:26px}#gardenPage .decor-hero{margin-bottom:40px}#gardenPage .decor-hero h1{font-size:clamp(39px,10vw,58px)}#gardenPage .decor-portrait{max-width:470px;width:100%;justify-self:center}#gardenPage .decor-section{padding:38px 0}#gardenPage .decor-number{margin-bottom:22px}#gardenPage .decor-final{flex-direction:column;align-items:stretch;padding:26px;gap:24px}#gardenPage .decor-final .btn{text-align:center}#gardenPage .decor-panorama img{aspect-ratio:1.35}}
+@media(max-width:420px){#gardenPage .decor-actions{flex-direction:column;align-items:stretch}#gardenPage .decor-actions .btn{width:100%}}
