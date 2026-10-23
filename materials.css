@@ -1,0 +1,50 @@
+/* Recycled materials presentation, scoped to its existing page. */
+.recycled-page .recycled-hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(30px,6vw,80px);padding-bottom:54px}
+.recycled-page h1{font:400 clamp(46px,5.5vw,78px)/1.05 Georgia,serif;letter-spacing:-.035em;margin:0 0 24px}
+.recycled-page .recycled-lead{font:400 clamp(23px,2.5vw,32px)/1.35 Georgia,serif;color:var(--ink);margin:0 0 22px}
+.recycled-page .recycled-intro{font-size:14px;color:#b8c7bd;max-width:520px}
+.recycled-page .recycled-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.recycled-page .recycled-actions .btn{min-height:50px;padding:12px 22px}
+.recycled-page figure{margin:0;overflow:hidden;border:1px solid #ffffff20;border-radius:14px;background:#0d1914;min-width:0}
+.recycled-page figure img{display:block;width:100%;height:auto;object-fit:cover}
+.recycled-page .recycled-hero-image img{aspect-ratio:1.08}
+.recycled-page figcaption{padding:14px 20px;color:#96aea0;font-size:10px;line-height:1.6}
+.recycled-page .recycled-section{padding:52px 0;border-top:1px solid #ffffff20}
+.recycled-page h2{font:400 clamp(31px,3.5vw,46px)/1.15 Georgia,serif;letter-spacing:-.02em;margin:0 0 22px}
+.recycled-page .recycled-heading{max-width:760px;margin-bottom:32px}
+.recycled-page .recycled-heading>p:last-child{font-size:14px;color:var(--muted)}
+.recycled-page .recycled-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.recycled-page .recycled-cards article{padding:28px;border:1px solid #ffffff20;border-radius:12px;background:#0e1a15;display:flex;flex-direction:column;align-items:flex-start}
+.recycled-page .recycled-number{font-size:10px;letter-spacing:.14em;color:var(--cyan);margin-bottom:30px}
+.recycled-page h3{font:400 27px/1.2 Georgia,serif;margin:0 0 18px}
+.recycled-page .recycled-cards p{font-size:13px;line-height:1.8;color:var(--muted)}
+.recycled-page .recycled-cards .recycled-note{margin-top:auto;margin-bottom:0;padding-top:18px;border-top:1px solid #ffffff16;font-size:11px;color:#96aea0}
+.recycled-page .recycled-steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.recycled-page .recycled-steps li{padding-top:20px;border-top:2px solid #64e6f559;min-width:0}
+.recycled-page .recycled-steps span{display:block;color:var(--cyan);font-size:12px;letter-spacing:.1em;margin-bottom:28px}
+.recycled-page .recycled-steps h3{font-size:29px}
+.recycled-page .recycled-steps p{color:var(--muted);font-size:13px;line-height:1.8;margin:0}
+.recycled-page .recycled-texture{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,80px);align-items:start}
+.recycled-page .recycled-texture figure img{aspect-ratio:1}
+.recycled-page .recycled-texture p{color:var(--muted);font-size:14px}
+.recycled-page .recycled-texture ul{list-style:none;padding:0;margin:28px 0}
+.recycled-page .recycled-texture li{padding:18px 0;border-top:1px solid #ffffff20}
+.recycled-page .recycled-texture h3{font-size:24px;margin-bottom:10px}
+.recycled-page .recycled-texture li p{font-size:13px;margin:0}
+.recycled-page .recycled-applications{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.recycled-page .recycled-applications>a{display:flex;flex-direction:column;align-items:flex-start;padding:28px;border:1px solid #ffffff20;border-radius:12px;background:#0e1a15;text-decoration:none}
+.recycled-page .recycled-applications>a:hover{border-color:#64e6f580}
+.recycled-page .recycled-applications .eyebrow{font-size:10px;letter-spacing:.1em}
+.recycled-page .recycled-applications p{font-size:13px;color:var(--muted)}
+.recycled-page .recycled-applications .text-link{margin-top:auto;font-size:12px;min-height:32px;display:inline-flex;align-items:center;gap:18px}
+.recycled-page .recycled-faq-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,7vw,90px)}
+.recycled-page .recycled-faq details{padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid #ffffff20}
+.recycled-page .recycled-faq summary{min-height:44px;padding:6px 0;cursor:pointer;font-size:14px;line-height:1.6}
+.recycled-page .recycled-faq p{font-size:13px;line-height:1.8;color:var(--muted);margin:12px 0 0}
+.recycled-page .recycled-final{padding:36px 40px;border:1px solid #64e6f533;border-radius:14px;background:#0d211c;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.recycled-page .recycled-final h2{font-size:clamp(29px,3vw,40px);margin-bottom:16px}
+.recycled-page .recycled-final p{font-size:13px;line-height:1.8;color:#b3c9bd;max-width:580px;margin:0}
+.recycled-page .recycled-final .btn{flex-shrink:0;min-height:50px;padding:12px 22px}
+@media(max-width:1000px){.recycled-page .recycled-cards,.recycled-page .recycled-applications{gap:16px}.recycled-page .recycled-cards article,.recycled-page .recycled-applications>a{padding:23px}.recycled-page h3{font-size:24px}.recycled-page .recycled-steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}}
+@media(max-width:700px){.recycled-page .recycled-hero,.recycled-page .recycled-cards,.recycled-page .recycled-texture,.recycled-page .recycled-applications,.recycled-page .recycled-faq-layout{grid-template-columns:1fr;gap:26px}.recycled-page h1{font-size:clamp(44px,11vw,64px)}.recycled-page .recycled-hero{padding-bottom:38px}.recycled-page .recycled-section{padding:38px 0}.recycled-page .recycled-number{margin-bottom:22px}.recycled-page .recycled-final{flex-direction:column;align-items:stretch;padding:26px}.recycled-page .recycled-final .btn{text-align:center}.recycled-page figure{width:100%;max-width:560px;justify-self:center}}
+@media(max-width:420px){.recycled-page .recycled-actions{flex-direction:column;align-items:stretch}.recycled-page .recycled-steps{grid-template-columns:1fr}.recycled-page .recycled-steps span{margin-bottom:18px}}

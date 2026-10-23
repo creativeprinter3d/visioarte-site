@@ -2,7 +2,7 @@
   'use strict';
   const $=id=>document.getElementById(id),all=selector=>[...document.querySelectorAll(selector)];
   const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos','areas'];
-  const titles=['Início','Coleções','Como fazemos','Materiais e reciclagem','Máquinas','Software','Projetos + contato','Áreas'];
+  const titles=['Início','Coleções','Como fazemos','Materiais Reciclados','Máquinas','Software','Projetos + contato','Áreas'];
   const collections=[
   {
     "name": "Luminárias",
@@ -115,7 +115,7 @@
     "circle": "assets/ceramica-utilitarios/circulo-conceito.svg"
   },
   {
-    "name": "Reciclagem",
+    "name": "Materiais Reciclados",
     "kicker": "A MATÉRIA RECOMEÇA",
     "phrase": "Imprimimos com pellet e plástico reciclado. O que sobra é moído e volta para a produção.",
     "destination": "material-reciclagem",
