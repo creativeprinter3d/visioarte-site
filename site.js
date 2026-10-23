@@ -6,7 +6,7 @@
   const universes=[
     {name:'Luminárias',kicker:'LUZ COMO MATÉRIA',phrase:'Luminárias de autor, impressas em 3D: pétalas, folhas e formas que só a nossa fábrica faz.',destination:'pecas/luminarias',tab:'Peças',legacy:1,background:'assets/luminarias/hero.webp',circle:'assets/luminarias/espiral.webp'},
     {name:'Móveis',kicker:'FORMAS PARA VIVER',phrase:'Mesas e cadeiras de forma contínua, feitas em uma peça só, com material reciclado.',destination:'pecas/moveis',tab:'Peças',legacy:0,background:'https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=2400'},
-    {name:'Objetos com textura',kicker:'A TEXTURA É A PEÇA',phrase:'Vasos e objetos com relevos que nascem junto com a parede — não são pintados nem colados.',destination:'pecas/objetos',tab:'Peças',legacy:2,background:'https://images.pexels.com/photos/14205545/pexels-photo-14205545.jpeg?auto=compress&cs=tinysrgb&w=2400'},
+    {name:'Vasos e Decoração',kicker:'FORMAS PARA COMPOR',phrase:'Vasos, centros de mesa e peças decorativas. Design, curvas e texturas para dar identidade ao seu espaço.',destination:'pecas/vasos-decoracao',tab:'Peças',legacy:2,background:'assets/vasos-decoracao/fundo-conceito.svg',circle:'assets/vasos-decoracao/circulo-conceito.svg'},
     {name:'Reciclagem',kicker:'A MATÉRIA RECOMEÇA',phrase:'Imprimimos com pellet e plástico reciclado. O que sobra é moído e volta para a produção.',destination:'material-reciclagem',tab:'Material e reciclagem',legacy:5,background:'assets/reciclagem/hero.webp',circle:'assets/reciclagem/coleta.webp'},
     {name:'Sob medida',kicker:'SUA IDEIA, NOSSA FÁBRICA',phrase:'Traga um desenho, uma foto ou uma necessidade do seu espaço. Desenvolvemos a peça com você.',destination:'projetos',tab:'Projetos + contato',legacy:7,background:'https://images.pexels.com/photos/38850583/pexels-photo-38850583.jpeg?auto=compress&cs=tinysrgb&w=2400'},
     {name:'Feito por nós',kicker:'DO DESENHO À MÁQUINA',phrase:'Nossas peças nascem no nosso software e saem das nossas máquinas, de grande porte. Tudo feito aqui.',destination:'maquinas',tab:'Máquinas',legacy:6,background:'assets/tecnologia/fundo-v2.webp',circle:'assets/tecnologia/circulo-v2.webp'},
@@ -33,8 +33,8 @@
     all('.collection-soon').forEach(card=>{card.hidden=filter!=='todos'&&!card.dataset.categories.split(' ').includes(filter);});
     $('galleryCount').textContent='Em breve';return filter;
   }
-  all('[data-filter]').forEach(b=>b.addEventListener('click',()=>{const filter=setFilter(b.dataset.filter);navigate('pecas'+(filter==='todos'?'':'/'+filter));}));
-  const aliases={colecoes:'pecas',contato:'projetos',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem',tecnologia:'maquinas','areas-tecnologia':'maquinas','conexoes-tecnologia':'maquinas'};
+  all('[data-filter]').forEach(b=>b.addEventListener('click',()=>{const filter=setFilter(b.dataset.filter);navigate(filter==='objetos'?'pecas/vasos-decoracao':'pecas'+(filter==='todos'?'':'/'+filter));}));
+  const aliases={'pecas/objetos':'pecas/vasos-decoracao',objetos:'pecas/vasos-decoracao','vasos-decoracao':'pecas/vasos-decoracao',colecoes:'pecas',contato:'projetos',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem',tecnologia:'maquinas','areas-tecnologia':'maquinas','conexoes-tecnologia':'maquinas'};
   function route(){
     const raw=location.hash.slice(1)||'inicio',mapped=aliases[raw]||raw;
     let [page,category]=mapped.split('/');if(!pages.includes(page))page='inicio';
@@ -44,11 +44,13 @@
     menu.querySelectorAll('a').forEach(a=>{if(a.hash==='#'+page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.title=titles[pages.indexOf(page)]+' — VISIOARTE';$('skipLink').href='#page-'+page;setMenu(false);
     if(page==='pecas'){
-      const furniture=category==='moveis';
-      $('piecesOverview').hidden=furniture;
+      const furniture=category==='moveis',decoration=category==='vasos-decoracao';
+      $('piecesOverview').hidden=furniture||decoration;
       $('furniturePage').hidden=!furniture;
-      setFilter(category||'todos');
+      $('decorPage').hidden=!decoration;
+      setFilter(decoration?'objetos':category||'todos');
       if(furniture)document.title='Móveis impressos em 3D — VISIOARTE';
+      if(decoration)document.title='Vasos e Decoração — VISIOARTE';
     }
     requestAnimationFrame(()=>{if(page==='inicio')measure();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});});pauseAuto();
   }
@@ -108,6 +110,12 @@
   function refreshFurnitureImage(){
     const i=universes.findIndex(c=>c.destination==='pecas/moveis'),image=$('furnitureHeroImage');
     if(image&&i>=0)image.src=sized(source(slots[i*2]),1600);
+    const decor=universes.findIndex(c=>c.destination==='pecas/vasos-decoracao');
+    if(decor>=0){
+      const portrait=$('decorHeroImage'),panorama=$('decorPanoramaImage');
+      if(portrait)portrait.src=sized(source(slots[decor*2+1]),1200);
+      if(panorama)panorama.src=sized(source(slots[decor*2]),2000);
+    }
   }
   function refreshImages(){
     universes.forEach((c,i)=>{loadBackground(i);meds[i].querySelector('img').src=sized(source(slots[i*2+1]),320);});
@@ -124,10 +132,10 @@
   }
   const initialImagesReady=readRecords().then(saved=>{saved.forEach(r=>{if(typeof r.id==='string'&&dataPattern.test(r.dataUrl||''))records.set(r.id,r);});refreshImages();}).catch(()=>message('Não foi possível ler as imagens locais. Exporte uma cópia antes de limpar os dados do navegador.',true));
   function closeEditor(){if(editorBusy)return;$('imageEditor').close();pauseAuto();if(editorReturn?.isConnected)editorReturn.focus({preventScroll:true});}
-  $('editImages').addEventListener('click',async()=>{editorReturn=collapsed.matches?toggle:$('editImages');setMenu(false);await initialImagesReady;const collection=activeDestination==='pecas/moveis'?universes.findIndex(c=>c.destination==='pecas/moveis'):wrap(Math.round(pos));$('editorSlot').value=slots[Math.max(0,collection)*2].id;refreshEditor();$('imageEditor').showModal();$('closeImageEditor').focus();});
+  $('editImages').addEventListener('click',async()=>{editorReturn=collapsed.matches?toggle:$('editImages');setMenu(false);await initialImagesReady;const related=universes.findIndex(c=>c.destination===activeDestination),collection=activePage==='pecas'&&related>=0?related:wrap(Math.round(pos));$('editorSlot').value=slots[collection*2].id;refreshEditor();$('imageEditor').showModal();$('closeImageEditor').focus();});
   $('closeImageEditor').addEventListener('click',closeEditor);$('imageEditor').addEventListener('cancel',e=>{e.preventDefault();closeEditor();});
   $('editorSlot').addEventListener('change',refreshEditor);
-  $('viewImage').addEventListener('click',()=>{const slot=slots.find(s=>s.id===$('editorSlot').value),showFurniture=activeDestination==='pecas/moveis'&&universes[slot.collection]?.destination==='pecas/moveis';closeEditor();target=Math.round(target)+shortest(slot.collection-wrap(Math.round(target)));pauseAuto();navigate(showFurniture?'pecas/moveis':'inicio');});
+  $('viewImage').addEventListener('click',()=>{const slot=slots.find(s=>s.id===$('editorSlot').value),showCollection=activePage==='pecas'&&universes[slot.collection]?.destination===activeDestination;closeEditor();target=Math.round(target)+shortest(slot.collection-wrap(Math.round(target)));pauseAuto();navigate(showCollection?activeDestination:'inicio');});
   async function runEditor(operation){if(editorBusy)return;editorBusy=true;$('imageEditor').querySelectorAll('button,select').forEach(el=>el.disabled=true);try{await initialImagesReady;await operation();}catch(e){message(e.message||'Não foi possível concluir.',true);}finally{editorBusy=false;$('imageEditor').querySelectorAll('button,select').forEach(el=>el.disabled=false);refreshEditor();}}
   $('chooseImage').addEventListener('click',()=>{$('imageFile').value='';$('imageFile').click();});
   $('imageFile').addEventListener('change',()=>{const file=$('imageFile').files?.[0],slot=slots.find(s=>s.id===$('editorSlot').value);if(!file)return;runEditor(async()=>{if(file.size>20*1024*1024||!/^image\/(jpeg|png|webp|avif)$/.test(file.type))throw Error('Escolha JPG, PNG, WebP ou AVIF de até 20 MB.');message('Preparando e salvando a imagem…');const original=await readData(file),img=await decode(original);if(!img.naturalWidth||img.naturalWidth*img.naturalHeight>80000000)throw Error('Escolha uma versão menor desta imagem.');const max=slot.kind==='background'?2560:1600,ratio=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*ratio));canvas.height=Math.max(1,Math.round(img.naturalHeight*ratio));canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.9));if(!blob)throw Error('Não foi possível preparar a imagem.');const record={id:slot.id,universe:Number(slot.id.split(':')[0]),kind:slot.id.split(':')[1],name:file.name.slice(0,160),width:canvas.width,height:canvas.height,dataUrl:await readData(blob)};await writeRecords(store=>store.put(record));records.set(slot.id,record);refreshImages();message('Imagem salva apenas neste navegador. Exporte para compartilhar e publicar suas escolhas.');});});
