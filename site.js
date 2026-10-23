@@ -1,9 +1,9 @@
 (() => {
   'use strict';
   const $=id=>document.getElementById(id),all=selector=>[...document.querySelectorAll(selector)];
-  const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos'];
-  const titles=['Início','Peças','Como fazemos','Material e reciclagem','Máquinas','Software','Projetos + contato'];
-  const universes=[
+  const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos','areas'];
+  const titles=['Início','Coleções','Como fazemos','Materiais e reciclagem','Máquinas','Software','Projetos + contato','Áreas'];
+  const collections=[
     {name:'Luminárias',kicker:'LUZ COMO MATÉRIA',phrase:'Luminárias de autor, impressas em 3D: pétalas, folhas e formas que só a nossa fábrica faz.',destination:'pecas/luminarias',tab:'Peças',legacy:1,background:'assets/luminarias/hero.webp',circle:'assets/luminarias/espiral.webp'},
     {name:'Móveis',kicker:'FORMAS PARA VIVER',phrase:'Mesas e cadeiras de forma contínua, feitas em uma peça só, com material reciclado.',destination:'pecas/moveis',tab:'Peças',legacy:0,background:'https://images.pexels.com/photos/6585744/pexels-photo-6585744.jpeg?auto=compress&cs=tinysrgb&w=2400'},
     {name:'Vasos e Decoração',kicker:'FORMAS PARA COMPOR',phrase:'Vasos, centros de mesa e peças decorativas. Design, curvas e texturas para dar identidade ao seu espaço.',destination:'pecas/vasos-decoracao',tab:'Peças',legacy:2,background:'assets/vasos-decoracao/fundo-conceito.svg',circle:'assets/vasos-decoracao/circulo-conceito.svg'},
@@ -21,7 +21,13 @@
     {name:'Software',kicker:'NOSSO FATIADOR, NA WEB',phrase:'Crie vasos com textura e camadas não planas no navegador. Beta grátis, já no ar.',destination:'software',tab:'Software',legacy:8,fresh:true,background:'assets/software/visio-slicer-fundo.svg',circle:'assets/software/visio-slicer-circulo.svg'}
   ];
   // Keep each retained universe's record IDs, independently of its carousel position.
-  const slots=universes.flatMap((c,i)=>['background','circle'].map(kind=>({id:c.legacy+':'+(c.fresh?'photo-slicer-':'')+kind,name:'Início / '+c.name+' / '+(kind==='background'?'fundo':'círculo'),page:'inicio',source:kind==='background'?c.background:c.circle||c.background,kind,collection:i})));
+  const slots=collections.flatMap((c,i)=>['background','circle'].map(kind=>({id:c.legacy+':'+(c.fresh?'photo-slicer-':'')+kind,name:'Categorias / '+c.name+' / '+(kind==='background'?'fundo':'círculo'),page:'inicio',source:kind==='background'?c.background:c.circle||c.background,kind,collection:i})));
+
+  const groups=[{"slug":"casa-decoracao","name":"Casa e Decoração","kicker":"FORMAS PARA COMPOR SUA CASA","phrase":"Luminárias, vasos, esculturas e cerâmica. Encontre a linha que faz parte do seu espaço.","imageDestination":"pecas/luminarias","members":["pecas/luminarias","pecas/vasos-decoracao","pecas/arte-esculturas","pecas/ceramica-utilitarios"]},{"slug":"moveis-exteriores","name":"Móveis e Exteriores","kicker":"FORMAS PARA VIVER","phrase":"Mobiliário, jardins e design para pets. Explore peças para diferentes formas de viver o ambiente.","imageDestination":"pecas/moveis","members":["pecas/moveis","pecas/jardins-areas-externas","pecas/pets-design"]},{"slug":"arquitetura","name":"Arquitetura","kicker":"DESIGN QUE FAZ PARTE DO ESPAÇO","phrase":"Painéis, divisórias, revestimentos, fachadas e cubas. Superfícies e detalhes com identidade.","imageDestination":"pecas/paineis-divisorias","members":["pecas/paineis-divisorias","pecas/revestimentos-fachadas","pecas/cubas-lavabos"]},{"slug":"projetos-sob-medida","name":"Projetos Sob Medida","kicker":"SUA IDEIA, NOSSA FÁBRICA","phrase":"Pedidos personalizados e desenvolvimento para aplicações náuticas. Conte o que você precisa criar.","imageDestination":"projetos","members":["projetos","pecas/nautica-componentes"]},{"slug":"tecnologia","name":"Tecnologia","kicker":"DESENVOLVIMENTO PRÓPRIO","phrase":"Conheça nossas máquinas e o Visio Slicer. Do desenho à fabricação, tecnologia feita por nós.","imageDestination":"maquinas","members":["maquinas","software"]},{"slug":"materiais","name":"Materiais","kicker":"A MATÉRIA RECOMEÇA","phrase":"Pellet, plástico reciclado e reaproveitamento. Conheça a matéria que participa das nossas peças.","imageDestination":"material-reciclagem","members":["material-reciclagem"]}];
+  const universes=groups.map(g=>({...collections.find(c=>c.destination===g.imageDestination),...g,destination:'areas/'+g.slug}));
+  const homeSlots=universes.map(g=>{const i=collections.findIndex(c=>c.destination===g.imageDestination);return [slots[i*2],slots[i*2+1]];});
+  const groupForDestination=destination=>groups.find(g=>destination==='areas/'+g.slug||g.members.includes(destination));
+  const detailPages={"moveis":{"id":"furniturePage","title":"Móveis"},"vasos-decoracao":{"id":"decorPage","title":"Vasos e Decoração"},"paineis-divisorias":{"id":"panelsPage","title":"Painéis e Divisórias"},"arte-esculturas":{"id":"artPage","title":"Arte e Esculturas"},"jardins-areas-externas":{"id":"gardenPage","title":"Jardins e Áreas Externas"},"revestimentos-fachadas":{"id":"facadePage","title":"Revestimentos e Fachadas"},"pets-design":{"id":"petPage","title":"Pets e Design"},"cubas-lavabos":{"id":"basinPage","title":"Cubas e Lavabos"},"nautica-componentes":{"id":"nauticalPage","title":"Náutica e Componentes"},"ceramica-utilitarios":{"id":"ceramicPage","title":"Cerâmica e Utilitários"},"luminarias":{"id":"lightingPage","title":"Luminárias"}};
   const records=new Map();
   const source=slot=>records.get(slot.id)?.dataUrl||slot.source||'';
   const sized=(url,size)=>/^(data:|blob:)/.test(url)?url:url.replace('w=2400','w='+size);
@@ -35,46 +41,25 @@
   document.addEventListener('click',e=>{if(!e.target.closest('#header'))setMenu(false);});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){setMenu(false);toggle.focus();}});
   addEventListener('scroll',()=>document.body.classList.toggle('page-scrolled',scrollY>24),{passive:true});
-  function setFilter(value){
-    const filter=all('[data-filter]').some(b=>b.dataset.filter===value)?value:'todos';
-    all('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===filter)));
-    all('.collection-soon').forEach(card=>{card.hidden=filter!=='todos'&&!card.dataset.categories.split(' ').includes(filter);});
-    $('galleryCount').textContent='Em breve';return filter;
-  }
-  all('[data-filter]').forEach(b=>b.addEventListener('click',()=>{const filter=setFilter(b.dataset.filter);navigate(filter==='objetos'?'pecas/vasos-decoracao':'pecas'+(filter==='todos'?'':'/'+filter));}));
   const aliases={'ceramica-utilitarios':'pecas/ceramica-utilitarios','nautica-componentes':'pecas/nautica-componentes','cubas-lavabos':'pecas/cubas-lavabos','pets-design':'pecas/pets-design','revestimentos-fachadas':'pecas/revestimentos-fachadas','jardins-areas-externas':'pecas/jardins-areas-externas','arte-esculturas':'pecas/arte-esculturas','paineis-divisorias':'pecas/paineis-divisorias','pecas/objetos':'pecas/vasos-decoracao',objetos:'pecas/vasos-decoracao','vasos-decoracao':'pecas/vasos-decoracao',colecoes:'pecas',contato:'projetos',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem',tecnologia:'maquinas','areas-tecnologia':'maquinas','conexoes-tecnologia':'maquinas'};
   function route(){
     const raw=location.hash.slice(1)||'inicio',mapped=aliases[raw]||raw;
-    let [page,category]=mapped.split('/');if(!pages.includes(page))page='inicio';
-    if(mapped!==raw||!pages.includes(mapped.split('/')[0]))history.replaceState(null,'','#'+page+(category?'/'+category:''));
-    const destination=page+(category?'/'+category:'');const changed=activeDestination!==destination;activeDestination=destination;activePage=page;
+    let [page,category]=mapped.split('/');
+    if(!pages.includes(page)||(page==='areas'&&!groups.some(g=>g.slug===category))){page='inicio';category=undefined;}
+    const destination=page+(category?'/'+category:'');
+    if(destination!==raw)history.replaceState(null,'','#'+destination);
+    const changed=activeDestination!==destination;activeDestination=destination;activePage=page;
     all('[data-page]').forEach(el=>el.hidden=el.dataset.page!==page);
-    menu.querySelectorAll('a').forEach(a=>{if(a.hash==='#'+page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
-    document.title=titles[pages.indexOf(page)]+' — VISIOARTE';$('skipLink').href='#page-'+page;setMenu(false);
+    all('[data-area]').forEach(el=>el.hidden=page!=='areas'||el.dataset.area!==category);
+    const group=groupForDestination(destination);
+    menu.querySelectorAll('a').forEach(a=>{if(a.hash===(group?'#areas/'+group.slug:'#'+page))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+    document.title=(page==='areas'?group.name:titles[pages.indexOf(page)])+' — VISIOARTE';
+    $('skipLink').href='#page-'+page;setMenu(false);
     if(page==='pecas'){
-      const furniture=category==='moveis',decoration=category==='vasos-decoracao',panels=category==='paineis-divisorias',art=category==='arte-esculturas',garden=category==='jardins-areas-externas',facade=category==='revestimentos-fachadas',pet=category==='pets-design',basin=category==='cubas-lavabos',nautical=category==='nautica-componentes',ceramic=category==='ceramica-utilitarios';
-      $('piecesOverview').hidden=furniture||decoration||panels||art||garden||facade||pet||basin||nautical||ceramic;
-      $('furniturePage').hidden=!furniture;
-      $('decorPage').hidden=!decoration;
-      $('panelsPage').hidden=!panels;
-      $('artPage').hidden=!art;
-      $('gardenPage').hidden=!garden;
-      $('facadePage').hidden=!facade;
-      $('petPage').hidden=!pet;
-      $('basinPage').hidden=!basin;
-      $('nauticalPage').hidden=!nautical;
-      $('ceramicPage').hidden=!ceramic;
-      setFilter(decoration?'objetos':category||'todos');
-      if(furniture)document.title='Móveis impressos em 3D — VISIOARTE';
-      if(decoration)document.title='Vasos e Decoração — VISIOARTE';
-      if(panels)document.title='Painéis e Divisórias — VISIOARTE';
-      if(art)document.title='Arte e Esculturas — VISIOARTE';
-      if(garden)document.title='Jardins e Áreas Externas — VISIOARTE';
-      if(facade)document.title='Revestimentos e Fachadas — VISIOARTE';
-      if(pet)document.title='Pets e Design — VISIOARTE';
-      if(basin)document.title='Cubas e Lavabos — VISIOARTE';
-      if(nautical)document.title='Náutica e Componentes — VISIOARTE';
-      if(ceramic)document.title='Cerâmica e Utilitários — VISIOARTE';
+      const detail=detailPages[category];
+      $('piecesOverview').hidden=Boolean(detail);
+      Object.values(detailPages).forEach(p=>{$(p.id).hidden=!detail||p.id!==detail.id;});
+      if(detail)document.title=detail.title+' — VISIOARTE';
     }
     requestAnimationFrame(()=>{if(page==='inicio')measure();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});});pauseAuto();
   }
@@ -91,14 +76,14 @@
   const backgrounds=universes.map(()=>{const d=document.createElement('div');d.className='bg';$('bgs').append(d);return d;});
   const backgroundTokens=[];
   function loadBackground(i){
-    const url=sized(source(slots[i*2]),mobile.matches?1200:2400);if(backgroundTokens[i]===url)return;backgroundTokens[i]=url;
+    const url=sized(source(homeSlots[i][0]),mobile.matches?1200:2400);if(backgroundTokens[i]===url)return;backgroundTokens[i]=url;
     const image=new Image();image.onload=()=>{if(backgroundTokens[i]===url)backgrounds[i].style.backgroundImage='url("'+image.src+'")';};image.src=url;
   }
   const contour='<svg class="med-contour" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><ellipse cx="120" cy="120" rx="114" ry="88" transform="rotate(-28 120 120)" stroke-width="2.3"/><ellipse cx="120" cy="120" rx="111" ry="93" transform="rotate(39 120 120)" stroke-width="1.1" opacity=".65"/><circle cx="120" cy="120" r="96" stroke-width=".8" opacity=".24"/></svg>';
   const meds=universes.map((c,i)=>{
     const b=document.createElement('button');b.type='button';b.className='med';b.setAttribute('aria-label','Abrir '+c.name);
     b.innerHTML=contour+'<img alt="" width="100" height="100" draggable="false"><span class="med-label" aria-hidden="true"></span>';
-    b.querySelector('img').src=sized(source(slots[i*2+1]),320);b.querySelector('.med-label').textContent=c.name;
+    b.querySelector('img').src=sized(source(homeSlots[i][1]),320);b.querySelector('.med-label').textContent=c.name;
     b.addEventListener('click',e=>{if(e.detail!==0&&dragDistance>8)return;target=Math.round(target)+shortest(i-wrap(Math.round(target)));pauseAuto();navigate(c.destination);});
     b.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hovered=true;});b.addEventListener('pointerleave',()=>{hovered=false;pauseAuto();});$('orbit').append(b);return b;
   });
@@ -118,7 +103,7 @@
     if(!drag&&!motion.matches&&!document.querySelector('dialog[open]')&&activePage==='inicio'&&!hero.contains(document.activeElement)&&!hovered&&!document.hidden&&heroVisible&&toggle.getAttribute('aria-expanded')!=='true'&&now-lastInteraction>6000&&now-lastAuto>4800){target=Math.round(target)+1;lastAuto=now;}
     pos=motion.matches?target:pos+(target-pos)*.075;if(Math.abs(target-pos)<.001)pos=target;
     const focus=wrap(Math.round(pos));
-    if(focus!==current){current=focus;const c=universes[focus];$('title').textContent=c.name;$('heroKicker').textContent=c.kicker;$('heroPhrase').textContent=c.phrase;$('exploreLabel').textContent='Ver '+c.tab;$('explore').href='#'+c.destination;meds.forEach((b,i)=>{if(i===focus)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});backgrounds.forEach((b,i)=>b.classList.toggle('on',i===focus));loadBackground(focus);loadBackground(wrap(focus+1));loadBackground(wrap(focus-1));}
+    if(focus!==current){current=focus;const c=universes[focus];$('title').textContent=c.name;$('heroKicker').textContent=c.kicker;$('heroPhrase').textContent=c.phrase;$('exploreLabel').textContent='Ver categorias';$('explore').href='#'+c.destination;meds.forEach((b,i)=>{if(i===focus)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});backgrounds.forEach((b,i)=>b.classList.toggle('on',i===focus));loadBackground(focus);loadBackground(wrap(focus+1));loadBackground(wrap(focus-1));}
     meds.forEach((m,i)=>{const off=shortest(i-pos),a=-Math.PI/2+off*Math.PI*2/universes.length,x=Math.cos(a)*radiusX,y=Math.sin(a)*radiusY,top=Math.max(0,1-Math.abs(off)),scale=.82+.28*top;m.style.transform=`translate(-50%,-50%) translate(${x}px,${y}px) scale(${scale})`;m.style.zIndex=String(100+Math.round(top*100-y*.01));});requestAnimationFrame(frame);
   }
 
@@ -132,9 +117,9 @@
   function message(text,error=false){$('imageEditorMessage').textContent=text;$('imageEditorMessage').dataset.error=String(error);}
   slots.forEach(slot=>{const option=new Option(slot.name,slot.id);$('editorSlot').add(option);});
   function refreshFurnitureImage(){
-    const i=universes.findIndex(c=>c.destination==='pecas/moveis'),image=$('furnitureHeroImage');
+    const i=collections.findIndex(c=>c.destination==='pecas/moveis'),image=$('furnitureHeroImage');
     if(image&&i>=0)image.src=sized(source(slots[i*2]),1600);
-    const decor=universes.findIndex(c=>c.destination==='pecas/vasos-decoracao');
+    const decor=collections.findIndex(c=>c.destination==='pecas/vasos-decoracao');
     if(decor>=0){
       const portrait=$('decorHeroImage'),panorama=$('decorPanoramaImage');
       if(portrait)portrait.src=sized(source(slots[decor*2+1]),1200);
@@ -142,42 +127,42 @@
     }
   }
   function refreshPanelsImages(){
-    const i=universes.findIndex(c=>c.destination==='pecas/paineis-divisorias');
+    const i=collections.findIndex(c=>c.destination==='pecas/paineis-divisorias');
     if(i<0)return;
     const portrait=$('panelsHeroImage'),panorama=$('panelsPanoramaImage');
     if(portrait)portrait.src=sized(source(slots[i*2+1]),1200);
     if(panorama)panorama.src=sized(source(slots[i*2]),2000);
   }
   function refreshArtImages(){
-    const i=universes.findIndex(c=>c.destination==='pecas/arte-esculturas');
+    const i=collections.findIndex(c=>c.destination==='pecas/arte-esculturas');
     if(i<0)return;
     const portrait=$('artHeroImage'),panorama=$('artPanoramaImage');
     if(portrait)portrait.src=sized(source(slots[i*2+1]),1200);
     if(panorama)panorama.src=sized(source(slots[i*2]),2000);
   }
   function refreshGardenImages(){
-    const i=universes.findIndex(c=>c.destination==='pecas/jardins-areas-externas');
+    const i=collections.findIndex(c=>c.destination==='pecas/jardins-areas-externas');
     if(i<0)return;
     const portrait=$('gardenHeroImage'),panorama=$('gardenPanoramaImage');
     if(portrait)portrait.src=sized(source(slots[i*2+1]),1200);
     if(panorama)panorama.src=sized(source(slots[i*2]),2000);
   }
   function refreshFacadeImages(){
-    const i=universes.findIndex(c=>c.destination==='pecas/revestimentos-fachadas');
+    const i=collections.findIndex(c=>c.destination==='pecas/revestimentos-fachadas');
     if(i<0)return;
     const portrait=$('facadeHeroImage'),panorama=$('facadePanoramaImage');
     if(portrait)portrait.src=sized(source(slots[i*2+1]),1200);
     if(panorama)panorama.src=sized(source(slots[i*2]),2000);
   }
   function refreshPetImages(){
-    const i=universes.findIndex(c=>c.destination==='pecas/pets-design');
+    const i=collections.findIndex(c=>c.destination==='pecas/pets-design');
     if(i<0)return;
     const portrait=$('petHeroImage'),panorama=$('petPanoramaImage');
     if(portrait)portrait.src=sized(source(slots[i*2+1]),1200);
     if(panorama)panorama.src=sized(source(slots[i*2]),2000);
   }
   function refreshBasinImages(){
-    const i=universes.findIndex(c=>c.destination==='pecas/cubas-lavabos');
+    const i=collections.findIndex(c=>c.destination==='pecas/cubas-lavabos');
     if(i<0)return;
     const portrait=$('basinHeroImage'),panorama=$('basinPanoramaImage');
     if(portrait)portrait.src=sized(source(slots[i*2+1]),1200);
@@ -185,14 +170,15 @@
   }
   function refreshNewCollectionImages(){
     for(const [route,id] of [['nautica-componentes','nautical'],['ceramica-utilitarios','ceramic']]){
-      const i=universes.findIndex(c=>c.destination==='pecas/'+route);if(i<0)continue;
+      const i=collections.findIndex(c=>c.destination==='pecas/'+route);if(i<0)continue;
       const portrait=$(id+'HeroImage'),panorama=$(id+'PanoramaImage');
       if(portrait)portrait.src=sized(source(slots[i*2+1]),1200);
       if(panorama)panorama.src=sized(source(slots[i*2]),2000);
     }
   }
   function refreshImages(){
-    universes.forEach((c,i)=>{loadBackground(i);meds[i].querySelector('img').src=sized(source(slots[i*2+1]),320);});
+    universes.forEach((c,i)=>{loadBackground(i);meds[i].querySelector('img').src=sized(source(homeSlots[i][1]),320);});
+    all('[data-collection-image]').forEach(img=>{const i=collections.findIndex(c=>c.destination===img.dataset.collectionImage);if(i>=0)img.src=sized(source(slots[i*2+(img.dataset.imageKind==='circle'?1:0)]),900);});
     refreshFurnitureImage();
     refreshPanelsImages();
     refreshArtImages();
@@ -209,14 +195,24 @@
     $('editorPreview').classList.toggle('circle-preview',slot.kind==='circle');
     $('editorFileInfo').textContent=record?record.name+' · '+record.width+' × '+record.height+' px · salva neste navegador':slot.source?'Imagem de ambientação / conceito':'foto a enviar';
     $('resetImage').disabled=editorBusy||!record;
-    $('editorSummary').textContent=slots.filter(s=>records.has(s.id)).length+' de '+slots.length+' imagens personalizadas do Início. As escolhas antigas são preservadas na exportação.';
+    $('editorSummary').textContent=slots.filter(s=>records.has(s.id)).length+' de '+slots.length+' imagens personalizadas das categorias. As escolhas antigas são preservadas na exportação.';
   }
   const initialImagesReady=readRecords().then(saved=>{saved.forEach(r=>{if(typeof r.id==='string'&&dataPattern.test(r.dataUrl||''))records.set(r.id,r);});refreshImages();}).catch(()=>message('Não foi possível ler as imagens locais. Exporte uma cópia antes de limpar os dados do navegador.',true));
   function closeEditor(){if(editorBusy)return;$('imageEditor').close();pauseAuto();if(editorReturn?.isConnected)editorReturn.focus({preventScroll:true});}
-  $('editImages').addEventListener('click',async()=>{editorReturn=collapsed.matches?toggle:$('editImages');setMenu(false);await initialImagesReady;const related=universes.findIndex(c=>c.destination===activeDestination),collection=activePage==='pecas'&&related>=0?related:wrap(Math.round(pos));$('editorSlot').value=slots[collection*2].id;refreshEditor();$('imageEditor').showModal();$('closeImageEditor').focus();});
+  $('editImages').addEventListener('click',async()=>{editorReturn=collapsed.matches?toggle:$('editImages');setMenu(false);await initialImagesReady;
+    const related=collections.findIndex(c=>c.destination===activeDestination),area=groups.findIndex(g=>activeDestination==='areas/'+g.slug);
+    const collection=related>=0?related:homeSlots[area>=0?area:wrap(Math.round(pos))][0].collection;
+    $('editorSlot').value=slots[collection*2].id;refreshEditor();$('imageEditor').showModal();$('closeImageEditor').focus();
+  });
   $('closeImageEditor').addEventListener('click',closeEditor);$('imageEditor').addEventListener('cancel',e=>{e.preventDefault();closeEditor();});
   $('editorSlot').addEventListener('change',refreshEditor);
-  $('viewImage').addEventListener('click',()=>{const slot=slots.find(s=>s.id===$('editorSlot').value),showCollection=activePage==='pecas'&&universes[slot.collection]?.destination===activeDestination;closeEditor();target=Math.round(target)+shortest(slot.collection-wrap(Math.round(target)));pauseAuto();navigate(showCollection?activeDestination:'inicio');});
+  $('viewImage').addEventListener('click',()=>{
+    const slot=slots.find(s=>s.id===$('editorSlot').value);if(!slot)return;
+    const collection=collections[slot.collection],area=groups.findIndex(g=>g.members.includes(collection.destination));
+    closeEditor();if(area>=0)target=Math.round(target)+shortest(area-wrap(Math.round(target)));pauseAuto();
+    const keep=activeDestination===collection.destination||activeDestination==='areas/'+groups[area]?.slug;
+    navigate(keep?activeDestination:activePage==='inicio'&&groups[area]?.imageDestination===collection.destination?'inicio':collection.destination);
+  });
   async function runEditor(operation){if(editorBusy)return;editorBusy=true;$('imageEditor').querySelectorAll('button,select').forEach(el=>el.disabled=true);try{await initialImagesReady;await operation();}catch(e){message(e.message||'Não foi possível concluir.',true);}finally{editorBusy=false;$('imageEditor').querySelectorAll('button,select').forEach(el=>el.disabled=false);refreshEditor();}}
   $('chooseImage').addEventListener('click',()=>{$('imageFile').value='';$('imageFile').click();});
   $('imageFile').addEventListener('change',()=>{const file=$('imageFile').files?.[0],slot=slots.find(s=>s.id===$('editorSlot').value);if(!file)return;runEditor(async()=>{if(file.size>20*1024*1024||!/^image\/(jpeg|png|webp|avif)$/.test(file.type))throw Error('Escolha JPG, PNG, WebP ou AVIF de até 20 MB.');message('Preparando e salvando a imagem…');const original=await readData(file),img=await decode(original);if(!img.naturalWidth||img.naturalWidth*img.naturalHeight>80000000)throw Error('Escolha uma versão menor desta imagem.');const max=slot.kind==='background'?2560:1600,ratio=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*ratio));canvas.height=Math.max(1,Math.round(img.naturalHeight*ratio));canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.9));if(!blob)throw Error('Não foi possível preparar a imagem.');const record={id:slot.id,universe:Number(slot.id.split(':')[0]),kind:slot.id.split(':')[1],name:file.name.slice(0,160),width:canvas.width,height:canvas.height,dataUrl:await readData(blob)};await writeRecords(store=>store.put(record));records.set(slot.id,record);refreshImages();message('Imagem salva apenas neste navegador. Exporte para compartilhar e publicar suas escolhas.');});});
