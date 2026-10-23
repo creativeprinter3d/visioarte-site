@@ -131,7 +131,8 @@
     "destination": "projetos",
     "tab": "Projetos + contato",
     "legacy": 7,
-    "background": "https://images.pexels.com/photos/38850583/pexels-photo-38850583.jpeg?auto=compress&cs=tinysrgb&w=2400"
+    "background": "assets/projetos-sob-medida/fundo-conceito.svg",
+    "circle": "assets/projetos-sob-medida/circulo-conceito.svg"
   },
   {
     "name": "Feito por nós",
