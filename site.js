@@ -21,7 +21,7 @@
     "destination": "pecas/moveis",
     "tab": "Peças",
     "legacy": 0,
-    "background": "assets/moveis/ambiente-impresso-3d.svg",
+    "background": "assets/moveis/poltrona-refinada.svg",
     "circle": "assets/moveis-exteriores/circulo-banco.svg"
   },
   {
