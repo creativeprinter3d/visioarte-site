@@ -1,5 +1,36 @@
-/* Visioarte logo in the existing header and footer. */
+/* Brand proportions and responsive navigation. */
+:root{--header-height:96px}
+html{scroll-padding-top:calc(var(--header-height) + 20px)}
 .brand .brand-logo{display:block;flex:0 0 auto;width:60px;height:60px;object-fit:contain;background:transparent;border:0}
-.top .brand{min-height:60px;gap:12px}
+.top{height:var(--header-height);padding-inline:max(28px,calc((100% - 1580px)/2));gap:32px}
+.top .brand{flex-shrink:0;min-height:80px;gap:14px;font-size:14px;letter-spacing:.17em}
+.top .brand .brand-logo{width:clamp(68px,5vw,80px);height:clamp(68px,5vw,80px)}
+.top .main-nav{margin-left:auto;gap:clamp(14px,1.3vw,24px);font-size:13px}
+.top .main-nav a{min-height:48px}
+.top .edit-images-button{min-height:44px;padding-inline:16px;margin-left:8px;font-size:12px}
 .footer .brand .brand-logo{width:72px;height:72px}
-@media(max-width:700px){.top .brand .brand-logo{width:52px;height:52px}.top .brand{min-height:52px;gap:9px}.footer .brand .brand-logo{width:64px;height:64px}}
+@media(max-width:1250px){
+ :root{--header-height:88px}
+ .top{padding-inline:28px;gap:20px}
+ .top .brand{min-height:68px;font-size:13px;gap:12px}
+ .top .brand .brand-logo{width:68px;height:68px}
+ .top .main-nav{top:var(--header-height);max-height:calc(100svh - var(--header-height));margin-left:0;gap:0}
+ .top .main-nav a{font-size:14px;min-height:48px}
+ .top .main-nav .edit-images-button{margin:12px 0 0;min-height:46px}
+ .top .menu-toggle{min-height:44px;padding-inline:14px}
+}
+@media(max-width:700px){
+ :root{--header-height:76px}
+ .top{padding-inline:18px;gap:12px}
+ .top .brand{min-height:60px;gap:10px;font-size:12px;letter-spacing:.16em}
+ .top .brand .brand-logo{width:60px;height:60px}
+ .top .menu-toggle{min-width:82px;padding-inline:12px}
+ .top .main-nav a{min-height:48px}
+ .footer .brand .brand-logo{width:64px;height:64px}
+}
+@media(max-width:360px){
+ .top{padding-inline:12px;gap:8px}
+ .top .brand{font-size:11px;gap:8px}
+ .top .brand .brand-logo{width:56px;height:56px}
+ .top .menu-toggle{min-width:74px;padding-inline:10px}
+}
