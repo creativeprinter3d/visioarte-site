@@ -152,7 +152,7 @@
     "tab": "Software",
     "legacy": 8,
     "fresh": true,
-    "background": "assets/software/visio-slicer-fundo.svg",
+    "background": "assets/software/visio-slicer-boas-vindas-tratado.png",
     "circle": "assets/software/visio-slicer-circulo.svg"
   }
 ];
