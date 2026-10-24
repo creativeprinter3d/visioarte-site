@@ -1,8 +1,8 @@
 (() => {
   'use strict';
   const $=id=>document.getElementById(id),all=selector=>[...document.querySelectorAll(selector)];
-  const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos','areas'];
-  const titles=['Início','Coleções','Como fazemos','Materiais Reciclados','Máquinas','Software','Projetos + contato','Áreas'];
+  const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos','areas','firmware'];
+  const titles=['Início','Coleções','Como fazemos','Materiais Reciclados','Máquinas','Software','Projetos + contato','Áreas','Firmware'];
   const collections=[
   {
     "name": "Luminárias",
@@ -159,7 +159,7 @@
   // Keep each retained universe's record IDs, independently of its carousel position.
   const slots=collections.flatMap((c,i)=>['background','circle'].map(kind=>({id:c.legacy+':'+(c.fresh?'photo-slicer-':'')+kind,name:'Categorias / '+c.name+' / '+(kind==='background'?'fundo':'círculo'),page:'inicio',source:kind==='background'?c.background:c.circle||c.background,kind,collection:i})));
 
-  const groups=[{"slug":"casa-decoracao","name":"Casa e Decoração","kicker":"FORMAS PARA COMPOR SUA CASA","phrase":"Luminárias, vasos, esculturas e cerâmica. Encontre a linha que faz parte do seu espaço.","imageDestination":"pecas/luminarias","members":["pecas/luminarias","pecas/vasos-decoracao","pecas/arte-esculturas","pecas/ceramica-utilitarios"]},{"slug":"moveis-exteriores","name":"Móveis e Exteriores","kicker":"FORMAS PARA VIVER","phrase":"Mobiliário, jardins e design para pets. Explore peças para diferentes formas de viver o ambiente.","imageDestination":"pecas/moveis","backgroundDestination":"pecas/jardins-areas-externas","members":["pecas/moveis","pecas/jardins-areas-externas","pecas/pets-design"]},{"slug":"arquitetura","name":"Arquitetura","kicker":"DESIGN QUE FAZ PARTE DO ESPAÇO","phrase":"Painéis, divisórias, revestimentos, fachadas e cubas. Superfícies e detalhes com identidade.","imageDestination":"pecas/paineis-divisorias","members":["pecas/paineis-divisorias","pecas/revestimentos-fachadas","pecas/cubas-lavabos"]},{"slug":"projetos-sob-medida","name":"Projetos Sob Medida","kicker":"SUA IDEIA, NOSSA FÁBRICA","phrase":"Pedidos personalizados e desenvolvimento para aplicações náuticas. Conte o que você precisa criar.","imageDestination":"projetos","members":["projetos","pecas/nautica-componentes"]},{"slug":"tecnologia","name":"Tecnologia","kicker":"DESENVOLVIMENTO PRÓPRIO","phrase":"Conheça nossas máquinas e o Visio Slicer. Do desenho à fabricação, tecnologia feita por nós.","imageDestination":"maquinas","members":["maquinas","software"]},{"slug":"materiais","name":"Materiais","kicker":"A MATÉRIA RECOMEÇA","phrase":"Pellet, plástico reciclado e reaproveitamento. Conheça a matéria que participa das nossas peças.","imageDestination":"material-reciclagem","members":["material-reciclagem"]}];
+  const groups=[{"slug":"casa-decoracao","name":"Casa e Decoração","kicker":"FORMAS PARA COMPOR SUA CASA","phrase":"Luminárias, vasos, esculturas e cerâmica. Encontre a linha que faz parte do seu espaço.","imageDestination":"pecas/luminarias","members":["pecas/luminarias","pecas/vasos-decoracao","pecas/arte-esculturas","pecas/ceramica-utilitarios"]},{"slug":"moveis-exteriores","name":"Móveis e Exteriores","kicker":"FORMAS PARA VIVER","phrase":"Mobiliário, jardins e design para pets. Explore peças para diferentes formas de viver o ambiente.","imageDestination":"pecas/moveis","backgroundDestination":"pecas/jardins-areas-externas","members":["pecas/moveis","pecas/jardins-areas-externas","pecas/pets-design"]},{"slug":"arquitetura","name":"Arquitetura","kicker":"DESIGN QUE FAZ PARTE DO ESPAÇO","phrase":"Painéis, divisórias, revestimentos, fachadas e cubas. Superfícies e detalhes com identidade.","imageDestination":"pecas/paineis-divisorias","members":["pecas/paineis-divisorias","pecas/revestimentos-fachadas","pecas/cubas-lavabos"]},{"slug":"projetos-sob-medida","name":"Projetos Sob Medida","kicker":"SUA IDEIA, NOSSA FÁBRICA","phrase":"Pedidos personalizados e desenvolvimento para aplicações náuticas. Conte o que você precisa criar.","imageDestination":"projetos","members":["projetos","pecas/nautica-componentes"]},{"slug":"tecnologia","name":"Tecnologia","kicker":"DESENVOLVIMENTO PRÓPRIO","phrase":"Conheça nossas máquinas, o Visio Slicer e o firmware. Do desenho à fabricação, tecnologia feita por nós.","imageDestination":"maquinas","members":["maquinas","software","firmware"]},{"slug":"materiais","name":"Materiais","kicker":"A MATÉRIA RECOMEÇA","phrase":"Pellet, plástico reciclado e reaproveitamento. Conheça a matéria que participa das nossas peças.","imageDestination":"material-reciclagem","members":["material-reciclagem"]}];
   const universes=groups.map(g=>({...collections.find(c=>c.destination===g.imageDestination),...g,destination:g.members.length===1?g.members[0]:'areas/'+g.slug}));
   const homeSlots=universes.map(g=>{const i=collections.findIndex(c=>c.destination===g.imageDestination),background=collections.findIndex(c=>c.destination===(g.backgroundDestination||g.imageDestination));return [slots[background*2],slots[i*2+1]];});
   const groupForDestination=destination=>groups.find(g=>destination==='areas/'+g.slug||g.members.includes(destination));
@@ -198,7 +198,7 @@
       Object.values(detailPages).forEach(p=>{$(p.id).hidden=!detail||p.id!==detail.id;});
       if(detail)document.title=detail.title+' — VISIOARTE';
     }
-    requestAnimationFrame(()=>{if(page==='inicio')measure();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});});pauseAuto();
+    requestAnimationFrame(()=>{if(page==='inicio')measure();syncHeroVideo();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});});pauseAuto();
   }
   function navigate(destination){const hash='#'+destination;if(location.hash!==hash)history.pushState(null,'',hash);route();}
   all('a[href^="#"]').filter(a=>a.id!=='skipLink').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();navigate(a.getAttribute('href').slice(1));}));
@@ -207,10 +207,50 @@
   // Preserve the approved warm contour and the orbital carousel interaction.
   const wrap=v=>((v%universes.length)+universes.length)%universes.length;
   const shortest=d=>wrap(d+universes.length/2)-universes.length/2;
-  let pos=0,target=0,current=-1,lastInteraction=performance.now(),lastAuto=lastInteraction;
+  const initialUniverse=new URLSearchParams(location.search).get('universo');
+  const initialPosition=Math.max(0,universes.findIndex(universe=>universe.slug===initialUniverse));
+  let pos=initialPosition,target=initialPosition,current=-1,lastInteraction=performance.now(),lastAuto=lastInteraction;
   let drag=false,startX=0,startY=0,startPos=0,dragDistance=0,hovered=false,heroVisible=true,radiusX=0,radiusY=0;
   function pauseAuto(){lastInteraction=lastAuto=performance.now();}
   const backgrounds=universes.map(()=>{const d=document.createElement('div');d.className='bg';$('bgs').append(d);return d;});
+  const heroVideos=[{video:$('heroVideo'),index:0},{video:$('furnitureVideo'),index:1}].filter(entry=>entry.video);
+  const videoToggle=$('videoToggle');
+  const videoEnabled=heroVideos.length>0&&new URLSearchParams(location.search).get('fundo')!=='imagem';
+  const videoPaused=new WeakMap();
+  heroVideos.forEach(({video})=>{video.muted=true;videoPaused.set(video,motion.matches);video.pause();});
+  const selectedHeroVideo=()=>videoEnabled&&activePage==='inicio'?heroVideos.find(entry=>entry.index===current)?.video:null;
+  function updateVideoControl(){
+    const video=selectedHeroVideo();
+    if(!videoToggle||!video)return;
+    const paused=videoPaused.get(video)||video.paused;
+    videoToggle.textContent=paused?'Reproduzir vídeo':'Pausar vídeo';
+    videoToggle.setAttribute('aria-label',paused?'Reproduzir vídeo de fundo':'Pausar vídeo de fundo');
+    videoToggle.setAttribute('aria-pressed',String(paused));
+  }
+  function syncHeroVideo(){
+    if(!videoToggle)return;
+    const selected=selectedHeroVideo();
+    hero.classList.toggle('has-video',Boolean(selected));
+    videoToggle.hidden=!selected;
+    heroVideos.forEach(({video})=>{
+      video.classList.toggle('is-current',video===selected);
+      if(video===selected&&heroVisible&&!document.hidden&&!videoPaused.get(video)){
+        video.play().then(updateVideoControl).catch(error=>{
+          if(error.name==='AbortError'||selectedHeroVideo()!==video)return;
+          videoPaused.set(video,true);updateVideoControl();
+        });
+      }else video.pause();
+    });
+    updateVideoControl();
+  }
+  if(videoToggle){
+    videoToggle.addEventListener('click',()=>{
+      const video=selectedHeroVideo();if(!video)return;
+      videoPaused.set(video,!videoPaused.get(video));pauseAuto();syncHeroVideo();
+    });
+    heroVideos.forEach(({video})=>{video.addEventListener('play',updateVideoControl);video.addEventListener('pause',updateVideoControl);});
+    motion.addEventListener('change',()=>{heroVideos.forEach(({video})=>videoPaused.set(video,motion.matches));syncHeroVideo();});
+  }
   const backgroundTokens=[];
   function loadBackground(i){
     const url=sized(source(homeSlots[i][0]),mobile.matches?1200:2400);if(backgroundTokens[i]===url)return;backgroundTokens[i]=url;
@@ -234,13 +274,13 @@
   ['pointerup','pointercancel','lostpointercapture'].forEach(e=>hero.addEventListener(e,release));addEventListener('pointerup',release);addEventListener('pointercancel',release);
   hero.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)&&Math.abs(e.deltaX)>10){e.preventDefault();if(performance.now()-lastInteraction>220)step(Math.sign(e.deltaX));}},{passive:false});
   function measure(){const w=hero.clientWidth,h=hero.clientHeight;if(!w)return;radiusX=mobile.matches?Math.min(w*.43,280):Math.min(w*.33,510);radiusY=mobile.matches?Math.min(h*.34,330):Math.min(h*.30,320);}
-  new ResizeObserver(measure).observe(hero);measure();new IntersectionObserver(entries=>{heroVisible=entries[0].isIntersecting;pauseAuto();}).observe(hero);
-  document.addEventListener('visibilitychange',pauseAuto);motion.addEventListener('change',pauseAuto);
+  new ResizeObserver(measure).observe(hero);measure();new IntersectionObserver(entries=>{heroVisible=entries[0].isIntersecting;pauseAuto();syncHeroVideo();}).observe(hero);
+  document.addEventListener('visibilitychange',()=>{pauseAuto();syncHeroVideo();});motion.addEventListener('change',pauseAuto);
   function frame(now){
     if(!drag&&!motion.matches&&!document.querySelector('dialog[open]')&&activePage==='inicio'&&!hero.contains(document.activeElement)&&!hovered&&!document.hidden&&heroVisible&&toggle.getAttribute('aria-expanded')!=='true'&&now-lastInteraction>6000&&now-lastAuto>4800){target=Math.round(target)+1;lastAuto=now;}
     pos=motion.matches?target:pos+(target-pos)*.075;if(Math.abs(target-pos)<.001)pos=target;
     const focus=wrap(Math.round(pos));
-    if(focus!==current){current=focus;const c=universes[focus];$('title').textContent=c.name;$('heroKicker').textContent=c.kicker;$('heroPhrase').textContent=c.phrase;$('exploreLabel').textContent=c.members.length===1?'Conhecer materiais':'Ver categorias';$('explore').href='#'+c.destination;meds.forEach((b,i)=>{if(i===focus)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});backgrounds.forEach((b,i)=>b.classList.toggle('on',i===focus));loadBackground(focus);loadBackground(wrap(focus+1));loadBackground(wrap(focus-1));}
+    if(focus!==current){current=focus;const c=universes[focus];$('title').textContent=c.name;$('heroKicker').textContent=c.kicker;$('heroPhrase').textContent=c.phrase;$('exploreLabel').textContent=c.members.length===1?'Conhecer materiais':'Ver categorias';$('explore').href='#'+c.destination;meds.forEach((b,i)=>{if(i===focus)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});backgrounds.forEach((b,i)=>b.classList.toggle('on',i===focus));loadBackground(focus);loadBackground(wrap(focus+1));loadBackground(wrap(focus-1));syncHeroVideo();}
     meds.forEach((m,i)=>{const off=shortest(i-pos),a=-Math.PI/2+off*Math.PI*2/universes.length,x=Math.cos(a)*radiusX,y=Math.sin(a)*radiusY,top=Math.max(0,1-Math.abs(off)),scale=.82+.28*top;m.style.transform=`translate(-50%,-50%) translate(${x}px,${y}px) scale(${scale})`;m.style.zIndex=String(100+Math.round(top*100-y*.01));});requestAnimationFrame(frame);
   }
 

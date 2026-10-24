@@ -23,3 +23,7 @@
 @media(min-width:980px){#piecesOverview .area-grid,[data-area="moveis-exteriores"] .area-grid,[data-area="arquitetura"] .area-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.area-grid{grid-template-columns:1fr;gap:20px}.area-card-copy{padding:23px}.area-card h2{font-size:29px}.area-other{margin-top:38px}.area-other nav{flex-direction:column}.area-other a{justify-content:space-between}.lighting-reference img{aspect-ratio:1.2}.center h1{font-size:clamp(30px,8vw,42px)}}
 @media(prefers-reduced-motion:reduce){.area-card,.area-card-media img{transition:none}.area-card:hover,.area-card:hover img{transform:none}}
+
+@media(min-width:980px){[data-area="tecnologia"] .area-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+#page-firmware h2{font:400 clamp(28px,3vw,40px)/1.2 Georgia,serif;margin:0 0 16px}
+#page-firmware .firmware-note{max-width:640px;font-size:14px;color:var(--muted)}

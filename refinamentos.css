@@ -1,0 +1,132 @@
+/* Refinamento da abertura original da VISIOARTE. Carregar depois de brand.css. */
+#page-inicio .bg {
+  filter: brightness(.70) saturate(.95) contrast(1.04);
+}
+
+#page-inicio .shade {
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(0, 0, 0, .38), rgba(0, 0, 0, .19) 56%, rgba(0, 0, 0, .68) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, .18), transparent 30%, transparent 62%, rgba(0, 0, 0, .72));
+}
+
+#page-inicio .center #heroPhrase {
+  color: #f0ede7;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+#page-inicio .center .kicker {
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: .16em;
+}
+
+#page-inicio .center .btn {
+  min-height: 48px;
+  font-size: 13px;
+}
+
+#page-inicio .center .btn:not(.primary) {
+  border-color: rgba(243, 238, 230, .48);
+  background: rgba(6, 11, 10, .78);
+}
+
+#page-inicio .med-label {
+  display: none;
+}
+
+#page-inicio .hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(.70) saturate(.95) contrast(1.04);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .8s ease;
+}
+
+#page-inicio .has-video .hero-video.is-current { opacity: 1; }
+
+#page-inicio .video-toggle {
+  position: absolute;
+  z-index: 60;
+  top: calc(var(--header-height, 88px) + 16px);
+  right: 24px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid rgba(243, 238, 230, .4);
+  border-radius: 7px;
+  background: rgba(6, 11, 10, .78);
+  color: var(--ink);
+  font-size: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #page-inicio .hero-video { transition: none; }
+}
+
+@media (max-width: 700px) {
+  #page-inicio .hero-video { object-position: 25% center; }
+  #page-inicio #furnitureVideo { object-position: 70% center; }
+  #page-inicio .video-toggle { right: 16px; padding-inline: 10px; font-size: 11px; }
+  #page-inicio .hero {
+    height: max(100svh, 844px);
+    min-height: 844px;
+  }
+
+  #page-inicio .center {
+    width: 58vw;
+    max-width: 330px;
+  }
+
+  #page-inicio .center .kicker {
+    max-width: 220px;
+    font-size: 10px;
+    line-height: 1.6;
+    letter-spacing: .12em;
+  }
+
+  #page-inicio .center h1 {
+    display: grid;
+    align-content: center;
+    min-height: 2.12em;
+    margin: 12px 0;
+    font-size: clamp(29px, 7.7vw, 40px);
+    line-height: 1.06;
+  }
+
+  #page-inicio .center #heroPhrase {
+    min-height: 6.6em;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  #page-inicio .center .actions {
+    width: min(210px, calc(100vw - 164px));
+    margin: 22px auto 0;
+    gap: 10px;
+  }
+
+  #page-inicio .center .btn {
+    width: 100%;
+    max-width: none;
+    min-height: 48px;
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  #page-inicio .nav-arrow {
+    bottom: 36px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  #page-inicio .hint {
+    color: #d6ded7;
+    font-size: 9px;
+  }
+}
