@@ -52,13 +52,16 @@
 @media(max-width:700px){#page-visio-tekna .tekna-hero{grid-template-columns:1fr;gap:30px;padding:15px 0 35px}#page-visio-tekna h1{font-size:clamp(39px,9vw,58px)}#page-visio-tekna .tekna-name img{width:44px;height:44px}#page-visio-tekna .tekna-actions>.btn{flex:1 1 170px}#page-visio-tekna .tekna-intro{padding:25px}#page-visio-tekna .tekna-intro li{padding:17px 0}#page-visio-tekna .tekna-intro li:last-child{padding-bottom:0}#page-visio-tekna .tekna-panorama{margin-bottom:40px}#page-visio-tekna .tekna-panorama figcaption{font-size:7px;padding:13px 17px}#page-visio-tekna .tekna-tools{padding-bottom:40px}#page-visio-tekna .tekna-tool-grid{grid-template-columns:1fr;gap:16px}#page-visio-tekna .tekna-tool-grid article{padding:25px}#page-visio-tekna .tekna-tool-grid article>span{margin-bottom:20px}#page-visio-tekna .tekna-path,#page-visio-tekna .tekna-faq{grid-template-columns:1fr;gap:25px;padding:40px 0}#page-visio-tekna .tekna-development{padding:26px}#page-visio-tekna .tekna-final{padding:26px;align-items:stretch;flex-direction:column;gap:24px}}
 @media(max-width:420px){#page-visio-tekna .tekna-name{display:block}#page-visio-tekna .tekna-name img{margin-bottom:18px}#page-visio-tekna h1{font-size:clamp(36px,10vw,43px)}}
 
-/* Typographic product cover using only artwork already public on this site. */
-#area-tecnologia .tekna-cover{position:relative;isolation:isolate;background:#061617}
-#area-tecnologia .tekna-cover>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;z-index:-2}
-#area-tecnologia .tekna-cover:after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,#031413e8,#07171966);z-index:-1}
-#area-tecnologia .tekna-cover-copy{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;color:#f1f5ed;padding:22px}
-#area-tecnologia .tekna-cover-copy>span:first-child{font-size:10px;letter-spacing:.23em;color:#a4c6bd}
-#area-tecnologia .tekna-cover-copy>strong{font:400 clamp(30px,3.2vw,49px)/1.1 Georgia,serif;letter-spacing:-.02em}
-#area-tecnologia .tekna-cover-copy>span:last-child{font-size:9px;letter-spacing:.15em;color:var(--cyan)}
 #page-visio-tekna .tekna-panorama img{aspect-ratio:2.15;object-fit:cover;object-position:center 55%}
 @media(max-width:700px){#page-visio-tekna .tekna-panorama img{aspect-ratio:1.2}}
+
+/* Approved white-ice / turquoise product identity. */
+#area-tecnologia .tekna-logo-cover{background:#07100d}
+#area-tecnologia .tekna-logo-cover img{object-fit:contain}
+#page-visio-tekna .tekna-name{display:block;margin:24px 0}
+#page-visio-tekna .tekna-name .tekna-wordmark{display:block;width:100%;max-width:650px;height:auto;border-radius:0;margin:0}
+#page-visio-tekna #teknaTitle.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#page-visio-tekna .tekna-intro-head{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+#page-visio-tekna .tekna-intro-head>img{display:block;flex-shrink:0;width:76px;height:76px}
+#page-visio-tekna .tekna-intro-head>.eyebrow{margin:0}
+@media(max-width:700px){#page-visio-tekna .tekna-intro-head>img{width:64px;height:64px}}
