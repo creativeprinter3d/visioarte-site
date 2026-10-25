@@ -1,0 +1,61 @@
+/* Como fazemos: scoped presentation of Visioarte's creation and manufacturing process. */
+#page-como-fazemos h1{font:400 clamp(42px,5vw,70px)/1.08 Georgia,serif;letter-spacing:-.03em;margin:0}
+#page-como-fazemos h2{font:400 clamp(31px,3.5vw,46px)/1.16 Georgia,serif;letter-spacing:-.025em;margin:0 0 22px}
+#page-como-fazemos h3{font:400 28px/1.23 Georgia,serif;letter-spacing:-.015em;margin:0 0 15px}
+#page-como-fazemos p{font-size:14px;line-height:1.85;color:var(--muted)}
+#page-como-fazemos .btn{min-height:48px;padding:12px 21px;font-size:12px}
+#page-como-fazemos .text-link{font-size:12px}
+#page-como-fazemos .process-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+#page-como-fazemos .process-hero-heading{display:grid;grid-template-columns:1.3fr 1fr;align-items:end;gap:clamp(30px,5vw,70px);padding:12px 0 42px}
+#page-como-fazemos .process-hero-heading>div>p:not(.eyebrow){font-size:15px;margin:0;max-width:470px}
+#page-como-fazemos .process-hero figure{margin:0;position:relative;overflow:hidden;border-radius:12px;border:1px solid #ffffff20;background:#142119}
+#page-como-fazemos .process-hero figure img{display:block;width:100%;height:auto;aspect-ratio:2.15;object-fit:cover;object-position:center 55%}
+#page-como-fazemos .process-hero figcaption{position:absolute;inset:auto 0 0;padding:35px 24px 18px;background:linear-gradient(transparent,#03110dcf);font-size:8px;letter-spacing:.13em;color:#f4eddd}
+#page-como-fazemos .process-principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid #ffffff25;gap:25px;padding:28px 0}
+#page-como-fazemos .process-principles p{font:400 23px/1.4 Georgia,serif;color:#e6e8db;margin:0}
+#page-como-fazemos .process-principles span{display:block;font:400 9px/1.6 Arial,sans-serif;letter-spacing:.16em;color:var(--cyan);margin-bottom:12px}
+#page-como-fazemos .process-journey{display:grid;grid-template-columns:.85fr 1.5fr;gap:clamp(40px,8vw,110px);align-items:start;padding:70px 0}
+#page-como-fazemos .process-journey-intro{position:sticky;top:120px}
+#page-como-fazemos .process-journey-intro p:not(.eyebrow){max-width:350px}
+#page-como-fazemos #processJourneyTitle{scroll-margin-top:120px}
+#page-como-fazemos .process-steps{list-style:none;margin:0;padding:0}
+#page-como-fazemos .process-steps li{display:grid;grid-template-columns:52px 1fr;gap:22px;position:relative;padding:0 0 44px}
+#page-como-fazemos .process-steps li:not(:last-child):before{content:'';position:absolute;left:23px;top:50px;bottom:5px;width:1px;background:#c5d7c52a}
+#page-como-fazemos .process-steps li:last-child{padding-bottom:0}
+#page-como-fazemos .process-number{display:grid;place-items:center;width:48px;height:48px;border:1px solid #64e6f54a;border-radius:50%;color:var(--cyan);font-size:12px;letter-spacing:.1em;background:#0c211a}
+#page-como-fazemos .process-steps .eyebrow{margin-top:0;margin-bottom:10px}
+#page-como-fazemos .process-steps p:not(.eyebrow){font-size:13px;margin:0 0 12px}
+#page-como-fazemos .process-steps .process-step-note{font-size:11px!important;color:#c8d3bb;padding-left:15px;border-left:2px solid #cdb78355}
+#page-como-fazemos .process-tools{border-top:1px solid #ffffff22;padding:60px 0}
+#page-como-fazemos .process-section-head{max-width:730px;margin-bottom:32px}
+#page-como-fazemos .process-tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+#page-como-fazemos .process-tool-grid article{border:1px solid #ffffff22;border-radius:10px;background:#0d1b15;padding:30px;display:flex;flex-direction:column;align-items:start}
+#page-como-fazemos .process-tool-tag{font-size:9px;letter-spacing:.12em;color:var(--cyan);margin-bottom:25px}
+#page-como-fazemos .process-tool-grid h3{font-size:29px}
+#page-como-fazemos .process-tool-grid p{font-size:13px;margin:0 0 20px}
+#page-como-fazemos .process-tool-grid .text-link{margin-top:auto}
+#page-como-fazemos .process-development-note{max-width:900px;font-size:11px;margin-top:22px}
+#page-como-fazemos .process-materials{padding:60px 0;border-top:1px solid #ffffff22}
+#page-como-fazemos .process-material-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+#page-como-fazemos .process-material-controls button{background:transparent;border:1px solid #ffffff30;color:var(--ink);min-height:44px;border-radius:99px;padding:10px 20px;font-size:12px}
+#page-como-fazemos .process-material-controls button[aria-pressed=true]{background:#e8c58e;color:#07100d;border-color:#e8c58e}
+#page-como-fazemos .process-material-controls button:hover{border-color:#e8c58e}
+#page-como-fazemos .process-material-panels{border:1px solid #ffffff22;border-radius:12px;overflow:hidden;background:#0d1c16}
+#page-como-fazemos .process-material-panels>section{display:grid;grid-template-columns:1.15fr 1fr;align-items:center}
+#page-como-fazemos .process-material-panels>section>div{padding:40px}
+#page-como-fazemos .process-material-panels>section>div>p:not(.eyebrow){font-size:13px}
+#page-como-fazemos .process-material-panels figure{margin:0;align-self:stretch;position:relative;min-height:350px;background:#071510}
+#page-como-fazemos .process-material-panels figure img{display:block;width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+#page-como-fazemos .process-material-panels figcaption{position:absolute;inset:auto 0 0;padding:35px 18px 15px;background:linear-gradient(transparent,#03100de0);font-size:8px;letter-spacing:.13em;color:#f5ecdf}
+#page-como-fazemos .process-feedback{display:grid;grid-template-columns:1fr 1fr;gap:70px;padding:55px 0;border-top:1px solid #ffffff22;border-bottom:1px solid #ffffff22}
+#page-como-fazemos .process-feedback>div>p:first-child{margin-top:0}
+#page-como-fazemos .process-faq{display:grid;grid-template-columns:1fr 1.15fr;gap:70px;padding:55px 0}
+#page-como-fazemos .process-faq details{border-bottom:1px solid #ffffff22;padding-bottom:16px;margin-bottom:16px}
+#page-como-fazemos .process-faq summary{font-size:14px;line-height:1.65;min-height:44px;padding:8px 0;cursor:pointer}
+#page-como-fazemos .process-faq details p{font-size:13px}
+#page-como-fazemos .process-final{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:38px;border:1px solid #64e6f533;border-radius:12px;background:radial-gradient(ellipse at 0 100%,#1d3c2422,transparent),#10231a}
+#page-como-fazemos .process-final h2{margin-bottom:14px}
+#page-como-fazemos .process-final p:last-child{margin:0}
+#page-como-fazemos .process-final>a{flex-shrink:0}
+@media(max-width:1000px){#page-como-fazemos .process-hero-heading{grid-template-columns:1.15fr 1fr;gap:30px}#page-como-fazemos .process-principles p{font-size:21px}#page-como-fazemos .process-material-panels>section>div{padding:30px}#page-como-fazemos .process-journey{gap:40px}#page-como-fazemos .process-feedback,#page-como-fazemos .process-faq{gap:40px}}
+@media(max-width:700px){#page-como-fazemos h1{font-size:clamp(39px,9.7vw,60px)}#page-como-fazemos .process-hero-heading{grid-template-columns:1fr;gap:24px;padding-bottom:28px}#page-como-fazemos .process-hero-heading>div>p:not(.eyebrow){font-size:14px}#page-como-fazemos .process-actions{margin-top:24px}#page-como-fazemos .process-actions>.btn{flex:1 1 160px}#page-como-fazemos .process-hero figure img{aspect-ratio:1.12;object-position:55% center}#page-como-fazemos .process-hero figcaption{font-size:7px;line-height:1.7;padding-inline:17px}#page-como-fazemos .process-principles{grid-template-columns:1fr;gap:20px;padding:26px 0}#page-como-fazemos .process-principles p{font-size:24px}#page-como-fazemos .process-principles span{margin-bottom:5px}#page-como-fazemos .process-journey{grid-template-columns:1fr;gap:30px;padding:40px 0}#page-como-fazemos .process-journey-intro{position:static}#page-como-fazemos .process-journey-intro p:not(.eyebrow){max-width:none}#page-como-fazemos .process-steps li{grid-template-columns:38px 1fr;gap:15px;padding-bottom:32px}#page-como-fazemos .process-number{width:36px;height:36px;font-size:10px}#page-como-fazemos .process-steps li:not(:last-child):before{left:17px;top:42px}#page-como-fazemos .process-steps h3{font-size:26px}#page-como-fazemos .process-tool-grid{grid-template-columns:1fr;gap:16px}#page-como-fazemos .process-tool-grid article{padding:25px}#page-como-fazemos .process-tool-tag{margin-bottom:20px}#page-como-fazemos .process-tools,#page-como-fazemos .process-materials{padding:40px 0}#page-como-fazemos .process-material-panels>section{grid-template-columns:1fr}#page-como-fazemos .process-material-panels>section>div{padding:25px}#page-como-fazemos .process-material-panels figure{min-height:260px}#page-como-fazemos .process-material-controls button{padding:10px 15px}#page-como-fazemos .process-feedback,#page-como-fazemos .process-faq{grid-template-columns:1fr;gap:25px;padding:40px 0}#page-como-fazemos .process-final{align-items:stretch;flex-direction:column;padding:26px;gap:24px}}
