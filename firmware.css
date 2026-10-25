@@ -1,0 +1,52 @@
+/* Firmware product presentation; intentionally scoped to this page. */
+#page-firmware h1{font:400 clamp(45px,5.8vw,76px)/1.06 Georgia,serif;letter-spacing:-.035em;margin:24px 0}
+#page-firmware h2{font:400 clamp(30px,3.5vw,46px)/1.16 Georgia,serif;letter-spacing:-.025em;margin:0 0 22px}
+#page-firmware h3{font:400 27px/1.2 Georgia,serif;margin:22px 0 16px}
+#page-firmware p{font-size:14px;line-height:1.85;color:var(--muted)}
+#page-firmware .fw-hero{display:grid;grid-template-columns:1fr 1.1fr;align-items:center;gap:clamp(35px,5vw,70px);padding:12px 0 64px}
+#page-firmware .fw-hero-copy>p:last-of-type{max-width:450px;font-size:15px}
+#page-firmware .fw-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+#page-firmware .btn{min-height:48px;padding:12px 21px;font-size:12px}
+#page-firmware .fw-visual{position:relative;isolation:isolate;margin:0;min-width:0;aspect-ratio:1;overflow:hidden;border:1px solid #64e6f52b;border-radius:14px;background:#06171b;display:grid;place-items:center}
+#page-firmware .fw-visual>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;object-position:78% center;opacity:.7}
+#page-firmware .fw-visual:after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent,#04100e80);z-index:-1}
+#page-firmware .fw-chip{width:65%;aspect-ratio:1.2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:linear-gradient(145deg,#152a2fea,#030e13f5);border:1px solid #8eeaf56b;outline:1px solid #8eeaf529;outline-offset:14px;border-radius:10px;box-shadow:0 20px 60px #000a,0 0 50px #14b2d41c;transform:perspective(1000px) rotateY(-10deg) rotateX(8deg)}
+#page-firmware .fw-chip>span{font-size:10px;letter-spacing:.23em;color:#bad1cc}
+#page-firmware .fw-chip strong{font:400 clamp(30px,3.5vw,48px)/1.1 Georgia,serif;color:#eff7ed}
+#page-firmware .fw-chip small{font-size:8px;letter-spacing:.17em;color:var(--cyan)}
+#page-firmware .fw-visual figcaption{position:absolute;bottom:20px;left:20px;font-size:8px;letter-spacing:.14em;color:#afc9c7}
+#page-firmware .fw-intro{display:grid;grid-template-columns:1fr 1fr;gap:65px;padding:60px 0;border-top:1px solid #ffffff20;border-bottom:1px solid #ffffff20}
+#page-firmware .fw-intro h2{margin-bottom:0}
+#page-firmware .fw-intro>div>p:first-child{margin-top:0}
+#page-firmware .fw-flow,#page-firmware .fw-systems{padding:60px 0;border-bottom:1px solid #ffffff20}
+#page-firmware .fw-section-head{max-width:670px;margin-bottom:35px}
+#page-firmware .fw-flow ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+#page-firmware .fw-flow li{border:1px solid #ffffff22;border-radius:10px;padding:28px;background:#0c1914;display:flex;flex-direction:column;align-items:start}
+#page-firmware .fw-flow li.fw-flow-control{border-color:#64e6f566;background:linear-gradient(150deg,#103030,#0b1916)}
+#page-firmware .fw-number{font-size:10px;letter-spacing:.14em;color:var(--cyan)}
+#page-firmware .fw-flow li p{font-size:13px;margin:0 0 22px}
+#page-firmware .fw-flow .text-link{margin-top:auto;font-size:12px}
+#page-firmware .fw-flow-label{font-size:9px;letter-spacing:.1em;color:#a6ceca;margin-top:auto;min-height:44px;display:flex;align-items:center}
+#page-firmware .fw-system-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 50px}
+#page-firmware .fw-system-grid article{padding:28px 0;border-top:1px solid #ffffff22}
+#page-firmware .fw-system-grid article>span{display:inline-block;color:var(--cyan);font-size:12px;letter-spacing:.12em;min-height:24px}
+#page-firmware .fw-system-grid h3{margin-top:12px}
+#page-firmware .fw-system-grid p{font-size:13px;max-width:460px;margin-bottom:0}
+#page-firmware .fw-progress{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;padding:60px 0}
+#page-firmware .fw-progress>div>p:last-child{max-width:450px}
+#page-firmware .fw-progress dl{margin:0}
+#page-firmware .fw-progress dl>div{padding:22px 0;border-top:1px solid #ffffff22}
+#page-firmware .fw-progress dt{font-size:15px;color:#e9e9dd;margin-bottom:10px}
+#page-firmware .fw-progress dt span{display:inline-block;margin-right:18px;color:var(--cyan);font-size:10px}
+#page-firmware .fw-progress dd{font-size:13px;line-height:1.85;color:var(--muted);margin:0 0 0 34px}
+#page-firmware .fw-faq{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;padding:60px 0;border-top:1px solid #ffffff22}
+#page-firmware .fw-faq details{border-bottom:1px solid #ffffff22;padding-bottom:16px;margin-bottom:16px}
+#page-firmware .fw-faq summary{min-height:44px;line-height:1.6;cursor:pointer;padding:8px 0;font-size:14px}
+#page-firmware .fw-faq details p{font-size:13px}
+#page-firmware .fw-final{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:38px;border:1px solid #64e6f533;border-radius:12px;background:radial-gradient(ellipse at 100% 100%,#0f3630,transparent 85%),#0c1a14}
+#page-firmware .fw-final h2{margin-bottom:14px}
+#page-firmware .fw-final p:last-child{margin:0}
+#page-firmware .fw-final .fw-actions{margin:0;flex-shrink:0}
+@media(max-width:950px){#page-firmware .fw-hero{gap:30px}#page-firmware .fw-flow li{padding:22px}#page-firmware .fw-progress,#page-firmware .fw-faq{gap:40px}#page-firmware .fw-final{align-items:start;flex-direction:column}}
+@media(max-width:700px){#page-firmware .fw-hero{grid-template-columns:1fr;padding:10px 0 40px;gap:35px}#page-firmware h1{font-size:clamp(43px,10vw,65px)}#page-firmware .fw-visual{aspect-ratio:1.3}#page-firmware .fw-chip{width:58%;gap:14px}#page-firmware .fw-chip strong{font-size:36px}#page-firmware .fw-visual figcaption{font-size:7px}#page-firmware .fw-intro,#page-firmware .fw-progress,#page-firmware .fw-faq{grid-template-columns:1fr;gap:25px;padding:40px 0}#page-firmware .fw-flow,#page-firmware .fw-systems{padding:40px 0}#page-firmware .fw-flow ol{grid-template-columns:1fr;gap:14px}#page-firmware .fw-flow li{padding:25px}#page-firmware .fw-flow li h3{margin-top:16px}#page-firmware .fw-system-grid{gap:0 25px}#page-firmware .fw-system-grid h3{font-size:24px}#page-firmware .fw-final{padding:26px}#page-firmware .fw-final .fw-actions{width:100%}#page-firmware .fw-final .btn{flex:1;text-align:center}}
+@media(max-width:420px){#page-firmware .fw-system-grid{grid-template-columns:1fr}#page-firmware .fw-actions>.btn{flex:1 1 180px}#page-firmware .fw-chip{gap:12px}#page-firmware .fw-chip small{font-size:7px}}
