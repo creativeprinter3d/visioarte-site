@@ -70,8 +70,28 @@
 }
 
 @media (max-width: 700px) {
-  #page-inicio .hero-video { object-position: 25% center; }
-  #page-inicio #furnitureVideo { object-position: 70% center; }
+  /* A cena horizontal cabe inteira no celular, acima da leitura. */
+  #page-inicio .hero { --mobile-media-height: min(62vw, 330px); }
+  #page-inicio .bg,
+  #page-inicio .hero-video {
+    inset: 72px 0 auto;
+    width: 100%;
+    height: var(--mobile-media-height);
+    transform: none;
+    filter: brightness(.95) saturate(.95);
+  }
+  #page-inicio .bg {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  #page-inicio .hero-video,
+  #page-inicio #furnitureVideo { object-fit: contain; object-position: center; }
+  #page-inicio .shade {
+    background: linear-gradient(180deg, transparent calc(72px + var(--mobile-media-height) - 24px), #0a1210 calc(72px + var(--mobile-media-height) + 12px));
+  }
+  #page-inicio .med,
+  #page-inicio .center { top: 55%; }
   #page-inicio .video-toggle { right: 16px; padding-inline: 10px; font-size: 11px; }
   #page-inicio .hero {
     height: max(100svh, 844px);
