@@ -88,7 +88,8 @@
   #page-inicio .hero-video,
   #page-inicio #furnitureVideo { object-fit: contain; object-position: center; }
   #page-inicio .shade {
-    background: linear-gradient(180deg, transparent calc(72px + var(--mobile-media-height) - 24px), #0a1210 calc(72px + var(--mobile-media-height) + 12px));
+    inset: calc(72px + var(--mobile-media-height) - 1px) 0 0;
+    background: #071813 url("assets/interface/fundo-mobile-pecas.jpg") center / 100% 100% no-repeat;
   }
   #page-inicio .med,
   #page-inicio .center { top: 55%; }
