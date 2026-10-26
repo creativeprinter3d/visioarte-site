@@ -47,3 +47,30 @@
 #page-maquinas .machines-final>a{flex-shrink:0}
 @media(max-width:950px){#page-maquinas .machines-nav button{padding:22px 18px}#page-maquinas .machines-technology{padding:30px;gap:30px}}
 @media(max-width:700px){#page-maquinas .machines-hero{grid-template-columns:1fr;gap:25px;padding-bottom:30px}#page-maquinas h1{font-size:clamp(38px,9.5vw,58px)}#page-maquinas .machines-development{padding-left:22px}#page-maquinas .machines-actions>.btn{flex:1 1 170px}#page-maquinas .machines-nav{grid-template-columns:1fr}#page-maquinas .machines-nav button{padding:20px 24px;border-right:0;border-bottom:1px solid #ffffff22}#page-maquinas .machines-nav button:last-child{border-bottom:0}#page-maquinas .machines-nav button>span:first-child{margin-bottom:8px}#page-maquinas .machines-nav strong{font-size:28px}#page-maquinas .machines-equipment{grid-template-columns:1fr;gap:25px;padding:38px 0;scroll-margin-top:95px}#page-maquinas .machines-equipment-reverse>div{order:0}#page-maquinas .machines-pending{min-height:250px;padding:25px}#page-maquinas .machines-technology{grid-template-columns:1fr;padding:25px;gap:20px}#page-maquinas .machines-faq{grid-template-columns:1fr;gap:20px;padding:40px 0}#page-maquinas .machines-final{align-items:stretch;flex-direction:column;padding:25px;gap:20px}}
+
+/* Balance the opening title and columns across screen sizes. */
+#page-maquinas .machines-hero{grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:clamp(32px,4vw,56px);align-items:start;padding:4px 0 40px}
+#page-maquinas h1{font-size:clamp(38px,3.6vw,50px);line-height:1.14;letter-spacing:-.025em;margin-bottom:22px;text-wrap:initial}
+#page-maquinas .machines-title-line{display:block;white-space:nowrap}
+#page-maquinas .machines-hero>div>p:not(.eyebrow){max-width:540px;font-size:15px;line-height:1.8}
+#page-maquinas .machines-development{padding:6px 0 6px 28px;margin-top:4px}
+#page-maquinas .machines-development strong{font-size:25px}
+#page-maquinas .machines-development>div{padding-top:15px;padding-bottom:15px}
+#page-maquinas .machines-actions{margin-top:24px}
+#page-maquinas .machines-hero .eyebrow{max-width:100%;font-size:9px!important;letter-spacing:.13em}
+@media(max-width:1000px) and (min-width:701px){
+ #page-maquinas .machines-hero{grid-template-columns:1fr;gap:30px}
+ #page-maquinas h1{font-size:44px}
+ #page-maquinas .machines-development{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-left:0;border-top:1px solid #64e6f533;padding:24px 0 0;margin:0}
+ #page-maquinas .machines-development>.eyebrow{grid-column:1/-1;margin:0}
+ #page-maquinas .machines-development>div{border-top:0;padding:0}
+ #page-maquinas .machines-development>div>span{position:static;display:block;margin-bottom:10px}
+}
+@media(max-width:700px){
+ #page-maquinas .machines-hero{grid-template-columns:1fr;gap:26px;padding-bottom:30px}
+ #page-maquinas h1{font-size:clamp(28px,7.8vw,38px);line-height:1.17;margin-bottom:20px}
+ #page-maquinas .machines-hero>div>p:not(.eyebrow){font-size:14px;line-height:1.8}
+ #page-maquinas .machines-development{padding-left:20px;margin-top:0}
+ #page-maquinas .machines-actions{margin-top:21px}
+ #page-maquinas .machines-hero .eyebrow{font-size:8px!important;letter-spacing:.11em;line-height:1.65!important}
+}
