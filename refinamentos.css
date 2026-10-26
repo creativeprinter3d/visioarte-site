@@ -50,6 +50,7 @@
 }
 
 #page-inicio .has-video .hero-video.is-current { opacity: 1; }
+#page-inicio .next-bg { display: none; }
 
 #page-inicio .video-toggle {
   position: absolute;
@@ -89,7 +90,24 @@
   #page-inicio #furnitureVideo { object-fit: contain; object-position: center; }
   #page-inicio .shade {
     inset: calc(72px + var(--mobile-media-height) - 1px) 0 0;
-    background: #071813 url("assets/interface/fundo-mobile-pecas.jpg") center / 100% 100% no-repeat;
+    background: #071813;
+    overflow: hidden;
+  }
+  #page-inicio .next-bg {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity .8s ease;
+  }
+  #page-inicio .next-bg.on { opacity: 1; }
+  #page-inicio .shade::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(7,24,19,.15), rgba(7,24,19,.9) 28%, rgba(7,24,19,.9) 72%, rgba(7,24,19,.15));
   }
   #page-inicio .med,
   #page-inicio .center { top: 55%; }
@@ -150,4 +168,8 @@
     color: #d6ded7;
     font-size: 9px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #page-inicio .next-bg { transition: none; }
 }

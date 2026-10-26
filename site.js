@@ -214,6 +214,9 @@
   let drag=false,startX=0,startY=0,startPos=0,dragDistance=0,hovered=false,heroVisible=true,radiusX=0,radiusY=0;
   function pauseAuto(){lastInteraction=lastAuto=performance.now();}
   const backgrounds=universes.map(()=>{const d=document.createElement('div');d.className='bg';$('bgs').append(d);return d;});
+  // A composição inferior antecipa a próxima área na ordem do carrossel.
+  const nextBackgrounds=universes.map(c=>{const d=document.createElement('div');d.className='next-bg';d.dataset.universe=c.slug;d.setAttribute('aria-hidden','true');hero.querySelector('.shade').append(d);return d;});
+  function syncNextBackground(focus){const next=wrap(focus+1);nextBackgrounds.forEach((b,i)=>b.classList.toggle('on',i===next));}
   const heroVideos=[{video:$('heroVideo'),index:0},{video:$('furnitureVideo'),index:1}].filter(entry=>entry.video);
   const videoToggle=$('videoToggle');
   const videoEnabled=heroVideos.length>0&&new URLSearchParams(location.search).get('fundo')!=='imagem';
@@ -255,7 +258,7 @@
   const backgroundTokens=[];
   function loadBackground(i){
     const url=sized(source(homeSlots[i][0]),mobile.matches?1200:2400);if(backgroundTokens[i]===url)return;backgroundTokens[i]=url;
-    const image=new Image();image.onload=()=>{if(backgroundTokens[i]===url)backgrounds[i].style.backgroundImage='url("'+image.src+'")';};image.src=url;
+    const image=new Image();image.onload=()=>{if(backgroundTokens[i]===url){const background='url("'+image.src+'")';backgrounds[i].style.backgroundImage=background;nextBackgrounds[i].style.backgroundImage=background;}};image.src=url;
   }
   const contour='<svg class="med-contour" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><ellipse cx="120" cy="120" rx="114" ry="88" transform="rotate(-28 120 120)" stroke-width="2.3"/><ellipse cx="120" cy="120" rx="111" ry="93" transform="rotate(39 120 120)" stroke-width="1.1" opacity=".65"/><circle cx="120" cy="120" r="96" stroke-width=".8" opacity=".24"/></svg>';
   const meds=universes.map((c,i)=>{
@@ -281,7 +284,7 @@
     if(!drag&&!motion.matches&&!document.querySelector('dialog[open]')&&activePage==='inicio'&&!hero.contains(document.activeElement)&&!hovered&&!document.hidden&&heroVisible&&toggle.getAttribute('aria-expanded')!=='true'&&now-lastInteraction>6000&&now-lastAuto>4800){target=Math.round(target)+1;lastAuto=now;}
     pos=motion.matches?target:pos+(target-pos)*.075;if(Math.abs(target-pos)<.001)pos=target;
     const focus=wrap(Math.round(pos));
-    if(focus!==current){current=focus;const c=universes[focus];$('title').textContent=c.name;$('heroKicker').textContent=c.kicker;$('heroPhrase').textContent=c.phrase;$('exploreLabel').textContent=c.members.length===1?'Conhecer materiais':'Ver categorias';$('explore').href='#'+c.destination;meds.forEach((b,i)=>{if(i===focus)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});backgrounds.forEach((b,i)=>b.classList.toggle('on',i===focus));loadBackground(focus);loadBackground(wrap(focus+1));loadBackground(wrap(focus-1));syncHeroVideo();}
+    if(focus!==current){current=focus;const c=universes[focus];$('title').textContent=c.name;$('heroKicker').textContent=c.kicker;$('heroPhrase').textContent=c.phrase;$('exploreLabel').textContent=c.members.length===1?'Conhecer materiais':'Ver categorias';$('explore').href='#'+c.destination;meds.forEach((b,i)=>{if(i===focus)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});backgrounds.forEach((b,i)=>b.classList.toggle('on',i===focus));syncNextBackground(focus);loadBackground(focus);loadBackground(wrap(focus+1));loadBackground(wrap(focus-1));syncHeroVideo();}
     meds.forEach((m,i)=>{const off=shortest(i-pos),a=-Math.PI/2+off*Math.PI*2/universes.length,x=Math.cos(a)*radiusX,y=Math.sin(a)*radiusY,top=Math.max(0,1-Math.abs(off)),scale=.82+.28*top;m.style.transform=`translate(-50%,-50%) translate(${x}px,${y}px) scale(${scale})`;m.style.zIndex=String(100+Math.round(top*100-y*.01));});requestAnimationFrame(frame);
   }
 
