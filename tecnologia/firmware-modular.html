@@ -1,0 +1,329 @@
+<!doctype html>
+<!-- Maquete visual: fonte em script#firmware-data. Cores no :root; regras em assessment(); não compila nem grava firmware. -->
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Uma arquitetura de firmware que se adapta às máquinas da Visioarte."><title>Firmware Modular · Visioarte</title><style>@font-face{font-family:Plex;src:url('ativos/ibm-plex-sans-latin-wght-normal.woff2') format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:PlexMono;src:url('ativos/ibm-plex-mono-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:swap}@font-face{font-family:PlexMono;src:url('ativos/ibm-plex-mono-latin-700-normal.woff2') format('woff2');font-weight:700;font-display:swap}
+:root{--fundo:#080a0f;--painel:#0d0f18;--moldura:#2a3a52;--lavagem:#1e2c50;--marca:#4fb0ea;--acento:#5da8ca;--rotulo:#8fb8d8;--texto:#e8eaf0;--ok:#5dcaa5;--atencao:#e8a030;--erro:#ca5d5d;--muted:#a5afc0;--line:rgba(143,184,216,.18);font-family:Plex,system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--texto);color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 2%,rgba(30,44,80,.65),transparent 55%),var(--fundo);min-height:100vh}body:before{content:"";position:absolute;inset:0 0 auto auto;width:64%;height:710px;background:linear-gradient(90deg,var(--fundo),transparent 60%),linear-gradient(0deg,var(--fundo),rgba(8,10,15,.78)),url('ativos/floresta-visioarte.jpg') center/cover;pointer-events:none;opacity:.46;z-index:-1}button,input,select{font:inherit}button,a,input,select{outline-offset:5px}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--marca)}button,a{ -webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.5}a{color:inherit;text-decoration:none}p{margin:0}button{color:var(--texto)}.shell{max-width:1392px;padding:0 48px;margin:auto}.header{height:94px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:24px}.brand{font-size:27px;font-weight:600;letter-spacing:-1.2px;display:flex;align-items:center;gap:13px}.brand small{font-size:9px;line-height:1.5;letter-spacing:.14em;text-transform:uppercase;color:var(--rotulo);border-left:1px solid var(--moldura);padding-left:14px;font-weight:500}.nav{display:flex;gap:27px;align-items:center;font-size:12px;color:var(--muted)}.nav a{padding:13px 0}.nav a[aria-current=page]{color:var(--marca);border-bottom:1px solid var(--marca)}.eyebrow{font-size:10px;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--rotulo);display:flex;gap:10px;align-items:center}.eyebrow:before{content:"";height:5px;width:5px;background:var(--marca);box-shadow:0 0 14px #4fb0ea77}.hero{padding:48px 0 33px;display:flex;align-items:flex-end;justify-content:space-between;gap:30px}h1{font-size:clamp(36px,4.2vw,58px);line-height:1.06;letter-spacing:-.045em;font-weight:600;margin:17px 0 19px}h1 span{color:var(--marca)}.lead{font-size:15px;color:#b3c0d1;line-height:1.7;max-width:640px}.hero-aside{text-align:right;min-width:210px;padding-bottom:6px}.hero-aside .label{font-size:10px;letter-spacing:.14em;color:var(--rotulo)}.hero-aside .big{font:400 28px PlexMono,monospace;color:var(--texto);margin-top:8px}.hero-aside .sub{font-size:11px;line-height:1.6;color:var(--muted);margin-top:6px}.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);padding:6px 10px;font-size:10px;letter-spacing:.06em;color:var(--rotulo);border-radius:3px;white-space:nowrap}.chip.ok{color:var(--ok);border-color:#5dcaa540;background:#5dcaa509}.chip.warn{color:var(--atencao);border-color:#e8a03048;background:#e8a03009}.dot{width:5px;height:5px;display:inline-block;background:currentColor;border-radius:50%}.panel{background:rgba(13,15,24,.64);border:1px solid var(--moldura);position:relative;clip-path:polygon(11px 0,100% 0,100% calc(100% - 11px),calc(100% - 11px) 100%,0 100%,0 11px)}.panel:after{content:"";position:absolute;top:0;right:0;width:26px;height:1px;background:var(--marca);pointer-events:none}.section-head{display:flex;align-items:center;justify-content:space-between;gap:18px}.section-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--rotulo)}.section-sub{font-size:11px;color:var(--muted);margin-top:6px}.small{font-size:11px;color:var(--muted);line-height:1.6}.mono{font-family:PlexMono,monospace}.btn{border:1px solid var(--moldura);background:rgba(30,44,80,.24);padding:9px 14px;border-radius:3px;font-size:11px;font-weight:500;transition:border-color .2s,background .2s}.btn:hover{background:rgba(79,176,234,.1);border-color:var(--marca)}.btn.primary{color:#080a0f;background:var(--marca);border-color:var(--marca);font-weight:600}.btn.primary:hover{background:#80c9f3}.btn.quiet{background:none;color:var(--rotulo)}.tag{color:var(--rotulo);font-size:10px;letter-spacing:.12em}.divider{height:1px;background:var(--line)}.products{display:flex;align-items:center;gap:26px}.products img{width:96px;height:96px;object-fit:cover;border-radius:50%;mask-image:radial-gradient(circle,#000 66%,transparent 72%)}.product{display:flex;align-items:center;gap:14px}.product strong{font-size:15px;font-weight:500}.product p{font-size:11px;color:var(--muted);margin-top:4px}.footer{margin:33px 0 22px;border-top:1px solid var(--line);padding-top:24px;display:flex;align-items:center;justify-content:space-between;gap:24px}.footer-copy strong{display:block;font-size:16px;font-weight:500;margin:7px 0}.footer-copy p{font-size:11px;color:var(--muted);line-height:1.65}.fine{font-size:10px;color:var(--muted);line-height:1.65}.foot-end{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:16px 0 24px;gap:12px;font-size:10px;color:var(--rotulo)}[hidden]{display:none!important}
+@media(max-width:1000px){.shell{padding:0 28px}.hero-aside{min-width:160px}.products{gap:8px}.product{gap:8px}.product p{display:none}.product strong{font-size:12px}.products img{width:96px;height:96px}}
+@media(max-width:640px){.shell{padding:0 20px}.header{height:auto;min-height:108px;align-items:flex-start;flex-direction:column;gap:8px;padding:20px 0 4px}.brand{font-size:24px}.brand small{font-size:8px}.nav{gap:24px;width:100%;font-size:11px}.nav a{padding:8px 0 12px}.hero{padding:30px 0 24px;display:block}.hero-aside{display:none}h1{font-size:37px;line-height:1.08}.lead{font-size:13px;line-height:1.65}.eyebrow{font-size:9px;letter-spacing:.1em}.section-head{align-items:flex-start}.footer{align-items:flex-start;flex-direction:column;gap:16px;margin-top:25px}.products{width:100%;justify-content:space-between}.product{gap:5px}.products img{width:96px;height:96px}.foot-end{font-size:9px;flex-wrap:wrap}.btn{padding:10px 12px}.panel{clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:640px){.btn{min-height:40px}.module-control{min-height:32px}.quantity button{min-height:40px}}@media(max-width:380px){.products{display:grid;grid-template-columns:1fr 1fr;gap:14px}.product{flex-direction:column;align-items:center}.product strong{font-size:12px}.pipeline-labels{flex-wrap:wrap}.score-value.money{font-size:16px}}
+
+.products .product{min-width:0}.products .slicer-product{flex:0 1 176px}.products picture{display:block;max-width:100%}.products .slicer-logo{width:176px;height:auto;max-width:100%;object-fit:contain;border-radius:0;mask-image:radial-gradient(ellipse at center,#000 72%,transparent 99%)}.slicer-mobile-label{display:none!important}@media(max-width:640px){.products .slicer-logo{width:96px;height:96px;border-radius:50%;mask-image:radial-gradient(circle,#000 66%,transparent 72%)}.products .slicer-product{flex:0 1 auto}.slicer-mobile-label{display:block!important;font-size:12px;font-weight:500}.products picture{flex:0 0 96px}}
+
+/* Selos com o mesmo diâmetro; os arquivos mantêm sua proporção natural. */
+.footer .products{--seal-size:160px;display:flex;gap:26px;align-items:flex-start;justify-content:flex-end}
+.footer .products .product{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;flex:0 0 var(--seal-size);width:var(--seal-size);min-width:0;text-align:center}
+.footer .products .seal-frame{width:var(--seal-size);height:var(--seal-size);flex:none;display:grid;place-items:center;overflow:hidden;position:relative;border:1px solid #24b9c7;border-radius:50%;background:#06110f;box-shadow:0 0 0 3px #24b9c709}
+.footer .products .slicer-frame{background:#242b30}
+.footer .products .seal-frame img{display:block;width:100%;height:100%;max-width:100%;object-fit:contain;object-position:center;border-radius:0;mask-image:none}
+.footer .products figcaption{min-height:33px;max-width:100%}
+.footer .products figcaption p{display:block;font-size:11px;line-height:1.5;margin:0;color:var(--muted)}
+@media(max-width:640px){.footer .products{--seal-size:140px;width:100%;justify-content:space-evenly;gap:18px}.footer .products figcaption p{font-size:10px}}
+@media(max-width:380px){.footer .products{--seal-size:124px;display:flex;gap:16px;justify-content:space-between}.footer .products figcaption p{font-size:9px}}
+
+.hero h1{max-width:800px}.builder{padding:24px}.builder-top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:20px;border-bottom:1px solid var(--line)}.builder-title h2{font-size:17px;letter-spacing:-.02em;font-weight:500;margin:0 0 5px}.builder-grid{display:grid;grid-template-columns:235px minmax(0,1fr);gap:27px;padding-top:24px}.controls{border-right:1px solid var(--line);padding-right:24px}.field-label{display:block;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--rotulo);margin-bottom:10px}.machine-list{display:flex;flex-direction:column;gap:7px}.machine-choice{text-align:left;border:1px solid var(--line);border-radius:4px;background:#080a0f55;padding:12px 13px;transition:border-color .2s,background .2s}.machine-choice strong{display:block;font-size:13px;font-weight:500}.machine-choice small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.machine-choice[aria-pressed=true]{border-color:var(--marca);background:#4fb0ea0b;box-shadow:inset 3px 0 var(--marca)}.field{margin-top:22px}.field select{width:100%;padding:11px 9px;background:#101725;border:1px solid var(--moldura);font-size:11px;border-radius:3px;color:var(--texto)}.quantity{display:flex;border:1px solid var(--moldura);border-radius:3px;align-items:center;justify-content:space-between}.quantity button{border:0;background:#1e2c5022;font-size:18px;width:35px;height:37px;color:var(--rotulo)}.quantity output{font:400 17px PlexMono}.field .small{font-size:10px;margin-top:7px}.module-control{display:flex;align-items:center;justify-content:space-between;margin:12px 0;gap:8px;font-size:12px;cursor:pointer;position:relative}.module-control input{position:absolute;right:0;opacity:0;width:34px;height:24px;cursor:pointer}.switch{width:30px;height:17px;border:1px solid var(--moldura);border-radius:20px;background:#111826;display:block;position:relative;transition:background .2s}.switch:after{content:"";position:absolute;width:9px;height:9px;left:3px;top:3px;border-radius:50%;background:#8b9bb0;transition:transform .2s,background .2s}.module-control input:checked+.switch{background:#4fb0ea26;border-color:#4fb0ea88}.module-control input:checked+.switch:after{transform:translateX(12px);background:var(--marca)}.module-control input:focus-visible+.switch{outline:2px solid var(--marca);outline-offset:4px}.visual{min-width:0}.visual-head{display:flex;align-items:center;justify-content:space-between;gap:13px}.visual h3{font-size:21px;letter-spacing:-.03em;font-weight:500;margin:8px 0 3px}.visual-sub{font-size:11px;line-height:1.7;color:var(--muted)}.status-banner{font-size:11px;color:var(--atencao);line-height:1.55;padding:10px 13px;border:1px solid #e8a03044;border-radius:3px;background:#e8a03007;margin-top:14px}.status-banner.production{color:var(--ok);border-color:#5dcaa540;background:#5dcaa508}.status-banner.blocked{color:#e8a0a0;border-color:#ca5d5d66;background:#ca5d5d0a}.diagram{position:relative;min-height:357px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:65px;align-items:center;padding:28px 15px 20px;isolation:isolate;background-image:linear-gradient(#4fb0ea04 1px,transparent 1px),linear-gradient(90deg,#4fb0ea04 1px,transparent 1px);background-size:24px 24px;margin-top:14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:-1;pointer-events:none}.wire{fill:none;stroke:#4fb0ea72;stroke-width:1.2;stroke-dasharray:5 7;animation:flow 1.5s linear infinite;filter:drop-shadow(0 0 3px #4fb0ea33)}.wire.off{stroke:#2a3a52;animation:none;stroke-dasharray:2 4;filter:none}.board{background:linear-gradient(140deg,#112435f7,#0c1524f7);border:1px solid #4fb0ea55;padding:19px 16px 14px;border-radius:5px;box-shadow:0 0 48px #4fb0ea0b;position:relative}.board-brand{font-size:9px;color:var(--rotulo);letter-spacing:.16em}.board-name{font-size:17px;font-weight:500;line-height:1.25;margin:11px 0 3px;letter-spacing:-.025em}.board-sub{font-size:9px;color:var(--muted)}.board-core{padding:11px 12px;border:1px solid #4fb0ea33;background:#080a0f44;margin:16px 0 12px;display:flex;align-items:center;justify-content:space-between}.board-core strong{font:400 24px PlexMono;color:var(--marca)}.board-core span{font-size:9px;line-height:1.4;color:var(--rotulo)}.ports{display:grid;grid-template-columns:1fr 1fr;gap:6px}.port{display:flex;align-items:center;justify-content:space-between;padding:6px 7px;font:400 8px PlexMono;border:1px solid var(--line);border-radius:2px;color:#8c9fb6;background:#0b111e}.port.active{border-color:#4fb0ea60;color:var(--marca);background:#4fb0ea09}.port em{width:4px;height:4px;display:block;background:var(--moldura);border-radius:50%}.port.active em{background:var(--marca);box-shadow:0 0 7px #4fb0ea77}.board-foot{font-size:8px;color:var(--rotulo);margin-top:11px;line-height:1.55}.motors{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;min-width:0}.motor{border:1px solid #2a3a52;background:#0d1522ed;padding:12px 11px;border-radius:4px;display:flex;gap:11px;align-items:center;position:relative;min-width:0;animation:join .3s ease-out both}.motor:nth-child(2){animation-delay:.03s}.motor:nth-child(3){animation-delay:.06s}.motor:nth-child(4){animation-delay:.09s}.motor:nth-child(5){animation-delay:.12s}.motor:nth-child(6){animation-delay:.15s}.motor-letter{width:33px;min-width:33px;height:35px;display:grid;place-items:center;border:1px solid #4fb0ea40;color:var(--marca);font:400 18px PlexMono;background:#4fb0ea09;border-radius:3px}.motor strong{font-size:10px;line-height:1.35;font-weight:500;display:block}.motor small{font-size:9px;color:var(--rotulo);display:block;margin-top:4px;line-height:1.4}.motor.pending{border-style:dashed;opacity:.65}.motor.off .motor-letter{color:var(--muted);border-color:var(--moldura);background:none}.motor.off small{color:var(--atencao)}.assembly-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:10px}.assembly-bottom .small{font-size:10px}.pieces{display:flex;gap:7px;flex-wrap:wrap;margin-top:19px}.piece{padding:9px 12px;border:1px solid #4fb0ea42;color:var(--rotulo);font-size:10px;border-radius:3px;background:#4fb0ea07;transition:opacity .2s,border-color .2s}.piece.disabled{opacity:.4;border-style:dashed;background:none;text-decoration:line-through}.flow-note{padding:18px 0 0;display:flex;gap:15px;align-items:flex-start}.protocol{border:1px solid #4fb0ea44;color:var(--marca);font:400 13px PlexMono;padding:9px 11px;border-radius:3px}.flow-note h4{font-size:13px;font-weight:500;margin:0 0 5px}.flow-note p{font-size:11px;color:var(--muted);line-height:1.65}.proofs{display:grid;grid-template-columns:repeat(3,1fr);margin-top:24px;border-bottom:1px solid var(--line);padding-bottom:24px}.proof-item:not(:first-child){border-left:1px solid var(--line);padding-left:28px}.proof-item strong{display:block;font:400 30px PlexMono;color:var(--texto);letter-spacing:-1px}.proof-item span{display:block;font-size:12px;margin-top:8px;color:var(--rotulo)}.proof-item p{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.65;max-width:280px}.bench-note{margin-top:18px;display:flex;justify-content:space-between;gap:20px;font-size:11px;line-height:1.7;color:var(--muted)}.bench-note strong{color:var(--atencao);font-weight:500}.bench-note .limit{color:var(--rotulo);white-space:nowrap}.dialog{background:#0d1421;color:var(--texto);border:1px solid var(--moldura);border-radius:5px;width:min(530px,calc(100% - 36px));padding:26px;max-height:85vh}.dialog::backdrop{background:#080a0fd9}.dialog h2{font-size:23px;font-weight:500;margin:12px 0}.dialog p{font-size:12px;color:var(--muted);line-height:1.7;margin:10px 0}.dialog dl{font-size:12px;border-top:1px solid var(--line);margin-top:20px}.dialog dt{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--rotulo);margin-top:14px}.dialog dd{margin:6px 0 12px;line-height:1.6}.dialog-actions{display:flex;gap:9px;margin-top:21px;flex-wrap:wrap}.download-note{font-size:10px!important}@keyframes flow{to{stroke-dashoffset:-24}}@keyframes join{from{transform:translateY(7px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(max-width:1100px){.builder-grid{grid-template-columns:205px minmax(0,1fr);gap:20px}.controls{padding-right:18px}.diagram{grid-template-columns:170px minmax(0,1fr);gap:28px;padding-left:0;padding-right:0}.board{padding:15px 12px}.motors{gap:12px}.motor{display:block;padding:10px}.motor-letter{float:left;margin-right:9px;width:28px;min-width:28px;font-size:16px}.motor small{font-size:8px}.board-name{font-size:15px}}
+@media(max-width:800px){.builder-grid{grid-template-columns:1fr}.controls{border:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:20px}.controls>.machine-section{grid-column:1/3}.machine-list{display:grid;grid-template-columns:repeat(3,1fr)}.machine-choice{padding:12px}.machine-choice small{font-size:9px;line-height:1.4}.controls .field{margin:0}.controls .modules-field{grid-column:1/3;display:flex;flex-wrap:wrap;gap:8px 24px}.modules-field .field-label{width:100%;margin:0}.module-control{gap:18px;margin:2px 0}.visual{border-top:1px solid var(--line);padding-top:20px}.diagram{grid-template-columns:200px minmax(0,1fr);gap:55px}.motor{display:flex}.motor-letter{float:none;margin:0}.proof-item strong{font-size:25px}}
+@media(max-width:640px){.builder{padding:18px 15px}.builder-top{align-items:flex-start}.builder-top .chip{font-size:8px;padding:6px}.builder-title h2{font-size:15px}.builder-title .small{font-size:10px}.controls{gap:20px 13px}.machine-list{gap:6px}.machine-choice{padding:11px 8px}.machine-choice strong{font-size:11px}.machine-choice small{font-size:9px}.field-label{font-size:8px}.field select{font-size:10px;padding:11px 6px}.controls .modules-field{gap:10px 18px}.module-control{font-size:11px;gap:8px}.visual-head{gap:8px;align-items:flex-start}.visual h3{font-size:21px}.visual-head .btn{font-size:10px;padding:8px}.visual-sub{font-size:10px}.status-banner{font-size:10px;padding:10px}.diagram{grid-template-columns:125px minmax(0,1fr);gap:24px;padding:22px 0;min-height:365px}.board{padding:13px 9px}.board-brand{font-size:8px}.board-name{font-size:14px}.board-sub{font-size:8px}.board-core{padding:9px 7px}.board-core strong{font-size:21px}.board-core span{font-size:8px}.ports{grid-template-columns:1fr;gap:4px}.port{font-size:8px;padding:4px 6px}.board-foot{font-size:7px}.motors{grid-template-columns:1fr;gap:8px}.motor{padding:8px 7px;gap:8px}.motor-letter{width:24px;min-width:24px;height:27px;font-size:14px}.motor strong{font-size:9px}.motor small{font-size:8px;margin-top:3px}.assembly-bottom{align-items:flex-start}.assembly-bottom .small{font-size:9px}.pieces{gap:6px;margin-top:16px}.piece{font-size:9px;padding:7px 8px}.flow-note{gap:10px}.flow-note h4{font-size:12px}.flow-note p{font-size:10px}.protocol{font-size:11px;padding:8px}.proofs{grid-template-columns:1fr;gap:17px;padding-bottom:20px}.proof-item{display:grid;grid-template-columns:115px 1fr;align-items:center;gap:0 10px}.proof-item:not(:first-child){border:0;padding:0}.proof-item strong{font-size:25px;grid-row:1/3}.proof-item span{font-size:11px;margin:0}.proof-item p{font-size:9px;margin-top:4px}.bench-note{font-size:10px;display:block}.bench-note .limit{margin-top:10px;display:block}.hero .lead{max-width:355px}.proofs .proof-item strong.bit{font-size:22px}}</style></head><body id="top"><div class="shell"><header class="header"><a class="brand" href="../#areas/tecnologia" aria-label="Visioarte, voltar para Tecnologia">Visioarte<small>VISÃO · ARTE<br>TECNOLOGIA</small></a><nav class="nav" aria-label="Tecnologias Visioarte"><a href="sala-dos-agentes.html">Sala dos Agentes</a><a href="firmware-modular.html" aria-current="page">Firmware Modular</a></nav></header>
+<main><section class="hero"><div><div class="eyebrow">A tecnologia que usamos · 02</div><h1>Uma base.<br>Feita para <span>a sua máquina.</span></h1><p class="lead">A placa, os movimentos e os recursos mudam. A base continua a mesma. Nosso firmware se adapta ao projeto para dar vida ao que o software desenhou.</p></div><aside class="hero-aside"><div class="label">CAPACIDADE DA ARQUITETURA</div><div class="big">Até 8 eixos</div><p class="sub">Cada placa recebe uma versão própria.<br>Só entra o que a máquina precisa.</p></aside></section>
+<section class="panel builder" aria-label="Configurador visual do firmware"><div class="builder-top"><div class="builder-title"><h2>Escolha. Veja a configuração ganhar forma.</h2><p class="small">Uma demonstração da arquitetura modular da Visioarte.</p></div><span class="chip"><i class="dot"></i> PRÉVIA INTERATIVA</span></div>
+<div class="builder-grid"><aside class="controls" aria-label="Escolhas da máquina"><div class="machine-section"><span class="field-label">01 · Qual máquina?</span><div class="machine-list" role="group" aria-label="Escolher máquina"><button type="button" class="machine-choice" data-machine="scara" aria-pressed="false"><strong>SCARA</strong><small>Juntas em graus · 4 eixos</small></button><button type="button" class="machine-choice" data-machine="cartesiana" aria-pressed="false"><strong>Cartesiana</strong><small>Movimentos em mm · 4 eixos</small></button><button type="button" class="machine-choice" data-machine="visio_orbital" aria-pressed="true"><strong>Visio Orbital</strong><small>Mesa giratória · 6 eixos</small></button></div></div>
+<div class="field"><label class="field-label" for="board-select">02 · Escolha a placa</label><select id="board-select"><option value="placa_4_canais">Placa de 4 canais</option><option value="placa_8_canais" selected>Placa de 8 canais</option></select><p class="small" id="board-help">8 canais de motor disponíveis.</p></div>
+<div class="field"><label class="field-label" for="axis-count">03 · Quantos eixos?</label><div class="quantity"><button type="button" id="axis-minus" aria-label="Diminuir quantidade de eixos">−</button><output id="axis-count" aria-live="polite">6</output><button type="button" id="axis-plus" aria-label="Aumentar quantidade de eixos">+</button></div><p class="small" id="axis-help">5 movimentos + o extrusor.</p></div>
+<div class="field modules-field"><span class="field-label">04 · Só o que você precisa</span><label class="module-control">Bico<input type="checkbox" id="module-hotend" checked><span class="switch" aria-hidden="true"></span></label><label class="module-control">Mesa aquecida<input type="checkbox" id="module-heated_bed" checked><span class="switch" aria-hidden="true"></span></label><label class="module-control">Ventoinha<input type="checkbox" id="module-fan" checked><span class="switch" aria-hidden="true"></span></label></div></aside>
+<div class="visual"><div class="visual-head"><div><span class="tag">A CONFIGURAÇÃO GANHA FORMA</span><h3 id="machine-title">Visio Orbital</h3><p class="visual-sub" id="machine-desc">Raio, altura, mesa e duas inclinações. Mais o extrusor.</p></div><button type="button" class="btn quiet" id="summary-open">Ver resumo</button></div>
+<div id="validation" class="status-banner" role="status">Em validação de bancada · conexões propostas, ainda a conferir na máquina.</div>
+<div class="diagram" id="diagram"><svg class="wires" id="wires" aria-hidden="true"></svg><div class="board" id="board"><div class="board-brand">PLACA SELECIONADA</div><div class="board-name" id="board-name">Placa de 8 canais</div><p class="board-sub" id="board-sub">32 bits · drivers externos</p><div class="board-core"><strong id="board-channels">8</strong><span>CANAIS<br>DE MOTOR</span></div><div class="ports" id="ports"></div><p class="board-foot" id="board-foot">Conexões ilustrativas, sem indicar a fiação real.</p></div><div class="motors" id="motors" aria-label="Eixos e conexões"></div></div>
+<div class="assembly-bottom"><span class="small" id="assembly-count">6 eixos · 3 módulos · 2 canais livres</span><button type="button" class="btn quiet" id="recommended" hidden>Usar perfil sugerido</button><span class="small" id="channels-note">Diagrama da seleção</span></div>
+<div class="pieces" aria-label="Módulos na configuração"><span class="piece">Base de movimento</span><span class="piece" data-piece="hotend">Bico</span><span class="piece" data-piece="heated_bed">Mesa aquecida</span><span class="piece" data-piece="fan">Ventoinha</span></div>
+<div class="flow-note"><span class="protocol" id="protocol">G93</span><div><h4 id="motion-title">Um movimento contínuo, trecho após trecho.</h4><p id="motion-desc">O software decide o tempo de cada trecho. O firmware executa e pode alongá-lo para respeitar os limites da máquina.</p></div></div></div></div></section>
+<section class="proofs" aria-label="Provas da arquitetura"><div class="proof-item"><strong>357.092</strong><span>verificações do movimento</span><p>Junção entre trechos em testes de software, sem parar a cada segmento.</p></div><div class="proof-item"><strong>8</strong><span>compilações conferidas</span><p>Ambientes originais, versões SCARA e configuração Orbital.</p></div><div class="proof-item"><strong class="bit">Bit a bit</strong><span>mesmo movimento preservado</span><p>Mesmos passos nos testes da fila; comportamento conferido com o SCARA real.</p></div></section>
+<div class="bench-note"><p><strong>Novas configurações em validação de bancada.</strong> Os testes em software e as compilações já foram feitos. A prova física da Orbital ainda está por vir. O SCARA já imprime peças de verdade com a versão anterior do firmware.</p><span class="limit">Capacidade máxima: 8 eixos.</span></div></main>
+<footer class="footer"><div class="footer-copy"><span class="tag">DO SOFTWARE À PEÇA</span><strong>O caminho nasce na Visioarte.</strong><p>Uma arquitetura própria conecta nossas ferramentas<br>às máquinas que transformam ideias em objetos.</p></div><div class="products" aria-label="Produtos da Visioarte">
+<figure class="product product-seal"><span class="seal-frame tekna-frame"><img class="tekna-logo" src="ativos/logo-visio-tekna.webp" alt="Visio Tekna — selo oficial" width="160" height="160"></span><figcaption><p>Da ideia ao caminho.</p></figcaption></figure>
+<figure class="product product-seal slicer-product"><span class="seal-frame slicer-frame"><img class="slicer-logo" src="ativos/logo-visio-slicer-v-camadas.webp" alt="Visio Slicer — V em camadas" width="160" height="160"></span><figcaption><p>O próximo passo da criação.</p></figcaption></figure>
+</div></footer><div class="foot-end"><span>Visioarte · Visão · Arte · Tecnologia</span><span>Perfis reais. Visualização interativa da arquitetura.</span></div></div>
+<dialog class="dialog" id="summary-dialog" aria-labelledby="summary-title"><span class="tag">SUA ESCOLHA, EM POUCAS PALAVRAS</span><h2 id="summary-title">Visio Orbital</h2><p id="summary-status"></p><dl><dt>Placa</dt><dd id="summary-board"></dd><dt>Eixos</dt><dd id="summary-axes"></dd><dt>Módulos presentes</dt><dd id="summary-modules"></dd></dl><p class="download-note">Esta é uma maquete. Salvar a seleção exporta apenas um resumo; não gera nem grava firmware.</p><div class="dialog-actions"><button class="btn primary" type="button" id="download">Salvar seleção</button><button class="btn" type="button" id="summary-close">Voltar à configuração</button></div></dialog><script type="application/json" id="firmware-data">{
+  "placas": {
+    "placa_4_canais": {
+      "nome": "Placa de 4 canais",
+      "arquitetura": "32 bits",
+      "canais": 4,
+      "driver": null,
+      "slots": [
+        "Canal 1",
+        "Canal 2",
+        "Canal 3",
+        "Canal 4"
+      ]
+    },
+    "placa_8_canais": {
+      "nome": "Placa de 8 canais",
+      "arquitetura": "32 bits",
+      "canais": 8,
+      "driver": "externos",
+      "slots": [
+        "Canal 1",
+        "Canal 2",
+        "Canal 3",
+        "Canal 4",
+        "Canal 5",
+        "Canal 6",
+        "Canal 7",
+        "Canal 8"
+      ]
+    }
+  },
+  "maquinas": {
+    "scara": {
+      "nome": "SCARA",
+      "placa": "placa_4_canais",
+      "modulos": [
+        "hotend",
+        "heated_bed",
+        "fan"
+      ],
+      "eixos": [
+        {
+          "name": "X",
+          "letter": "X",
+          "type": "angular",
+          "unit": "degree",
+          "role": "motion",
+          "channel": "Canal 1"
+        },
+        {
+          "name": "Y",
+          "letter": "Y",
+          "type": "angular",
+          "unit": "degree",
+          "role": "motion",
+          "channel": "Canal 2"
+        },
+        {
+          "name": "Z",
+          "letter": "Z",
+          "type": "linear",
+          "unit": "mm",
+          "role": "motion",
+          "channel": "Canal 3"
+        },
+        {
+          "name": "E",
+          "letter": "E",
+          "type": "linear",
+          "unit": "mm",
+          "role": "extrusion",
+          "channel": "Canal 4"
+        }
+      ]
+    },
+    "cartesiana": {
+      "nome": "Cartesiana",
+      "placa": "placa_4_canais",
+      "modulos": [
+        "hotend",
+        "heated_bed",
+        "fan"
+      ],
+      "eixos": [
+        {
+          "name": "X",
+          "letter": "X",
+          "type": "linear",
+          "unit": "mm",
+          "role": "motion",
+          "channel": "Canal 1"
+        },
+        {
+          "name": "Y",
+          "letter": "Y",
+          "type": "linear",
+          "unit": "mm",
+          "role": "motion",
+          "channel": "Canal 2"
+        },
+        {
+          "name": "Z",
+          "letter": "Z",
+          "type": "linear",
+          "unit": "mm",
+          "role": "motion",
+          "channel": "Canal 3"
+        },
+        {
+          "name": "E",
+          "letter": "E",
+          "type": "linear",
+          "unit": "mm",
+          "role": "extrusion",
+          "channel": "Canal 4"
+        }
+      ]
+    },
+    "visio_orbital": {
+      "nome": "Visio Orbital",
+      "placa": "placa_8_canais",
+      "modulos": [
+        "hotend",
+        "heated_bed",
+        "fan"
+      ],
+      "eixos": [
+        {
+          "name": "Y",
+          "letter": "Y",
+          "type": "linear",
+          "unit": "mm",
+          "role": "motion",
+          "channel": "Canal 1"
+        },
+        {
+          "name": "Z",
+          "letter": "Z",
+          "type": "linear",
+          "unit": "mm",
+          "role": "motion",
+          "channel": "Canal 2"
+        },
+        {
+          "name": "B",
+          "letter": "B",
+          "type": "angular",
+          "unit": "degree",
+          "role": "motion",
+          "channel": "Canal 3"
+        },
+        {
+          "name": "A",
+          "letter": "A",
+          "type": "angular",
+          "unit": "degree",
+          "role": "motion",
+          "channel": "Canal 4"
+        },
+        {
+          "name": "C",
+          "letter": "C",
+          "type": "angular",
+          "unit": "degree",
+          "role": "motion",
+          "channel": "Canal 5"
+        },
+        {
+          "name": "E",
+          "letter": "E",
+          "type": "linear",
+          "unit": "mm",
+          "role": "extrusion",
+          "channel": "Canal 6"
+        }
+      ]
+    }
+  },
+  "provas": {
+    "juncao": 357092,
+    "compilacoes": 8,
+    "legado": "Bit a bit",
+    "limiteEixos": 8
+  },
+  "nota": "Canais lógicos ilustrativos. Não representam a placa nem a fiação usadas pela empresa."
+}</script><script>'use strict';
+var DATA=JSON.parse(document.getElementById('firmware-data').textContent);
+var choice={machine:'visio_orbital',board:'placa_8_canais',count:6,modules:{hotend:true,heated_bed:true,fan:true}};
+var names={hotend:'Bico',heated_bed:'Mesa aquecida',fan:'Ventoinha'};
+function el(id){return document.getElementById(id);}
+function text(id,v){el(id).textContent=v;}
+function machine(){return DATA.maquinas[choice.machine];}
+function board(){return DATA.placas[choice.board];}
+function moduleList(){return Object.keys(names).filter(function(k){return choice.modules[k];});}
+function compatible(){return choice.machine==='visio_orbital'?choice.board==='placa_8_canais':choice.board!=='placa_8_canais';}
+function assessment(){
+ if(choice.count>board().canais)return{kind:'blocked',message:choice.count+' eixos para '+board().canais+' canais: esta placa não tem conexões suficientes. Escolha outra placa.',ready:false};
+ if(!compatible())return{kind:'blocked',message:'Esta combinação de placa e máquina ainda não tem perfil conferido. Use a placa sugerida para ver a configuração disponível.',ready:false};
+ if(choice.count!==machine().eixos.length)return{kind:'preview',message:'Prévia personalizada: '+machine().nome+' usa '+machine().eixos.length+' eixos no perfil atual. Eixos a mais ou a menos exigem um novo perfil conferido.',ready:false};
+ if(choice.machine==='visio_orbital')return{kind:'bench',message:'Em validação de bancada · conexões propostas, ainda a conferir na máquina.',ready:true};
+ if(choice.machine==='scara'&&!machine().modulos.every(function(k){return choice.modules[k];}))return{kind:'bench',message:'Configuração modular do SCARA em validação de bancada. A impressão de peças de verdade usa a versão anterior do firmware.',ready:true};
+ if(choice.machine==='scara')return{kind:'bench',message:'O SCARA já imprime peças de verdade com a versão anterior do firmware. O modular está em validação de bancada.',ready:true};
+ return{kind:'bench',message:'Base cartesiana preservada · mesma sequência de passos nos testes do caminho legado.',ready:true};
+}
+function titleOf(a){
+ if(a.role==='extrusion')return 'Extrusor';
+ if(choice.machine==='scara'&&a.type==='angular')return a.letter==='X'?'Junta 1':'Junta 2';
+ if(choice.machine==='visio_orbital')return{Y:'Raio',Z:'Altura',B:'Mesa giratória',A:'Inclinação',C:'Direção do bico'}[a.letter]||'Movimento';
+ return 'Movimento '+a.letter;
+}
+function selectedAxes(){
+ var list=machine().eixos.slice(0,choice.count).map(function(a){return Object.assign({},a);});
+ while(list.length<choice.count)list.push({letter:'?',name:'Eixo adicional '+(list.length+1),role:'pending',unit:null,channel:null});
+ return list;
+}
+function drawWires(){
+ var host=el('diagram'),box=host.getBoundingClientRect(),svg=el('wires');svg.setAttribute('viewBox','0 0 '+box.width+' '+box.height);svg.replaceChildren();
+ document.querySelectorAll('.motor[data-channel]').forEach(function(m){
+  var slot=Array.from(document.querySelectorAll('.port')).find(function(p){return p.dataset.channel===m.dataset.channel;});if(!slot||!compatible())return;
+  var a=slot.getBoundingClientRect(),b=m.getBoundingClientRect(),x1=a.right-box.left,y1=a.top+a.height/2-box.top,x2=b.left-box.left,y2=b.top+b.height/2-box.top,mid=x1+(x2-x1)*.48;
+  var path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d','M'+x1+','+y1+' C'+mid+','+y1+' '+mid+','+y2+' '+x2+','+y2);path.setAttribute('class','wire'+(m.classList.contains('off')?' off':''));svg.appendChild(path);
+ });
+}
+function render(){
+ var m=machine(),b=board(),axes=selectedAxes(),a=assessment(),can=compatible();
+ document.querySelectorAll('[data-machine]').forEach(function(n){n.setAttribute('aria-pressed',String(n.dataset.machine===choice.machine));});
+ el('board-select').value=choice.board;el('axis-count').value=choice.count;text('axis-count',choice.count);el('axis-minus').disabled=choice.count<=1;el('axis-plus').disabled=choice.count>=8;
+ text('machine-title',m.nome);text('machine-desc',choice.machine==='visio_orbital'?'Raio, altura, mesa e duas inclinações. Mais o extrusor.':choice.machine==='scara'?'Duas juntas em graus, altura e extrusão em milímetros.':'Três movimentos em milímetros. Mais o extrusor.');
+ text('board-help',b.canais+' canais de motor · 32 bits.');text('axis-help',choice.count===m.eixos.length?(choice.count-1)+' movimentos + o extrusor.':'Quantidade personalizada; perfil completo a conferir.');
+ text('board-name',b.nome);text('board-channels',b.canais);text('board-sub',b.driver==='externos'?'32 bits · drivers externos':'Arquitetura de 32 bits');
+ text('board-foot','Conexões lógicas ilustrativas da configuração.');
+ var banner=el('validation');banner.className='status-banner'+(a.kind==='production'?' production':a.kind==='blocked'?' blocked':'');banner.textContent=a.message;
+ el('recommended').hidden=a.ready;el('channels-note').hidden=!a.ready;
+ var ports=el('ports');ports.replaceChildren();
+ b.slots.forEach(function(channel){
+  var active=can&&axes.some(function(x){return x.channel===channel;});
+  var p=document.createElement('div');p.className='port'+(active?' active':'');p.dataset.channel=channel;
+  var s=document.createElement('span');s.textContent=channel;var dot=document.createElement('em');dot.setAttribute('aria-hidden','true');p.append(s,dot);ports.append(p);
+ });
+ var motors=el('motors');motors.replaceChildren();
+ axes.forEach(function(x){
+  var connected=can&&x.channel&&b.slots.includes(x.channel),off=x.role==='extrusion'&&!choice.modules.hotend;
+  var n=document.createElement('div');n.className='motor'+(!connected?' pending':'')+(off?' off':'');
+  if(connected)n.dataset.channel=x.channel;
+  var letter=document.createElement('span');letter.className='motor-letter';letter.textContent=x.letter;
+  var body=document.createElement('div'),name=document.createElement('strong'),info=document.createElement('small');
+  name.textContent=x.role==='pending'?x.name:titleOf(x);
+  info.textContent=x.role==='pending'?'Tipo e canal a definir':off?'Extrusão bloqueada':(x.unit==='degree'?'graus':'mm')+' · '+(connected?x.channel:'sem canal conferido');
+  body.append(name,info);n.append(letter,body);motors.append(n);
+ });
+ var connected=can?axes.filter(function(x){return x.channel&&b.slots.includes(x.channel);}).length:0;
+ text('assembly-count',choice.count+' eixos · '+moduleList().length+' módulos · '+(b.canais-connected)+' canais livres');
+ document.querySelectorAll('[data-piece]').forEach(function(n){n.classList.toggle('disabled',!choice.modules[n.dataset.piece]);n.setAttribute('aria-label',names[n.dataset.piece]+(choice.modules[n.dataset.piece]?' presente':' ausente'));});
+ Object.keys(names).forEach(function(k){el('module-'+k).checked=choice.modules[k];});
+ text('protocol',choice.machine==='visio_orbital'?'G93':'BASE');
+ text('motion-title',choice.machine==='visio_orbital'?'Um movimento contínuo, trecho após trecho.':'O que já funciona continua funcionando.');
+ var desc=choice.machine==='visio_orbital'?'O software decide o tempo de cada trecho. O firmware executa e pode alongá-lo para respeitar os limites da máquina.':'O software prepara a trajetória. O caminho atual da máquina é preservado, com a mesma execução de passos nos testes.';
+ if(!choice.modules.hotend)desc+=' Sem bico, comandos de extrusão e de temperatura do bico são recusados.';
+ else if(!choice.modules.heated_bed)desc+=' A mesa aquecida fica fora da configuração; o bico continua independente.';
+ text('motion-desc',desc);
+ requestAnimationFrame(drawWires);
+}
+function chooseMachine(id){
+ if(!Object.hasOwn(DATA.maquinas,id))return;
+ choice.machine=id;choice.board=machine().placa;choice.count=machine().eixos.length;render();
+}
+document.querySelectorAll('[data-machine]').forEach(function(n){n.onclick=function(){chooseMachine(n.dataset.machine);};});
+el('board-select').onchange=function(){if(Object.hasOwn(DATA.placas,this.value)){choice.board=this.value;render();}};
+el('axis-minus').onclick=function(){choice.count=Math.max(1,choice.count-1);render();};
+el('axis-plus').onclick=function(){choice.count=Math.min(8,choice.count+1);render();};
+Object.keys(names).forEach(function(k){el('module-'+k).onchange=function(){choice.modules[k]=this.checked;render();};});
+el('recommended').onclick=function(){choice.board=machine().placa;choice.count=machine().eixos.length;render();};
+function selection(){
+ return{tipo:'maquete-visioarte',maquina:machine().nome,placa:board().nome,eixosSolicitados:choice.count,eixos:selectedAxes().map(function(a){return{nome:a.name,letra:a.letter,unidade:a.unit,funcao:a.role,canal:compatible()?a.channel:null};}),modulos:moduleList().map(function(k){return names[k];}),situacao:assessment().message,aviso:'Prévia visual. Não é arquivo de compilação ou firmware.'};
+}
+el('summary-open').onclick=function(){var s=selection();text('summary-title',s.maquina);text('summary-status',s.situacao);text('summary-board',s.placa);text('summary-axes',s.eixos.map(function(a){return a.letra==='?'?a.nome+' (a definir)':a.letra+' ('+(a.unidade==='degree'?'graus':'mm')+')';}).join(' · '));text('summary-modules',s.modulos.join(' · ')||'Nenhum módulo adicional.');el('summary-dialog').showModal();};
+el('summary-close').onclick=function(){el('summary-dialog').close();};
+el('download').onclick=function(){var blob=new Blob([JSON.stringify(selection(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='selecao-visual-visioarte.json';a.click();setTimeout(function(){URL.revokeObjectURL(url);},1000);};
+window.addEventListener('resize',drawWires);document.fonts.ready.then(drawWires);
+document.querySelectorAll('.proof-item strong')[0].textContent=DATA.provas.juncao.toLocaleString('pt-BR');
+document.querySelectorAll('.proof-item strong')[1].textContent=DATA.provas.compilacoes;
+document.querySelectorAll('.proof-item strong')[2].textContent=DATA.provas.legado;
+window.MaqueteFirmware={estado:function(){return JSON.parse(JSON.stringify({escolha:choice,validacao:assessment(),selecao:selection()}));}};
+render();</script></body></html>
