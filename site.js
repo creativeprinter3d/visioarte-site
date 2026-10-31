@@ -217,7 +217,7 @@
   // A composição inferior antecipa a próxima área na ordem do carrossel.
   const nextBackgrounds=universes.map(c=>{const d=document.createElement('div');d.className='next-bg';d.dataset.universe=c.slug;d.setAttribute('aria-hidden','true');hero.querySelector('.shade').append(d);return d;});
   function syncNextBackground(focus){const next=wrap(focus+1);nextBackgrounds.forEach((b,i)=>b.classList.toggle('on',i===next));}
-  const heroVideos=[{video:$('heroVideo'),index:0},{video:$('furnitureVideo'),index:1}].filter(entry=>entry.video);
+  const heroVideos=[{video:$('heroVideo'),index:0},{video:$('furnitureVideo'),index:1},{video:$('architectureVideo'),index:2}].filter(entry=>entry.video);
   const videoToggle=$('videoToggle');
   const videoEnabled=heroVideos.length>0&&new URLSearchParams(location.search).get('fundo')!=='imagem';
   const videoPaused=new WeakMap();
