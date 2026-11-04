@@ -1,0 +1,70 @@
+/* VISIOARTE | Experiências conceituais, ativação opcional por ?experiencias=on
+   Não altera o design aprovado fora dos três módulos. */
+html.exp-visio-ativo {
+  --exp-borda:rgba(154,216,220,.24);
+  --exp-texto:#dae7e7;
+  --exp-ciano:#85dde2;
+}
+.exp-luz,.exp-etapas{width:100%;min-width:0;margin:clamp(28px,5vw,66px) auto;padding:clamp(20px,3.5vw,46px);
+  color:var(--exp-texto);border:1px solid var(--exp-borda);border-radius:clamp(16px,2vw,26px);
+  background:linear-gradient(135deg,rgba(16,38,46,.94),rgba(4,16,24,.96));box-shadow:0 22px 70px rgba(0,0,0,.16)}
+.exp-luz{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.88fr);align-items:center;gap:clamp(22px,4vw,56px)}
+.exp-luz__text h2,.exp-etapas__head h2{font-size:clamp(29px,3.5vw,48px);line-height:1.1;font-weight:550;letter-spacing:-.025em;color:#f2f8f7;margin:10px 0 20px}
+.exp-luz__text>p:not(.eyebrow),.exp-etapas__head>p:not(.eyebrow){max-width:58ch;line-height:1.7;font-size:clamp(15px,1.2vw,18px);color:#c2d1d3}
+.exp-luz__control{margin-top:clamp(18px,3vw,38px);padding:19px;border:1px solid rgba(165,217,219,.2);
+  border-radius:14px;background:rgba(3,18,26,.35)}
+.exp-luz__control label{display:block;margin:0 0 15px;font-size:13px;letter-spacing:.065em;color:#d6ebeb}
+.exp-luz__control input[type=range]{display:block;width:100%;max-width:410px;height:28px;accent-color:var(--exp-ciano);cursor:pointer}
+.exp-luz__actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:15px}
+.exp-luz__actions button{border:1px solid var(--exp-ciano);background:rgba(9,42,51,.6);
+  color:#ecfcfc;border-radius:99px;font:600 14px/1.2 inherit;padding:12px 22px;min-height:44px;cursor:pointer}
+.exp-luz__actions button:hover{background:rgba(85,155,163,.25)}
+.exp-luz__actions output{font:500 16px/1.3 inherit;color:#e4ffff}
+.exp-luz__text small{display:block;margin-top:16px;color:#a4b9bd;font-size:12px;line-height:1.5}
+.exp-luz__media{position:relative;min-width:0;margin:0;height:clamp(340px,45vw,520px);overflow:hidden;border-radius:16px;
+ background:#0a151a;isolation:isolate}
+.exp-luz__media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;
+ filter:brightness(var(--exp-brightness)) saturate(var(--exp-sat));transition:filter .52s ease}
+.exp-luz__media::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
+ background:radial-gradient(ellipse 38% 44% at 51% 47%,rgba(255,181,89,.43),rgba(224,135,53,.13) 44%,transparent 84%);
+ opacity:var(--exp-glow);transition:opacity .55s ease}
+.exp-luz__media figcaption{position:absolute;z-index:1;bottom:14px;left:16px;letter-spacing:.15em;color:#f5f7f5;font-size:11px;
+ text-shadow:0 1px 4px #101719}
+.exp-etapas__head{margin-bottom:clamp(24px,3vw,38px)}
+.exp-etapas__head>p:not(.eyebrow){margin-bottom:0}
+.exp-etapas__layout{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(280px,1fr);gap:clamp(18px,3vw,38px);align-items:start}
+.exp-etapas__visual{position:sticky;top:calc(var(--header-height,78px) + 18px);min-width:0;margin:0;
+ height:clamp(320px,42vw,500px);overflow:hidden;border-radius:16px;background:#10252c}
+.exp-etapas__visual img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.exp-etapas__visual::after{content:"";position:absolute;inset:40% 0 0;
+ background:linear-gradient(0deg,rgba(3,14,20,.82),transparent);pointer-events:none}
+.exp-etapas__visual figcaption{position:absolute;z-index:1;bottom:0;left:0;right:0;padding:30px 25px 24px;
+ display:flex;flex-direction:column;gap:7px}
+.exp-etapas__index{font-size:12px;letter-spacing:.17em;color:#a5e2e2}
+.exp-etapas__caption{font-weight:550;line-height:1.15;font-size:clamp(24px,2.2vw,33px);color:#fff}
+.exp-etapas__list{display:grid;gap:12px}
+.exp-etapas__item{min-height:clamp(120px,13vw,160px)}
+.exp-etapas__button{width:100%;height:100%;display:grid;grid-template-columns:38px minmax(0,1fr);gap:15px;align-items:start;
+ text-align:left;color:#d1e0e1;background:rgba(20,50,59,.21);border:1px solid rgba(160,213,215,.19);
+ border-radius:13px;cursor:pointer;padding:clamp(17px,2vw,23px);
+ font-family:inherit;transition:background .22s ease,border-color .22s ease,box-shadow .22s ease}
+.exp-etapas__button:hover,.exp-etapas__button[aria-pressed=true]{border-color:rgba(122,221,226,.68);
+ background:rgba(35,89,98,.23)}
+.exp-etapas__button[aria-pressed=true]{box-shadow:inset 3px 0 0 var(--exp-ciano)}
+.exp-etapas__number{font-size:13px;color:var(--exp-ciano);font-variant-numeric:tabular-nums}
+.exp-etapas__button strong{display:block;font-size:clamp(16px,1.5vw,21px);font-weight:600;color:#f0f8f7;margin-bottom:8px}
+.exp-etapas__button small{display:block;line-height:1.55;font-size:13px;color:#b9cbcd}
+.exp-visio-ativo :is(.exp-etapas__button,.exp-luz__actions button,.exp-luz__control input):focus-visible{
+ outline:2px solid #a0f6f5;outline-offset:4px}
+@media(max-width:760px){
+ .exp-luz,.exp-etapas{padding:20px;margin:30px auto;border-radius:16px}
+ .exp-luz{grid-template-columns:1fr}
+ .exp-luz__media{height:390px;max-height:62vh}
+ .exp-etapas__layout{grid-template-columns:1fr}
+ .exp-etapas__visual{position:relative;top:auto;height:clamp(230px,57vw,390px)}
+ .exp-etapas__item{min-height:0}
+ .exp-etapas__button{min-height:94px}
+}
+@media(prefers-reduced-motion:reduce){
+ .exp-luz__media img,.exp-luz__media::after,.exp-etapas__button{transition:none!important}
+}
