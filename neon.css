@@ -263,3 +263,20 @@ main h1{font-weight:700!important}main h2,main h3{font-weight:600!important}
   .neo-hero-foto img{object-position:78% center}
   .neo-pag-foto{object-position:78% center}
 }
+
+/* ══ A Máquina que Fizemos ══ */
+#page-a-maquina .area-back{display:none}
+.neo-imagem-breve{display:grid;place-items:center;text-align:center;font-size:18px;color:var(--neo-suave);border-left:1px dashed rgba(25,216,238,.4);background:repeating-linear-gradient(135deg,rgba(25,216,238,.05) 0 14px,transparent 14px 28px)}
+.neo-maq-corpo{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start;margin-bottom:40px}
+.neo-maq-texto p{color:var(--neo-suave);line-height:1.6;font-size:17px;margin:0}
+.neo-ficha{padding:22px 24px;border:1px solid var(--neo-linha);border-radius:18px;background:var(--neo-vidro)}
+.neo-ficha h2{margin:0 0 12px;font-size:20px}
+.neo-ficha dl{margin:0}.neo-ficha dl>div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid rgba(255,255,255,.12);font-size:15px}
+.neo-ficha dt{color:var(--neo-suave)}.neo-ficha dd{margin:0;text-align:right;font-weight:600}
+.neo-ficha dd.neo-pendente{font-weight:400;padding:2px 10px}
+.neo-proc-fotos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;list-style:none;margin:0 0 40px;padding:0}
+.neo-proc-fotos li{display:flex;flex-direction:column;gap:4px;border:1px solid rgba(255,255,255,.2);border-radius:14px;overflow:hidden;background:#06161f;text-align:center}
+.neo-proc-fotos img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.neo-proc-fotos b{padding:8px 8px 0;font-size:17px}.neo-proc-fotos small{padding:0 10px 14px;color:var(--neo-suave)}
+@media(max-width:900px){.neo-maq-corpo{grid-template-columns:1fr}.neo-proc-fotos{grid-template-columns:1fr 1fr}.neo-imagem-breve{min-height:200px;border-left:0;border-top:1px dashed rgba(25,216,238,.4)}}
+@media(max-width:1000px){.neo-pag-foto.neo-imagem-breve{position:relative;inset:auto;width:100%;height:auto;opacity:1}}

@@ -1,8 +1,8 @@
 (() => {
   'use strict';
   const $=id=>document.getElementById(id),all=selector=>[...document.querySelectorAll(selector)];
-  const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos','areas','firmware','visio-tekna','sobre','contato'];
-  const titles=['Início','Coleções','Como fazemos','Materiais','Feito por nós','Software','Projetos + contato','Áreas','Firmware','Visio_Tekna','Sobre','Contato'];
+  const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos','areas','firmware','visio-tekna','sobre','contato','a-maquina'];
+  const titles=['Início','Coleções','Como fazemos','Materiais','Feito por nós','Software','Projetos + contato','Áreas','Firmware','Visio_Tekna','Sobre','Contato','A Máquina que Fizemos'];
   const collections=[
   {
     "name": "Luminárias",
