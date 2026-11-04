@@ -25,7 +25,7 @@
   function addStyles() {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'experiencias-visioarte.css?v=20261104-1';
+    link.href = 'experiencias-visioarte.css?v=20261104-2';
     document.head.appendChild(link);
     document.documentElement.classList.add('exp-visio-ativo');
   }
@@ -73,6 +73,95 @@
     }
     slider.addEventListener('input', () => update(slider.value));
     button.addEventListener('click', () => update(Number(slider.value) ? 0 : (lastLit || 70)));
+    update(70);
+  }
+
+
+  /* V2: camadas da própria fotografia real da Onda.
+     Sem trocar produto, adicionar fonte luminosa fictícia ou simular potência real. */
+  function lampRealista() {
+    const intro = document.querySelector('#lightingPage .light-intro');
+    if (!intro || document.getElementById('exp-luz')) return;
+
+    const section = document.createElement('section');
+    section.className = 'exp-luz exp-luz--v2';
+    section.id = 'exp-luz';
+    section.setAttribute('aria-labelledby', 'exp-luz-title');
+    section.innerHTML =
+      '<div class="exp-luz__text">' +
+       '<p class="eyebrow">LABORATÓRIO DE LUZ · ONDA</p>' +
+       '<h2 id="exp-luz-title">A luz muda o ambiente.</h2>' +
+       '<p>Explore como uma iluminação quente valoriza as curvas e os relevos da luminária. Observe a peça, os reflexos na mesa e a atmosfera ao redor.</p>' +
+       '<div class="exp-luz__control">' +
+        '<label for="exp-luz-range">Intensidade da iluminação</label>' +
+        '<input id="exp-luz-range" type="range" min="0" max="100" step="5" value="70" aria-describedby="exp-luz-note">' +
+        '<div class="exp-luz__presets" role="group" aria-label="Cenas de iluminação">' +
+         '<button type="button" data-luz-preset="25" aria-pressed="false">Suave</button>' +
+         '<button type="button" data-luz-preset="65" aria-pressed="false">Ambiente</button>' +
+         '<button type="button" data-luz-preset="100" aria-pressed="false">Intensa</button>' +
+        '</div>' +
+        '<div class="exp-luz__actions">' +
+         '<button type="button" id="exp-luz-toggle" aria-pressed="true">Apagar luz</button>' +
+         '<output id="exp-luz-output" for="exp-luz-range" aria-live="polite">70%</output>' +
+        '</div>' +
+       '</div>' +
+       '<small id="exp-luz-note">Simulação conceitual: usamos a mesma fotografia em camadas para representar a peça apagada e diferentes níveis de brilho. Não corresponde a medições reais de luminosidade nem à temperatura da fonte de luz.</small>' +
+      '</div>' +
+      '<figure class="exp-luz__media exp-luz__media--v2" data-light-state="on" ' +
+          'style="--exp-level:.70;--exp-shade:.23;--exp-pool:.30;--exp-wall:.15;--exp-contact:.20">' +
+       '<div class="exp-luz__scene">' +
+        '<img class="exp-luz__base" src="assets/luminarias/onda.webp" ' +
+         'alt="Luminária Onda sobre uma mesa, com curvas impressas em 3D e luz quente simulada" ' +
+         'width="720" height="900" loading="lazy" decoding="async">' +
+        '<img class="exp-luz__lit" src="assets/luminarias/onda.webp" alt="" ' +
+         'aria-hidden="true" width="720" height="900" loading="lazy" decoding="async">' +
+        '<span class="exp-luz__shade" aria-hidden="true"></span>' +
+        '<span class="exp-luz__wall" aria-hidden="true"></span>' +
+        '<span class="exp-luz__pool" aria-hidden="true"></span>' +
+        '<span class="exp-luz__contact" aria-hidden="true"></span>' +
+       '</div>' +
+       '<figcaption><span>ONDA · CENA ILUSTRATIVA</span><small id="exp-luz-state">Luz acesa · 70%</small></figcaption>' +
+      '</figure>';
+
+    intro.after(section);
+    const slider = section.querySelector('#exp-luz-range');
+    const button = section.querySelector('#exp-luz-toggle');
+    const output = section.querySelector('#exp-luz-output');
+    const status = section.querySelector('#exp-luz-state');
+    const visual = section.querySelector('.exp-luz__media--v2');
+    const presets = [...section.querySelectorAll('[data-luz-preset]')];
+    let lastLit = 70;
+
+    function update(raw) {
+      const value = Math.max(0, Math.min(100, Number(raw) || 0));
+      const power = value / 100;
+      // Relação perceptual suave: a transição não fica brusca no começo.
+      const glow = Math.pow(power, .86);
+      slider.value = String(value);
+      if (value > 0) lastLit = value;
+
+      // Iluminação da peça, penumbra, luz refletida no tampo e ambiente.
+      visual.style.setProperty('--exp-level', glow.toFixed(3));
+      visual.style.setProperty('--exp-shade', (.64 * (1 - glow)).toFixed(3));
+      visual.style.setProperty('--exp-pool', (.39 * glow).toFixed(3));
+      visual.style.setProperty('--exp-wall', (.20 * glow).toFixed(3));
+      visual.style.setProperty('--exp-contact', (.47 - .26 * glow).toFixed(3));
+      visual.dataset.lightState = value ? 'on' : 'off';
+
+      button.textContent = value ? 'Apagar luz' : 'Acender luz';
+      button.setAttribute('aria-pressed', String(value > 0));
+      slider.setAttribute('aria-valuetext', value ? value + ' por cento de iluminação simulada' : 'Luz apagada');
+      const description = value ? 'Luz acesa · ' + value + '%' : 'Luz apagada';
+      output.textContent = value ? value + '%' : 'Apagada';
+      status.textContent = description;
+      presets.forEach(preset => {
+        preset.setAttribute('aria-pressed', String(Number(preset.dataset.luzPreset) === value));
+      });
+    }
+
+    slider.addEventListener('input', () => update(slider.value));
+    button.addEventListener('click', () => update(Number(slider.value) ? 0 : lastLit));
+    presets.forEach(preset => preset.addEventListener('click', () => update(preset.dataset.luzPreset)));
     update(70);
   }
 
@@ -173,7 +262,8 @@
 
   function boot() {
     addStyles();
-    lamp();
+    if (params.get('luz') === 'anterior') lamp();
+    else lampRealista();
     recycled();
     machineTour();
   }
