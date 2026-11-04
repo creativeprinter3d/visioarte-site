@@ -1,0 +1,58 @@
+/* VISIOARTE — acabamento interativo global 04/11/2026.
+   Carregado apenas quando as animações GSAP estiverem ativas.
+   Nenhum conteúdo nasce oculto; se a CDN falhar, o layout permanece completo. */
+html.animacoes-gsap {
+  --movimento-tempo: 320ms;
+  --movimento-ease: cubic-bezier(.2,.7,.2,1);
+}
+html.animacoes-gsap a:focus-visible,
+html.animacoes-gsap button:focus-visible,
+html.animacoes-gsap summary:focus-visible {
+  outline:2px solid #b4f7e9;
+  outline-offset:4px;
+}
+/* Os elementos visuais somente respondem quando o dispositivo tem hover real. */
+@media (hover:hover) and (pointer:fine) {
+  html.animacoes-gsap .neo-colecoes .area-card,
+  html.animacoes-gsap .area-grid .area-card,
+  html.animacoes-gsap .neo-card {
+    transition:
+      transform var(--movimento-tempo) var(--movimento-ease),
+      border-color var(--movimento-tempo) ease,
+      box-shadow var(--movimento-tempo) ease;
+  }
+  html.animacoes-gsap .neo-colecoes .area-card:hover,
+  html.animacoes-gsap .area-grid .area-card:hover,
+  html.animacoes-gsap .neo-card:hover {
+    border-color:rgba(121,228,231,.68);
+    box-shadow:0 20px 48px rgba(0,0,0,.27),0 0 0 1px rgba(116,223,229,.1);
+  }
+  html.animacoes-gsap .neo-abas a {
+    transition:
+      border-color var(--movimento-tempo) ease,
+      background var(--movimento-tempo) ease,
+      color var(--movimento-tempo) ease;
+  }
+  html.animacoes-gsap .neo-abas a:hover {
+    background:rgba(34,109,118,.18);
+    border-color:rgba(116,223,229,.6);
+  }
+  html.animacoes-gsap :is(.neo-btn,.nav-cta,.btn):not(:disabled):hover {
+    transition-duration:260ms;
+  }
+}
+/* Em dispositivos touch, não aplicar falsas transições de hover. */
+@media (hover:none) {
+  html.animacoes-gsap .neo-card:hover,
+  html.animacoes-gsap .neo-colecoes .area-card:hover {
+    box-shadow:none;
+  }
+}
+/* Prioridade absoluta à acessibilidade. */
+@media (prefers-reduced-motion:reduce) {
+  html.animacoes-gsap .neo-card,
+  html.animacoes-gsap .area-card,
+  html.animacoes-gsap .neo-abas a {
+    transition:none!important;
+  }
+}
