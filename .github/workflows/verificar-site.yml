@@ -1,0 +1,33 @@
+name: Verificar site VISIOARTE
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verificacao-visioarte-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  auditoria-estatica:
+    name: HTML, CSS, JavaScript, rotas e recursos
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: ''
+
+      - name: Rodar verificações (sem instalar pacotes)
+        run: node scripts/verificar-site.mjs
