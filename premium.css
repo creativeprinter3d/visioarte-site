@@ -105,3 +105,36 @@ html.tema-premium .neo-footer p{font:300 12px/1.6 var(--p-sans);color:var(--p-pr
   html.tema-premium .top .brand{font-size:20px;letter-spacing:.24em}
   html.tema-premium .neo-card-txt{padding:26px}
 }
+
+/* Proteção do hero desktop: evita palavras isoladas e imagem comprimida.
+   Mantém a direção tipográfica do tema premium e não altera telas móveis. */
+@media (min-width:901px) {
+  html.tema-premium #page-inicio .neo-hero {
+    grid-template-columns:minmax(0,60%) minmax(0,40%);
+    min-height:min(690px,82svh);
+  }
+  html.tema-premium #page-inicio .neo-hero-copy {
+    width:100%;
+    max-width:none;
+    padding:clamp(34px,4vw,68px) clamp(30px,3.8vw,68px);
+  }
+  html.tema-premium #page-inicio .neo-hero h1 {
+    width:100%;
+    max-width:none;
+    font-size:clamp(34px,3.35vw,60px)!important;
+    line-height:1.09;
+    letter-spacing:-.018em;
+    text-wrap:pretty;
+  }
+  html.tema-premium #page-inicio .neo-hero-foto {
+    inset:0 0 0 41%;
+  }
+  html.tema-premium #page-inicio .neo-hero-foto img {
+    object-fit:cover;
+    object-position:center center;
+  }
+  html.tema-premium #page-inicio .neo-hero-foto::after {
+    background:linear-gradient(90deg,#050d13 0%,rgba(5,13,19,.47) 21%,rgba(5,13,19,.08) 57%,transparent 82%),
+               linear-gradient(0deg,rgba(5,13,19,.32),transparent 28%);
+  }
+}
