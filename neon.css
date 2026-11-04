@@ -285,7 +285,7 @@ main h1{font-weight:700!important}main h2,main h3{font-weight:600!important}
 @media(max-width:700px){
   .neo-hero h1,.neo-pag-copy h1{text-wrap:balance}
   .neo-hero h1 br,.neo-lead br{display:none}
-  .neo-hero h1{font-size:clamp(28px,8.4vw,36px);line-height:1.12;margin-bottom:14px}
+  .neo-hero h1{font-size:clamp(24px,7vw,30px);line-height:1.12;margin-bottom:12px}
   .neo-lead{font-size:17px;line-height:1.5;font-weight:400;margin-bottom:22px;max-width:32ch}
   .neo-pag-copy h1{font-size:clamp(26px,8vw,34px)!important;line-height:1.1;margin-bottom:14px}
   .neo-pag-copy>p:not(.neo-crumb){font-size:16px;line-height:1.55;margin-bottom:22px;max-width:36ch}
@@ -296,4 +296,19 @@ main h1{font-weight:700!important}main h2,main h3{font-weight:600!important}
   .neo-colecoes .area-card p{font-size:14.5px;line-height:1.5}
   .neo-maq-texto p{font-size:16px;line-height:1.55}
   .neo-cta p,.neo-contatos p{font-size:15px;line-height:1.5}
+}
+
+/* ══ Celular: nenhum texto de leitura abaixo de 14px; rótulos pequenos em 11-12px ══ */
+@media(max-width:700px){
+  main small,main .machines-overview-note,main .contact-note,#page-projetos .project-steps p,#page-visio-tekna p,#page-material-reciclagem p{font-size:14px;line-height:1.5}
+  main .eyebrow,main [class*="eyebrow"],#page-maquinas .machines-nav span,#page-visio-tekna span[class]{font-size:11px;letter-spacing:.12em}
+  main .recycled-number{font-size:12px}
+  main label span,main label small{font-size:12px}
+  .top .main-nav a{font-size:16px}
+}
+
+@media(max-width:700px){
+  main .eyebrow,main .process-tool-tag,main .status,main .recycled-number,main .machines-nav span,main .machines-tech-links span,main .process-principles span,main .tekna-tool-grid span,main .tekna-interface span{font-size:11.5px!important;letter-spacing:.1em!important}
+  main figcaption,main .process-step-note,main .process-development-note,main .pending-note,main .contact-form small,main .btn{font-size:13px!important}
+  main .btn{font-size:15px!important}
 }
