@@ -319,3 +319,16 @@ main h1{font-weight:700!important}main h2,main h3{font-weight:600!important}
 .neo-hero-foto img,.neo-pag-foto:not(.neo-pag-foto--tela):not(.neo-pag-foto--logo):not(.neo-imagem-breve){
   transform-origin:60% 55%;animation:neo-camera 10s ease-in-out infinite alternate;will-change:transform}
 @media(prefers-reduced-motion:reduce){.neo-hero-foto img,.neo-pag-foto{animation:none!important}}
+
+/* ══ Fontes: títulos em Cormorant Garamond, texto em Inter (hospedadas no site) ══ */
+@font-face{font-family:"Cormorant Garamond";font-weight:400;font-display:swap;src:url(assets/fontes/cormorant-400.woff2) format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-weight:500;font-display:swap;src:url(assets/fontes/cormorant-500.woff2) format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-weight:600;font-display:swap;src:url(assets/fontes/cormorant-600.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:300;font-display:swap;src:url(assets/fontes/inter-300.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:400;font-display:swap;src:url(assets/fontes/inter-400.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:500;font-display:swap;src:url(assets/fontes/inter-500.woff2) format("woff2")}
+:root{--f-serif:"Cormorant Garamond","Times New Roman",serif;--f-sans:"Inter","Segoe UI","Helvetica Neue",Arial,sans-serif}
+body{font-family:var(--f-sans)}
+main,main *:not(svg):not(svg *){font-family:var(--f-sans)!important}
+main :is(h1,h2,h3,h4):not(svg):not(svg *),.top .brand,.neo-footer .brand span{font-family:var(--f-serif)!important;font-size-adjust:.52}
+main :is(h1,h2,h3,h4) em{font-family:var(--f-serif)!important}
