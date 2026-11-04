@@ -257,3 +257,9 @@ main h1{font-weight:700!important}main h2,main h3{font-weight:600!important}
 .neo-pendente{font-size:13px;padding:8px 14px;border:1px dashed rgba(255,255,255,.35);border-radius:999px;color:var(--neo-suave)}
 @media(max-width:900px){.neo-contatos{grid-template-columns:1fr}}
 @media(max-width:900px){.neo-pag-foto--logo{opacity:.18;padding:24px}}
+
+/* ══ Celular ══ */
+@media(max-width:900px){
+  .neo-hero-foto img{object-position:78% center}
+  .neo-pag-foto{object-position:78% center}
+}
