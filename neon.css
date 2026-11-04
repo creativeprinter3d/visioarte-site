@@ -358,3 +358,16 @@ main :is(h1,h2,h3,h4):not(svg):not(svg *){line-height:1.16;letter-spacing:.005em
   .neo-pag-copy h1{margin-bottom:16px!important}
   .neo-pag-foto--tela{opacity:.3!important}
 }
+
+/* ══ Home no celular: bloco de abertura mais compacto ══ */
+@media(max-width:700px){
+  .neo-hero h1{font-size:clamp(23px,6.6vw,27px)!important;line-height:1.2!important;letter-spacing:.02em!important;margin-bottom:12px}
+  .neo-hero-copy{padding:22px 20px 26px}
+  .neo-lead{font-size:15px;margin-bottom:18px}
+  .neo-pilares{margin-top:22px;gap:12px 18px}
+  .neo-pilares li{font-size:13.5px;gap:10px}
+  .neo-pilares svg{width:26px;height:26px}
+  .neo-hero .neo-btn{min-height:46px;font-size:15px}
+  .neo-hero-foto{height:260px}
+}
+@media(max-width:700px){.neo-pilares{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}}
