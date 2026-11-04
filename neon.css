@@ -332,3 +332,29 @@ body{font-family:var(--f-sans)}
 main,main *:not(svg):not(svg *){font-family:var(--f-sans)!important}
 main :is(h1,h2,h3,h4):not(svg):not(svg *),.top .brand,.neo-footer .brand span{font-family:var(--f-serif)!important;font-size-adjust:.52}
 main :is(h1,h2,h3,h4) em{font-family:var(--f-serif)!important}
+
+/* ══ Ajuste de tamanhos com a fonte nova ══ */
+main :is(h1,h2,h3,h4):not(svg):not(svg *){line-height:1.16;letter-spacing:.005em!important;font-size-adjust:.5}
+@media(max-width:700px){
+  .neo-hero h1{font-size:clamp(25px,7.2vw,30px)!important;line-height:1.18!important;margin-bottom:14px}
+  .neo-pag-copy h1{font-size:clamp(26px,7.6vw,32px)!important;line-height:1.14!important}
+  .neo-lead{font-size:15.5px;line-height:1.55;max-width:34ch}
+  .neo-pag-copy>p:not(.neo-crumb){font-size:15px;line-height:1.6;max-width:38ch}
+  .neo-titulo-linha h2{font-size:clamp(22px,6.4vw,26px)}
+  .neo-card-txt h3{font-size:24px}
+  .top .brand{font-size:16px;letter-spacing:.16em}
+}
+@media(max-width:400px){.top .brand{font-size:14px;letter-spacing:.12em}}
+.neo-lead,.neo-pag-copy>p{text-wrap:pretty}
+@media(max-width:700px){.neo-lead{text-wrap:balance}}
+@media(max-width:700px){
+  .neo-pag-copy h1{font-size:clamp(32px,9.2vw,38px)!important;line-height:1.1!important}
+  .neo-hero h1{font-size:clamp(28px,8vw,33px)!important}
+  .neo-colecoes .area-card h2{font-size:24px}
+  .neo-ficha h2,.neo-contatos h2,.neo-cta h2,.neo-forma h2{font-size:24px}
+  #page-maquinas .machines-nav strong{font-size:22px}
+}
+@media(max-width:700px){
+  .neo-pag-copy h1{margin-bottom:16px!important}
+  .neo-pag-foto--tela{opacity:.3!important}
+}
