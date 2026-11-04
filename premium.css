@@ -1,0 +1,107 @@
+/* Versão de teste "premium": só entra com ?tema=premium no endereço.
+   Mesma estrutura do site; muda tipografia, cor de destaque, molduras e respiro. */
+@font-face{font-family:"Cormorant Garamond";font-weight:400;font-display:swap;src:url(assets/fontes/cormorant-400.woff2) format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-weight:500;font-display:swap;src:url(assets/fontes/cormorant-500.woff2) format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-weight:600;font-display:swap;src:url(assets/fontes/cormorant-600.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:300;font-display:swap;src:url(assets/fontes/inter-300.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:400;font-display:swap;src:url(assets/fontes/inter-400.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:500;font-display:swap;src:url(assets/fontes/inter-500.woff2) format("woff2")}
+
+html.tema-premium{
+  --p-serif:"Cormorant Garamond","Times New Roman",serif;
+  --p-sans:"Inter","Helvetica Neue",Arial,sans-serif;
+  --p-prata:#c4cfd6;--p-prata-forte:#e9eef1;--p-fio:rgba(196,207,214,.2);--p-fio-forte:rgba(196,207,214,.45);
+  --neo-bg:#050d13;--neo-linha:var(--p-fio);--neo-suave:var(--p-prata);
+}
+html.tema-premium body{font-family:var(--p-sans);font-weight:300;
+  background:radial-gradient(ellipse 80% 30% at 50% 0,#0a1d28,transparent 70%),var(--neo-bg)}
+
+/* ── Botões: contorno fino, letras espaçadas, sem brilho ── */
+html.tema-premium .neo-btn,html.tema-premium .nav-cta{
+  min-height:46px;padding:0 28px;border:1px solid var(--neo-ciano);border-radius:2px;box-shadow:none;background:transparent;
+  font:500 12px/1 var(--p-sans)!important;letter-spacing:.2em;text-transform:uppercase;color:var(--p-prata-forte)}
+html.tema-premium .neo-btn:hover,html.tema-premium .nav-cta:hover,html.tema-premium .neo-card:hover .neo-btn{
+  background:var(--neo-ciano);color:#03212b;box-shadow:none}
+html.tema-premium .neo-btn--ghost{border-color:var(--p-fio-forte);color:var(--p-prata);min-height:46px;background:transparent}
+html.tema-premium .neo-btn--ghost:hover{background:var(--p-prata-forte);color:#04111a;border-color:var(--p-prata-forte)}
+
+/* ── Cabeçalho ── */
+html.tema-premium .top{background:linear-gradient(180deg,rgba(5,13,19,.9),rgba(5,13,19,.35));border-bottom:1px solid var(--p-fio);backdrop-filter:blur(10px)}
+html.tema-premium .top .brand{font-family:var(--p-serif);font-weight:500;font-size:26px;letter-spacing:.32em;color:var(--p-prata-forte)}
+html.tema-premium .top .main-nav{font:400 12px/1 var(--p-sans);letter-spacing:.18em;text-transform:uppercase}
+html.tema-premium .top .main-nav a{color:var(--p-prata)}
+html.tema-premium .top .main-nav a:hover,html.tema-premium .top .main-nav a[aria-current="page"]{color:var(--p-prata-forte)}
+html.tema-premium .top .main-nav a[aria-current="page"]::after{height:1px;box-shadow:none;background:var(--p-prata-forte)}
+html.tema-premium .top .main-nav .nav-cta{min-height:42px;padding:0 24px;font-size:11px!important}
+html.tema-premium .chev{width:5px;height:5px;margin-left:7px;border-width:1px}
+
+/* ── Hero ── */
+html.tema-premium .neo-hero{min-height:min(720px,86vh);border-bottom:1px solid var(--p-fio);box-shadow:none}
+html.tema-premium .neo-hero-copy{padding:clamp(40px,6vw,96px) clamp(20px,6vw,96px)}
+html.tema-premium #page-inicio .neo-hero h1{
+  font:500 clamp(46px,6vw,92px)/1 var(--p-serif)!important;letter-spacing:-.015em;margin:0 0 28px;text-transform:lowercase;color:var(--p-prata-forte)}
+html.tema-premium #page-inicio .neo-hero h1::first-letter{text-transform:uppercase}
+html.tema-premium .neo-hero h1 em{color:var(--neo-ciano);text-shadow:none}
+html.tema-premium #page-inicio .neo-lead{font:300 clamp(16px,1.35vw,19px)/1.7 var(--p-sans)!important;color:var(--p-prata);max-width:34ch;margin:0 0 40px}
+html.tema-premium .neo-lead br{display:none}
+html.tema-premium .neo-hero-foto::after{background:linear-gradient(90deg,var(--neo-bg) 0,rgba(5,13,19,.5) 32%,transparent 70%),linear-gradient(0deg,var(--neo-bg),transparent 22%)}
+
+/* pilares: texto fino separado por filetes, sem ícones */
+html.tema-premium .neo-pilares{gap:0;margin-top:64px;border-top:1px solid var(--p-fio);padding-top:22px;max-width:560px}
+html.tema-premium .neo-pilares svg{display:none}
+html.tema-premium .neo-pilares li{font:400 10.5px/1.4 var(--p-sans)!important;letter-spacing:.2em;text-transform:uppercase;color:var(--p-prata);padding:0 22px 0 0;margin-right:22px;border-right:1px solid var(--p-fio)}
+html.tema-premium .neo-pilares li:last-child{border-right:0;margin-right:0;padding-right:0}
+html.tema-premium .neo-pilares br{display:none}
+
+/* ── Jornadas ── */
+html.tema-premium .neo-jornadas{padding:clamp(64px,8vw,120px) 0 40px}
+html.tema-premium .neo-titulo-linha{align-items:flex-end;margin-bottom:44px;padding-bottom:22px;border-bottom:1px solid var(--p-fio)}
+html.tema-premium .neo-titulo-linha::before{display:none}
+html.tema-premium #page-inicio .neo-titulo-linha h2{font:500 clamp(32px,3.6vw,52px)/1.05 var(--p-serif)!important;letter-spacing:-.01em;text-transform:lowercase;color:var(--p-prata-forte)}
+html.tema-premium #page-inicio .neo-titulo-linha h2::first-letter{text-transform:uppercase}
+html.tema-premium .neo-titulo-linha p{font:300 14px/1.6 var(--p-sans)!important;color:var(--p-prata)}
+html.tema-premium .neo-cards{gap:28px;counter-reset:jornada}
+html.tema-premium .neo-card{counter-increment:jornada;min-height:460px;border-radius:2px;border:1px solid var(--p-fio);background:#050d13;transition:border-color .5s}
+html.tema-premium .neo-card img{object-position:center;transition:transform 1.2s cubic-bezier(.2,.6,.2,1);filter:saturate(.92)}
+html.tema-premium .neo-card::after{background:linear-gradient(0deg,rgba(5,13,19,.95) 0,rgba(5,13,19,.55) 38%,transparent 72%)}
+html.tema-premium .neo-card:hover,html.tema-premium .neo-card:focus-visible{transform:none;border-color:var(--p-fio-forte);box-shadow:none}
+html.tema-premium .neo-card:hover img{transform:scale(1.05)}
+html.tema-premium .neo-card-txt{max-width:none;justify-content:flex-end;gap:12px;padding:32px}
+html.tema-premium .neo-card-txt::before{content:"0" counter(jornada);order:-2;font:400 11px/1 var(--p-sans);letter-spacing:.34em;color:var(--p-prata)}
+html.tema-premium .neo-card-txt svg{display:none}
+html.tema-premium #page-inicio .neo-card-txt h3{font:500 clamp(30px,2.6vw,38px)/1.05 var(--p-serif)!important;margin:0;color:var(--p-prata-forte)}
+html.tema-premium #page-inicio .neo-card-txt p{font:300 14px/1.65 var(--p-sans)!important;color:var(--p-prata);margin:0 0 10px;max-width:34ch}
+html.tema-premium .neo-card .neo-btn{min-height:0;padding:0 0 8px;border:0;border-bottom:1px solid var(--p-fio-forte);border-radius:0;font-size:11px!important;color:var(--p-prata-forte);background:none}
+html.tema-premium .neo-card:hover .neo-btn{background:none;color:var(--neo-ciano);border-bottom-color:var(--neo-ciano)}
+
+/* ── Destaque ── */
+html.tema-premium .neo-destaque{margin-top:clamp(40px,6vw,88px);margin-bottom:clamp(56px,8vw,120px);border:0;border-top:1px solid var(--p-fio);border-bottom:1px solid var(--p-fio);border-radius:0;background:none;box-shadow:none;gap:clamp(28px,5vw,72px);padding:clamp(28px,4vw,56px) 0}
+html.tema-premium .neo-destaque-foto{min-height:340px}
+html.tema-premium .neo-destaque-foto img{filter:saturate(.9)}
+html.tema-premium .neo-destaque-txt{padding:0}
+html.tema-premium .neo-sobretitulo{font:400 11px/1 var(--p-sans);letter-spacing:.3em;text-transform:uppercase;color:var(--p-prata);margin-bottom:20px}
+html.tema-premium .neo-sobretitulo::before{width:36px;height:1px;background:var(--p-fio-forte)}
+html.tema-premium #page-inicio .neo-destaque h2{font:500 clamp(32px,3.4vw,50px)/1.05 var(--p-serif)!important;letter-spacing:-.01em;margin-bottom:18px;color:var(--p-prata-forte)}
+html.tema-premium #page-inicio .neo-destaque p:not(.neo-sobretitulo){font:300 15px/1.75 var(--p-sans)!important;color:var(--p-prata);max-width:44ch;margin-bottom:30px}
+
+/* ── Rodapé ── */
+html.tema-premium .neo-footer{border-top:1px solid var(--p-fio);box-shadow:none;background:none;padding-top:34px;padding-bottom:34px}
+html.tema-premium .neo-footer-links{font:400 11px/1 var(--p-sans);letter-spacing:.2em;text-transform:uppercase}
+html.tema-premium .neo-footer-links a{color:var(--p-prata)}
+html.tema-premium .neo-footer-links a:hover{color:var(--p-prata-forte)}
+html.tema-premium .neo-footer p{font:300 12px/1.6 var(--p-sans);color:var(--p-prata)}
+
+/* ── Celular ── */
+@media(max-width:900px){
+  html.tema-premium .neo-card{min-height:400px}
+  html.tema-premium .neo-destaque-foto{min-height:240px}
+}
+@media(max-width:700px){
+  html.tema-premium #page-inicio .neo-hero h1{font-size:clamp(40px,11.5vw,52px)!important;line-height:1.02;margin-bottom:20px}
+  html.tema-premium #page-inicio .neo-lead{font-size:16px!important;line-height:1.65;max-width:30ch}
+  html.tema-premium .neo-hero h1 br{display:none}
+  html.tema-premium .neo-pilares{margin-top:36px;gap:14px 0}
+  html.tema-premium .neo-pilares li{font-size:10px!important;padding-right:14px;margin-right:14px}
+  html.tema-premium .top .brand{font-size:20px;letter-spacing:.24em}
+  html.tema-premium .neo-card-txt{padding:26px}
+}
