@@ -266,3 +266,41 @@ html.tema-refinado .footer {
     animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;
   }
 }
+
+/* 04/11/2026 — Ajuste do hero desktop após revisão visual
+   A composição original e o layout móvel não são afetados. */
+@media (min-width: 901px) {
+  html.tema-refinado #page-inicio .neo-hero {
+    grid-template-columns:minmax(0,60%) minmax(0,40%);
+    min-height:min(690px,82svh);
+  }
+  html.tema-refinado #page-inicio .neo-hero-copy {
+    width:100%;
+    max-width:none;
+    padding:clamp(34px,4vw,68px) clamp(30px,3.8vw,68px);
+  }
+  html.tema-refinado #page-inicio .neo-hero h1 {
+    width:100%;
+    max-width:none;
+    font-size:clamp(33px,3.15vw,57px);
+    line-height:1.105;
+    letter-spacing:-.026em;
+    text-wrap:pretty;
+  }
+  html.tema-refinado #page-inicio .neo-lead {
+    max-width:37ch;
+    font-size:clamp(18px,1.5vw,25px);
+    line-height:1.48;
+  }
+  html.tema-refinado #page-inicio .neo-hero-foto {
+    inset:0 0 0 41%;
+  }
+  html.tema-refinado #page-inicio .neo-hero-foto img {
+    object-fit:cover;
+    object-position:center center;
+  }
+  html.tema-refinado #page-inicio .neo-hero-foto::after {
+    background:linear-gradient(90deg,#061219 0%,rgba(6,18,25,.48) 21%,rgba(6,18,25,.07) 57%,transparent 82%),
+               linear-gradient(0deg,rgba(6,18,25,.36),transparent 28%);
+  }
+}
