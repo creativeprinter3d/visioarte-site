@@ -219,7 +219,7 @@
   function syncNextBackground(focus){const next=wrap(focus+1);nextBackgrounds.forEach((b,i)=>b.classList.toggle('on',i===next));}
   const heroVideos=[{video:$('heroVideo'),index:0},{video:$('furnitureVideo'),index:1},{video:$('architectureVideo'),index:2},{video:$('projectsVideo'),index:3},{video:$('technologyVideo'),index:4},{video:$('materialsVideo'),index:5}].filter(entry=>entry.video);
   const videoToggle=$('videoToggle');
-  const videoEnabled=heroVideos.length>0&&new URLSearchParams(location.search).get('fundo')!=='imagem';
+  const videoEnabled=false;/* o hero antigo fica escondido: não baixa vídeos nem fundos */
   const videoPaused=new WeakMap();
   heroVideos.forEach(({video})=>{video.muted=true;videoPaused.set(video,motion.matches);video.pause();});
   const selectedHeroVideo=()=>videoEnabled&&activePage==='inicio'?heroVideos.find(entry=>entry.index===current)?.video:null;
@@ -256,7 +256,7 @@
     motion.addEventListener('change',()=>{heroVideos.forEach(({video})=>videoPaused.set(video,motion.matches));syncHeroVideo();});
   }
   const backgroundTokens=[];
-  function loadBackground(i){
+  function loadBackground(i){return;
     const url=sized(source(homeSlots[i][0]),mobile.matches?1200:2400);if(backgroundTokens[i]===url)return;backgroundTokens[i]=url;
     const image=new Image();image.onload=()=>{if(backgroundTokens[i]===url){const background='url("'+image.src+'")';backgrounds[i].style.backgroundImage=background;nextBackgrounds[i].style.backgroundImage=background;}};image.src=url;
   }
@@ -264,7 +264,7 @@
   const meds=universes.map((c,i)=>{
     const b=document.createElement('button');b.type='button';b.className='med';b.setAttribute('aria-label','Abrir '+c.name);
     b.innerHTML=contour+'<img alt="" width="100" height="100" draggable="false"><span class="med-label" aria-hidden="true"></span>';
-    b.querySelector('img').src=sized(source(homeSlots[i][1]),320);b.querySelector('.med-label').textContent=c.name;
+    b.querySelector('.med-label').textContent=c.name;
     b.addEventListener('click',e=>{if(e.detail!==0&&dragDistance>8)return;target=Math.round(target)+shortest(i-wrap(Math.round(target)));pauseAuto();if(mobile.matches)return;navigate(c.destination);});/* no celular o toque escolhe a área; quem abre é o "Ver categorias" */
     b.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hovered=true;});b.addEventListener('pointerleave',()=>{hovered=false;pauseAuto();});$('orbit').append(b);return b;
   });
@@ -358,7 +358,7 @@
     }
   }
   function refreshImages(){
-    universes.forEach((c,i)=>{loadBackground(i);meds[i].querySelector('img').src=sized(source(homeSlots[i][1]),320);});
+    universes.forEach((c,i)=>{loadBackground(i);});
     all('[data-collection-image]').forEach(img=>{const i=collections.findIndex(c=>c.destination===img.dataset.collectionImage);if(i>=0)img.src=sized(source(slots[i*2+(img.dataset.imageKind==='circle'?1:0)]),900);});
     refreshFurnitureImage();
     refreshPanelsImages();
