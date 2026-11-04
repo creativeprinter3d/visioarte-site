@@ -1,0 +1,259 @@
+/* Tema neon da VISIOARTE: cabeçalho, home e rodapé conforme Fotos_Site. Carrega por último. */
+:root{
+  --neo-bg:#04111a;--neo-bg2:#071c27;--neo-ciano:#19d8ee;--neo-ciano-forte:#00c8e8;
+  --neo-texto:#f2f6f8;--neo-suave:#b9c8d0;--neo-linha:rgba(25,216,238,.35);
+  --neo-vidro:linear-gradient(160deg,rgba(14,40,52,.72),rgba(5,18,27,.86));
+}
+html,body{background:var(--neo-bg)}
+body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;color:var(--neo-texto);
+  background:radial-gradient(ellipse 90% 40% at 50% 0,#0a2a38,transparent 70%),var(--neo-bg)}
+
+/* ── Botões neon ── */
+.neo-btn,.nav-cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 30px;
+  border:2px solid var(--neo-ciano);border-radius:999px;color:var(--neo-texto);font-weight:600;font-size:17px;text-decoration:none;
+  background:rgba(4,22,32,.6);box-shadow:0 0 18px rgba(25,216,238,.45),inset 0 0 14px rgba(25,216,238,.18);
+  transition:background .2s,color .2s,box-shadow .2s,transform .2s}
+.neo-btn:hover,.nav-cta:hover,.neo-card:hover .neo-btn{background:var(--neo-ciano);color:#03212b;box-shadow:0 0 30px rgba(25,216,238,.8)}
+.neo-btn--ghost{min-height:42px;padding:0 24px;font-size:15px;border-color:rgba(255,255,255,.85);box-shadow:none;background:rgba(3,14,20,.55)}
+.neo-btn i{font-style:normal}
+
+/* ── Cabeçalho ── */
+.top{background:linear-gradient(180deg,rgba(3,12,18,.94),rgba(3,12,18,.6));border-bottom:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px)}
+.page-scrolled .top,.top.menu-open{background:rgba(3,12,18,.96)}
+.top .brand{font-size:24px;font-weight:500;letter-spacing:.14em;color:var(--neo-texto)}
+.top .main-nav{justify-content:flex-start;gap:clamp(20px,3vw,48px);margin-left:clamp(12px,4vw,64px);font-size:18px}
+.top .main-nav a{color:var(--neo-texto);position:relative}
+.top .main-nav a[aria-current="page"]{color:var(--neo-ciano)}
+.top .main-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:2px;background:var(--neo-ciano);box-shadow:0 0 8px var(--neo-ciano)}
+.chev{display:inline-block;width:7px;height:7px;margin-left:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.top .main-nav .nav-cta{margin-left:auto;min-height:48px;padding:0 28px;font-size:16px}
+.top .main-nav .nav-cta:hover{color:#03212b}
+.top .edit-images-button{display:none}
+
+/* ── Hero ── */
+main#page-inicio{padding-top:var(--header-height)}
+.neo-legado{display:none!important}
+.neo-hero{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;min-height:min(640px,78vh);
+  overflow:hidden;border-bottom:1px solid var(--neo-linha);box-shadow:0 10px 30px -18px var(--neo-ciano)}
+.neo-hero-copy{position:relative;z-index:2;padding:clamp(28px,5vw,72px) clamp(20px,5vw,72px)}
+.neo-hero h1{margin:0 0 20px;font-size:clamp(34px,4.4vw,60px);line-height:1.08;font-weight:700;letter-spacing:.01em}
+.neo-hero h1 em{font-style:normal;color:var(--neo-ciano);text-shadow:0 0 22px rgba(25,216,238,.35)}
+.neo-lead{margin:0 0 30px;font-size:clamp(20px,2.4vw,32px);line-height:1.25;color:var(--neo-suave);font-weight:300}
+.neo-pilares{display:flex;flex-wrap:wrap;gap:18px 34px;list-style:none;margin:40px 0 0;padding:0}
+.neo-pilares li{display:flex;align-items:center;gap:12px;font-size:15px;line-height:1.25;color:var(--neo-suave)}
+.neo-pilares svg,.neo-card-txt svg{width:34px;height:34px;fill:none;stroke:var(--neo-texto);stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round;flex:none}
+.neo-hero-foto{position:absolute;inset:0 0 0 38%;z-index:1}
+.neo-hero-foto img{width:100%;height:100%;object-fit:cover;object-position:center}
+.neo-hero-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--neo-bg) 0,rgba(4,17,26,.55) 30%,transparent 65%),linear-gradient(0deg,var(--neo-bg),transparent 25%)}
+
+/* ── Jornadas ── */
+.neo-jornadas,.neo-destaque{width:min(1240px,100% - 40px);margin:0 auto}
+.neo-jornadas{padding:clamp(36px,5vw,60px) 0 28px}
+.neo-titulo-linha{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.neo-titulo-linha::before{content:"";width:60px;height:2px;background:var(--neo-ciano);box-shadow:0 0 10px var(--neo-ciano)}
+.neo-titulo-linha h2{margin:0;font-size:clamp(22px,2.6vw,32px);letter-spacing:.02em;font-weight:700}
+.neo-titulo-linha p{margin:0 0 0 auto;max-width:430px;font-size:14px;color:var(--neo-suave)}
+.neo-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.neo-card{position:relative;display:block;min-height:310px;overflow:hidden;border-radius:18px;border:1px solid rgba(255,255,255,.22);text-decoration:none;color:inherit;
+  background:#06161f;transition:transform .25s,box-shadow .25s,border-color .25s}
+.neo-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center}
+.neo-card::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,14,20,.92) 0,rgba(3,14,20,.6) 48%,transparent 85%)}
+.neo-card:hover,.neo-card:focus-visible{transform:translateY(-4px);border-color:var(--neo-ciano);box-shadow:0 0 28px rgba(25,216,238,.55)}
+.neo-card-txt{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:10px;height:100%;padding:26px;max-width:62%}
+.neo-card-txt h3{margin:4px 0 0;font-size:26px;line-height:1.1;font-weight:600}
+.neo-card-txt p{margin:0 0 auto;font-size:14.5px;line-height:1.4;color:var(--neo-texto)}
+
+/* ── Destaque da semana ── */
+.neo-destaque{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:30px;margin-top:12px;margin-bottom:44px;overflow:hidden;
+  border:1px solid var(--neo-linha);border-radius:22px;background:var(--neo-vidro);box-shadow:0 0 26px rgba(25,216,238,.16)}
+.neo-destaque-foto{align-self:stretch;min-height:260px}
+.neo-destaque-foto img{width:100%;height:100%;object-fit:cover;display:block}
+.neo-destaque-txt{padding:30px 34px 30px 0}
+.neo-sobretitulo{display:flex;align-items:center;gap:12px;margin:0 0 10px;font-size:14px;letter-spacing:.06em}
+.neo-sobretitulo::before{content:"";width:26px;height:2px;background:var(--neo-ciano)}
+.neo-destaque h2{margin:0 0 12px;font-size:clamp(24px,2.6vw,34px);line-height:1.15}
+.neo-destaque p:not(.neo-sobretitulo){margin:0 0 20px;color:var(--neo-suave);line-height:1.5}
+
+/* ── Sobre (âncora do menu) ── */
+.neo-sobre{background:transparent}
+.neo-sobre h2{color:var(--neo-texto)}
+.neo-sobre .eyebrow{color:var(--neo-ciano)}
+
+/* ── Rodapé ── */
+.neo-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px 36px;padding:22px clamp(20px,4vw,56px);
+  background:linear-gradient(180deg,transparent,rgba(2,10,15,.9));border-top:1px solid var(--neo-linha);box-shadow:0 -8px 30px -20px var(--neo-ciano)}
+.neo-footer .brand span{display:flex;flex-direction:column;font-size:22px;letter-spacing:.08em;overflow-wrap:anywhere}
+.neo-footer .brand small{font-size:9px;letter-spacing:.3em;color:var(--neo-suave);margin-top:2px}
+.neo-footer-links{display:flex;gap:clamp(18px,3vw,44px);font-size:14px}
+.neo-footer-links a{text-decoration:none;color:var(--neo-texto)}
+.neo-footer-links a:hover{color:var(--neo-ciano)}
+.neo-footer p{margin:0;font-size:13.5px;color:var(--neo-texto)}
+
+/* ── Telas menores ── */
+@media(max-width:1250px){
+  .top .main-nav{margin-left:0;font-size:16px;background:#04111a}
+  .top .main-nav .nav-cta{margin:12px 0 0;justify-content:center}
+}
+@media(max-width:900px){
+  .neo-hero{grid-template-columns:1fr;min-height:0}
+  .neo-hero-foto{position:relative;inset:auto;height:300px;order:2}
+  .neo-hero-foto::after{background:linear-gradient(180deg,var(--neo-bg),transparent 40%)}
+  .neo-cards{grid-template-columns:1fr}
+  .neo-card{min-height:260px}
+  .neo-titulo-linha p{margin-left:0}
+  .neo-destaque{grid-template-columns:1fr}
+  .neo-destaque-txt{padding:0 24px 28px}
+  .neo-footer{flex-direction:column;align-items:flex-start}
+}
+
+/* ══ Abas internas: Casa e Decoração ══ */
+#page-areas{background:radial-gradient(ellipse 80% 30% at 50% 0,#0a2a38,transparent 70%),var(--neo-bg)}
+[data-area="casa-decoracao"]{--neo-recuo:0}
+em{font-style:normal;color:var(--neo-ciano)}
+.neo-pag-hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr);min-height:420px;overflow:hidden;border-radius:22px;border:1px solid var(--neo-linha)}
+.neo-pag-copy{position:relative;z-index:2;max-width:560px;padding:34px clamp(20px,4vw,48px)}
+.neo-crumb{margin:0 0 18px;font-size:13px;color:var(--neo-suave)}.neo-crumb a{color:var(--neo-texto);text-decoration:none}
+.neo-pag-copy h1{margin:0 0 18px;font:700 clamp(40px,5.2vw,72px)/1.04 "Segoe UI",Arial,sans-serif;letter-spacing:0}
+.neo-pag-copy>p:not(.neo-crumb){margin:0 0 26px;font-size:18px;line-height:1.45;color:var(--neo-suave);max-width:440px}
+.neo-pag-acoes{display:flex;flex-wrap:wrap;gap:14px}
+.neo-btn--cheio{background:var(--neo-ciano-forte);color:#03212b;border-color:var(--neo-ciano-forte)}
+.neo-pag-foto{position:absolute;inset:0 0 0 35%;width:65%;height:100%;object-fit:cover;z-index:1}
+.neo-pag-hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--neo-bg) 0,rgba(4,17,26,.7) 38%,transparent 70%)}
+.neo-pag-copy{z-index:3}
+.neo-abas{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin:22px 0 34px}
+.neo-abas a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:104px;padding:14px;text-align:center;text-decoration:none;color:var(--neo-texto);font-size:15px;line-height:1.2;
+  border:1px solid rgba(255,255,255,.22);border-radius:14px;background:rgba(5,20,30,.7);transition:.2s}
+.neo-abas svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.neo-abas a:hover,.neo-abas a:first-child{border-color:var(--neo-ciano);box-shadow:0 0 18px rgba(25,216,238,.45),inset 0 0 14px rgba(25,216,238,.15);color:var(--neo-ciano)}
+.neo-forma{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;align-items:center;margin-bottom:40px;border:1px solid var(--neo-linha);border-radius:20px;overflow:hidden;background:var(--neo-vidro)}
+.neo-forma img{width:100%;height:100%;min-height:260px;object-fit:cover;display:block}
+.neo-forma h2{margin:0 0 14px;font-size:clamp(26px,3vw,38px)}
+.neo-forma p{color:var(--neo-suave);line-height:1.55;margin:0 0 20px}
+.neo-forma ul{display:flex;flex-wrap:wrap;gap:12px 24px;list-style:none;margin:0;padding:0 34px 0 0;font-size:14px}
+.neo-forma>div{padding:24px 34px 24px 0}
+.neo-forma li::before{content:"✓ ";color:var(--neo-ciano)}
+[data-area="casa-decoracao"] .neo-titulo-linha,[data-area="arquitetura"] .neo-titulo-linha,[data-area="tecnologia"] .neo-titulo-linha{margin:8px 0 22px}
+[data-area="casa-decoracao"] .neo-titulo-linha h2,[data-area="arquitetura"] .neo-titulo-linha h2,[data-area="tecnologia"] .neo-titulo-linha h2{font-weight:600}
+.neo-colecoes{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:16px!important;margin-bottom:44px}
+.neo-colecoes .area-card{position:relative;min-height:330px;justify-content:flex-end;border-radius:16px;border:1px solid rgba(255,255,255,.22);background:#06161f}
+.neo-colecoes .area-card-media{position:absolute;inset:0;aspect-ratio:auto}
+.neo-colecoes .area-card::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,14,20,.95) 0,rgba(3,14,20,.3) 55%,transparent)}
+.neo-colecoes .area-card-copy{position:relative;z-index:2;flex:none;padding:18px;gap:4px}
+.neo-colecoes .area-card h2{font:600 20px/1.15 "Segoe UI",Arial,sans-serif;letter-spacing:0;margin:0 0 6px}
+.neo-colecoes .area-card p{font-size:13px;line-height:1.4;margin:0 36px 0 0;color:var(--neo-texto)}
+.neo-seta{position:absolute;right:16px;bottom:16px;width:32px;height:32px;display:grid;place-items:center;border:1.5px solid var(--neo-ciano);border-radius:50%;color:var(--neo-ciano)}
+.neo-colecoes .area-card:hover{border-color:var(--neo-ciano);box-shadow:0 0 22px rgba(25,216,238,.5)}
+.neo-passos{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;list-style:none;margin:0 0 40px;padding:0}
+.neo-passos li{position:relative;display:flex;flex-direction:column;gap:6px;padding:18px 18px 18px 0;text-align:center}
+.neo-passos li:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:30%;color:var(--neo-ciano);font-size:22px}
+.neo-passos b{font-size:19px;font-weight:600}.neo-passos span{font-size:14px;color:var(--neo-suave)}
+.neo-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:40px;padding:28px 40px;border:1px solid var(--neo-linha);border-radius:18px;background:var(--neo-vidro)}
+.neo-cta h2{margin:0 0 6px;font-size:clamp(22px,2.4vw,30px)}.neo-cta p{margin:0;color:var(--neo-suave)}
+[data-area="casa-decoracao"] .area-back,[data-area="arquitetura"] .area-back,[data-area="tecnologia"] .area-back{display:none}
+@media(max-width:1000px){.neo-colecoes{grid-template-columns:repeat(2,minmax(0,1fr))!important}.neo-abas{grid-template-columns:repeat(3,1fr)}.neo-forma{grid-template-columns:1fr}.neo-forma>div{padding:0 24px 24px}.neo-passos{grid-template-columns:1fr 1fr}.neo-pag-foto{inset:0;width:100%;opacity:.55}}
+@media(max-width:560px){.neo-colecoes{grid-template-columns:1fr!important}.neo-abas{grid-template-columns:repeat(2,1fr)}.neo-passos li::after{display:none}}
+.neo-forma img{height:300px;min-height:0}
+.neo-colecoes .area-card p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ══ Arquitetura e Espaços ══ */
+@media(min-width:1001px){.neo-colecoes--3{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:24px!important}.neo-colecoes--3 .area-card{min-height:300px}}
+.neo-pag-copy h1{font-size:clamp(30px,5.2vw,72px);overflow-wrap:anywhere}
+.neo-btn{white-space:nowrap}
+@media(max-width:560px){.neo-btn{padding:0 20px;font-size:15px}.neo-pag-copy{padding:26px 20px}}
+@media(max-width:700px){.top .brand{font-size:18px}}
+@media(max-width:400px){.top .brand{font-size:14px;letter-spacing:.1em}}
+@media(max-width:400px){.neo-btn{white-space:normal;text-align:center;padding:10px 16px}}
+
+/* ══ Tecnologia e Máquinas ══ */
+[data-area="tecnologia"] .neo-colecoes .tekna-logo-cover{background:#04111a}
+[data-area="tecnologia"] .neo-colecoes .tekna-logo-cover img{object-fit:contain;padding:18px 14px 90px}
+@media(min-width:1001px){[data-area="tecnologia"] .neo-colecoes{grid-template-columns:repeat(5,minmax(0,1fr))!important}}
+
+/* ══ Camada de tema para as demais páginas (peças, materiais, máquinas, firmware, Tekna, software, processo, projetos) ══ */
+:root{--cyan:#19d8ee;--bg:#04111a;--panel:#07202c;--muted:#b9c8d0;--line:rgba(25,216,238,.3)}
+main :is(h1,h2,h3,h4){font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif!important;font-weight:600;letter-spacing:0!important}
+main :is(h1){font-weight:700}
+main .eyebrow,main .kicker{color:var(--neo-ciano)!important;letter-spacing:.08em;overflow-wrap:anywhere}
+.page,.page-inicio,main.page{background:radial-gradient(ellipse 80% 30% at 50% 0,#0a2a38,transparent 70%),var(--neo-bg)!important}
+main .btn{border:2px solid var(--neo-ciano);border-radius:999px;min-height:48px;padding:0 26px;font-size:15px;font-weight:600;color:var(--neo-texto);
+  background:rgba(4,22,32,.6);box-shadow:0 0 16px rgba(25,216,238,.4),inset 0 0 12px rgba(25,216,238,.15);white-space:normal;text-align:center}
+main .btn.primary{background:var(--neo-ciano-forte);color:#03212b;border-color:var(--neo-ciano-forte)}
+main .btn:hover{background:var(--neo-ciano);color:#03212b;box-shadow:0 0 28px rgba(25,216,238,.75)}
+main :is(.piece-card,.material-card,.panel,.card,article,details){border-color:rgba(255,255,255,.2)}
+main .text-link{color:var(--neo-ciano)}
+main a:focus-visible,main button:focus-visible{outline-color:var(--neo-ciano)}
+.bottom-callout{border:1px solid var(--neo-linha);border-radius:18px;background:var(--neo-vidro)}
+main,main *:not(svg):not(svg *){font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif!important}
+main :is(h1,h2,h3,p){overflow-wrap:anywhere}
+
+/* ══ Materiais e Reciclagem ══ */
+.recycled-page .area-back{display:none}
+.recycled-page .neo-pag-hero{margin-bottom:22px}
+.neo-processo{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 34px;padding:18px 22px;border:1px solid var(--neo-linha);border-radius:16px;background:var(--neo-vidro)}
+.neo-passo{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:90px;text-align:center;font-size:15px}
+.neo-passo svg{width:38px;height:38px;fill:none;stroke:var(--neo-texto);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.neo-seta-linha{font-style:normal;color:var(--neo-ciano);font-size:22px}
+.neo-mats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin:0 0 40px}
+.neo-mats figure{margin:0;border:1px solid rgba(255,255,255,.22);border-radius:14px;overflow:hidden;background:#06161f}
+.neo-mats img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.neo-mats figcaption{padding:8px;text-align:center;font-size:14px;font-weight:600;background:rgba(3,14,20,.9)}
+.recycled-page .neo-titulo-linha{margin:8px 0 20px}
+.neo-lead-mat{max-width:760px;margin:0 0 24px;color:var(--neo-suave)}
+@media(max-width:900px){.neo-mats{grid-template-columns:repeat(3,1fr)}.neo-seta-linha{display:none}.neo-processo{justify-content:center;gap:16px 24px}}
+
+/* ══ Como Funciona ══ */
+#page-como-fazemos .area-back{display:none}
+.neo-etapas{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;list-style:none;margin:22px 0 40px;padding:22px 18px;border:1px solid var(--neo-linha);border-radius:18px;background:var(--neo-vidro)}
+.neo-etapas li{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.neo-etapas li:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:22px;color:var(--neo-ciano);font-size:22px}
+.neo-etapa-ico{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;border:2px solid var(--neo-ciano);box-shadow:0 0 16px rgba(25,216,238,.5),inset 0 0 12px rgba(25,216,238,.2)}
+.neo-etapa-ico svg{width:30px;height:30px;fill:none;stroke:var(--neo-texto);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.neo-etapas b{font-size:15px;font-weight:600}.neo-etapas small{font-size:13px;color:var(--neo-suave)}
+@media(max-width:900px){.neo-etapas{grid-template-columns:repeat(2,1fr);gap:22px 12px}.neo-etapas li::after{display:none}}
+main h1{font-weight:700!important}main h2,main h3{font-weight:600!important}
+
+/* ══ Software Visio_Tekna ══ */
+#page-visio-tekna .area-back{display:none}
+.neo-pag-foto--tela{object-fit:contain;object-position:right center;padding:18px 18px 18px 0}
+.neo-etapas--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.neo-etapas--3 li:not(:last-child)::after{right:-12px}
+@media(max-width:900px){.neo-etapas--3{grid-template-columns:1fr}.neo-etapas--3 li::after{display:none}}
+
+/* ══ Projetos Personalizados ══ */
+.neo-difs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;list-style:none;margin:22px 0 34px;padding:18px;border:1px solid var(--neo-linha);border-radius:18px;background:var(--neo-vidro)}
+.neo-difs li{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:15px;font-weight:600}
+.neo-difs svg{width:36px;height:36px;fill:none;stroke:var(--neo-ciano);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#page-projetos .project-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;list-style:none;margin:0 0 34px;padding:0}
+#page-projetos .project-steps li{padding:20px;border:1px solid rgba(255,255,255,.2);border-radius:16px;background:var(--neo-vidro)}
+#page-projetos .project-steps span{color:var(--neo-ciano);font-weight:700}
+#page-projetos .project-steps h2{margin:6px 0;font-size:22px}
+#page-projetos .contact-form,#page-projetos .contact-aside{border:1px solid var(--neo-linha);border-radius:18px;background:var(--neo-vidro)}
+#page-projetos input,#page-projetos textarea{background:rgba(3,14,20,.8);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:var(--neo-texto)}
+#page-projetos input:focus,#page-projetos textarea:focus{outline:2px solid var(--neo-ciano);border-color:var(--neo-ciano)}
+@media(max-width:900px){.neo-difs{grid-template-columns:repeat(2,1fr)}#page-projetos .project-steps{grid-template-columns:1fr}}
+.neo-pag-copy h1{font-size:clamp(26px,5.2vw,72px)}
+
+/* ══ Nossas Máquinas ══ */
+#page-maquinas .area-back{display:none}
+#page-maquinas .machines-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 0 22px}
+#page-maquinas .machines-nav button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:104px;padding:18px;text-align:left;color:var(--neo-texto);
+  border:1px solid rgba(255,255,255,.22);border-radius:14px;background:rgba(5,20,30,.7);transition:.2s}
+#page-maquinas .machines-nav button:hover{border-color:var(--neo-ciano);box-shadow:0 0 18px rgba(25,216,238,.45)}
+#page-maquinas .machines-nav strong{font-size:20px}
+#page-maquinas .machines-nav span{font-size:12px;color:var(--neo-ciano)}
+#page-maquinas :is(.machines-equipment,.machines-technology,.machines-faq,.machines-final){border:1px solid var(--neo-linha);border-radius:18px;background:var(--neo-vidro)}
+#page-maquinas .machines-tech-links a{border-color:rgba(255,255,255,.22);border-radius:14px}
+@media(max-width:900px){#page-maquinas .machines-nav{grid-template-columns:1fr}}
+
+/* ══ Sobre e Contato ══ */
+.neo-pag-foto--logo{object-fit:contain;object-position:right center;padding:24px 8% 24px 0;opacity:.95}
+.neo-difs--legenda small{font-size:13px;font-weight:400;color:var(--neo-suave)}
+.neo-pag-hero--simples{min-height:0}
+.neo-pag-hero--simples::after{display:none}
+.neo-contatos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:26px 0 40px}
+.neo-contatos article{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:24px;border:1px solid var(--neo-linha);border-radius:18px;background:var(--neo-vidro)}
+.neo-contatos svg{width:38px;height:38px;fill:none;stroke:var(--neo-ciano);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.neo-contatos h2{margin:0;font-size:22px}.neo-contatos p{margin:0 0 auto;color:var(--neo-suave);line-height:1.5}
+.neo-pendente{font-size:13px;padding:8px 14px;border:1px dashed rgba(255,255,255,.35);border-radius:999px;color:var(--neo-suave)}
+@media(max-width:900px){.neo-contatos{grid-template-columns:1fr}}
+@media(max-width:900px){.neo-pag-foto--logo{opacity:.18;padding:24px}}

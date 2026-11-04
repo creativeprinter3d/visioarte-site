@@ -1,8 +1,8 @@
 (() => {
   'use strict';
   const $=id=>document.getElementById(id),all=selector=>[...document.querySelectorAll(selector)];
-  const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos','areas','firmware','visio-tekna'];
-  const titles=['Início','Coleções','Como fazemos','Materiais','Feito por nós','Software','Projetos + contato','Áreas','Firmware','Visio_Tekna'];
+  const pages=['inicio','pecas','como-fazemos','material-reciclagem','maquinas','software','projetos','areas','firmware','visio-tekna','sobre','contato'];
+  const titles=['Início','Coleções','Como fazemos','Materiais','Feito por nós','Software','Projetos + contato','Áreas','Firmware','Visio_Tekna','Sobre','Contato'];
   const collections=[
   {
     "name": "Luminárias",
@@ -178,7 +178,7 @@
   document.addEventListener('click',e=>{if(!e.target.closest('#header'))setMenu(false);});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){setMenu(false);toggle.focus();}});
   addEventListener('scroll',()=>document.body.classList.toggle('page-scrolled',scrollY>24),{passive:true});
-  const aliases={'tekna':'visio-tekna','visio_tekna':'visio-tekna','Visio_Tekna':'visio-tekna','areas/materiais':'material-reciclagem','ceramica-utilitarios':'pecas/ceramica-utilitarios','nautica-componentes':'pecas/nautica-componentes','cubas-lavabos':'pecas/cubas-lavabos','pets-design':'pecas/pets-design','revestimentos-fachadas':'pecas/revestimentos-fachadas','jardins-areas-externas':'pecas/jardins-areas-externas','arte-esculturas':'pecas/arte-esculturas','paineis-divisorias':'pecas/paineis-divisorias','pecas/objetos':'pecas/vasos-decoracao',objetos:'pecas/vasos-decoracao','vasos-decoracao':'pecas/vasos-decoracao',colecoes:'pecas',contato:'projetos',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem',tecnologia:'maquinas','areas-tecnologia':'maquinas','conexoes-tecnologia':'maquinas'};
+  const aliases={'tekna':'visio-tekna','visio_tekna':'visio-tekna','Visio_Tekna':'visio-tekna','areas/materiais':'material-reciclagem','ceramica-utilitarios':'pecas/ceramica-utilitarios','nautica-componentes':'pecas/nautica-componentes','cubas-lavabos':'pecas/cubas-lavabos','pets-design':'pecas/pets-design','revestimentos-fachadas':'pecas/revestimentos-fachadas','jardins-areas-externas':'pecas/jardins-areas-externas','arte-esculturas':'pecas/arte-esculturas','paineis-divisorias':'pecas/paineis-divisorias','pecas/objetos':'pecas/vasos-decoracao',objetos:'pecas/vasos-decoracao','vasos-decoracao':'pecas/vasos-decoracao',colecoes:'pecas',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem',tecnologia:'maquinas','areas-tecnologia':'maquinas','conexoes-tecnologia':'maquinas'};
   function route(){
     const raw=location.hash.slice(1)||'inicio',mapped=aliases[raw]||raw;
     let [page,category]=mapped.split('/');
