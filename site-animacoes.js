@@ -91,17 +91,17 @@
     const gsap = window.gsap;
     const hero = first(root,
       '.neo-hero, .neo-pag-hero, .slicer-product-hero, .furniture-hero, ' +
-      '.lighting-hero, .page-heading, .process-hero, .recycled-hero');
+      '.lighting-hero, .fw-hero, .page-heading, .process-hero, .recycled-hero');
     if (!hero) return null;
 
     const heading = first(hero, 'h1');
     const eyebrow = first(hero, '.neo-crumb, .eyebrow, .status');
     const lead = first(hero,
       '.neo-lead, .slicer-product-lead, .slicer-product-description, ' +
-      '.furniture-lead, .neo-pag-copy > p:not(.neo-crumb), ' +
+      '.furniture-lead, .fw-hero-copy > p:not(.eyebrow), .neo-pag-copy > p:not(.neo-crumb), ' +
       '.neo-hero-copy > p:not(.neo-crumb), .page-heading > p:not(.eyebrow)');
     const actions = first(hero,
-      '.neo-pag-acoes, .slicer-product-actions, .furniture-actions, .neo-hero-copy > .neo-btn');
+      '.neo-pag-acoes, .fw-actions, .slicer-product-actions, .furniture-actions, .neo-hero-copy > .neo-btn');
     const pillars = first(hero, '.neo-pilares');
     const items = [eyebrow, heading, lead, actions, pillars].filter((el, i, a) => el && a.indexOf(el) === i);
     if (items.length) {
@@ -115,7 +115,7 @@
     // e não devemos disputar o mesmo transform com GSAP.
     const photo = first(hero,
       '.neo-hero-foto, .neo-pag-foto:not(.neo-imagem-breve), ' +
-      '.slicer-product-visual, .furniture-figure, .lighting-hero img');
+      '.slicer-product-visual, .fw-visual, .furniture-figure, .lighting-hero img');
     if (photo) {
       gsap.from(photo, {
         opacity:0, duration:1.15, delay:.12, ease:'power1.out',
@@ -135,6 +135,7 @@
       '.neo-passos', '.neo-etapas', '.neo-difs', '.neo-cta',
       '.machines-nav', '.machines-equipment', '.machines-technology',
       '.machines-faq', '.machines-final',
+      '.fw-intro', '.fw-flow', '.fw-systems', '.fw-progress', '.fw-faq', '.fw-final',
       '.neo-maq-corpo', '.neo-proc-fotos', '.neo-ficha',
       '.process-principles', '.process-journey-intro', '.process-steps',
       '.process-tools', '.process-tool-grid', '.process-materials',
@@ -147,8 +148,10 @@
       '.slicer-steps', '.slicer-final',
       '.furniture-section-header', '.furniture-direction',
       '.furniture-materials', '.furniture-section',
+      '.furniture-facts', '.furniture-process', '.furniture-faq-grid', '.furniture-final',
       '.lighting-reference', '.lighting-gallery',
-      '.project-steps', '.neo-contatos', '.area-other',
+      '.lighting-section', '.lighting-collection', '.lighting-faq',
+      '.project-steps', '.contact-layout', '.neo-contatos', '.area-other',
       '.page-heading + .area-grid'
     ].join(', ');
 
