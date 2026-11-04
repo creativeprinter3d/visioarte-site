@@ -312,3 +312,10 @@ main h1{font-weight:700!important}main h2,main h3{font-weight:600!important}
   main figcaption,main .process-step-note,main .process-development-note,main .pending-note,main .contact-form small,main .btn{font-size:13px!important}
   main .btn{font-size:15px!important}
 }
+
+/* ══ Movimento sutil de câmera nas imagens de abertura ══ */
+.neo-hero-foto{overflow:hidden}
+@keyframes neo-camera{from{transform:scale(1) translate3d(0,0,0)}to{transform:scale(1.08) translate3d(-1.2%,-.8%,0)}}
+.neo-hero-foto img,.neo-pag-foto:not(.neo-pag-foto--tela):not(.neo-pag-foto--logo):not(.neo-imagem-breve){
+  transform-origin:60% 55%;animation:neo-camera 18s ease-in-out infinite alternate;will-change:transform}
+@media(prefers-reduced-motion:reduce){.neo-hero-foto img,.neo-pag-foto{animation:none!important}}
