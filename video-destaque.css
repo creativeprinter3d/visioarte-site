@@ -1,0 +1,15 @@
+/* Escopo restrito ao vídeo de apresentação da página inicial. */
+.visio-filme{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(36px,6vw,80px) clamp(20px,5vw,80px);margin:0 auto;max-width:1600px}
+.visio-filme__copy,.visio-filme__media{min-width:0}
+.visio-filme__eyebrow{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:#83d6da;margin:0 0 16px}
+.visio-filme h2{font-size:clamp(2rem,3.2vw,3.5rem);line-height:1.1;margin:0 0 20px}
+.visio-filme__copy>p:not(.visio-filme__eyebrow){line-height:1.65;color:#c9d6d6;max-width:36ch}
+.visio-filme__meta{display:block;font-size:.8rem;color:#b6c8c8;margin:16px 0 22px}
+.visio-filme figure{margin:0}
+.visio-filme video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#061219;border:1px solid #83d6da33;border-radius:12px}
+.visio-filme video:focus-visible,.visio-filme summary:focus-visible,.visio-filme a:focus-visible{outline:3px solid #83d6da;outline-offset:5px}
+.visio-filme figcaption{font-size:.75rem;line-height:1.6;color:#b6c8c8;margin-top:12px}
+.visio-filme details{font-size:.875rem;line-height:1.6;color:#c9d6d6;margin-top:16px}
+.visio-filme summary{cursor:pointer;width:fit-content}
+.visio-filme details p{margin:12px 0 0}
+@media(max-width:760px){.visio-filme{grid-template-columns:minmax(0,1fr);gap:24px;padding:40px 20px}.visio-filme__copy>p:not(.visio-filme__eyebrow){max-width:none}.visio-filme h2{font-size:2rem}.visio-filme video{border-radius:8px}}
