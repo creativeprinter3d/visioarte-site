@@ -1,0 +1,19 @@
+/* Piloto GSAP: microinterações exclusivas da Casa e Decoração.
+   Carregado apenas com ?experimento=gsap; não altera outras páginas. */
+html.experimento-gsap #area-casa-decoracao .neo-colecoes .area-card {
+  transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+}
+@media (hover:hover) and (pointer:fine) {
+  html.experimento-gsap #area-casa-decoracao .neo-colecoes .area-card:hover {
+    box-shadow:0 22px 52px rgba(0,0,0,.32),0 0 0 1px rgba(116,223,229,.18);
+  }
+  html.experimento-gsap #area-casa-decoracao .neo-abas a:hover {
+    background:rgba(37,107,115,.16);
+    border-color:rgba(116,223,229,.58);
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  html.experimento-gsap #area-casa-decoracao .neo-colecoes .area-card {
+    transition:none!important;
+  }
+}
