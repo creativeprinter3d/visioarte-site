@@ -371,3 +371,9 @@ main :is(h1,h2,h3,h4):not(svg):not(svg *){line-height:1.16;letter-spacing:.005em
   .neo-hero-foto{height:260px}
 }
 @media(max-width:700px){.neo-pilares{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}}
+@media(max-width:700px){
+  .top .brand{font-size:14px!important;letter-spacing:.14em!important;gap:10px}
+  .top .brand-logo{width:50px;height:50px}
+  .neo-pilares li{font-size:12.5px;line-height:1.3}
+  .neo-pilares svg{width:24px;height:24px}
+}
