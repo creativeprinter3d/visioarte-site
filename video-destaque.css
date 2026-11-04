@@ -11,5 +11,7 @@
 .visio-filme figcaption{font-size:.75rem;line-height:1.6;color:#b6c8c8;margin-top:12px}
 .visio-filme details{font-size:.875rem;line-height:1.6;color:#c9d6d6;margin-top:16px}
 .visio-filme summary{cursor:pointer;width:fit-content}
+.visio-filme--luminaria{padding-inline:0}
 .visio-filme details p{margin:12px 0 0}
 @media(max-width:760px){.visio-filme{grid-template-columns:minmax(0,1fr);gap:24px;padding:40px 20px}.visio-filme__copy>p:not(.visio-filme__eyebrow){max-width:none}.visio-filme h2{font-size:2rem}.visio-filme video{border-radius:8px}}
+@media(max-width:760px){.visio-filme--luminaria{padding-inline:0}}
