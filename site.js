@@ -179,12 +179,13 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){setMenu(false);toggle.focus();}});
   addEventListener('scroll',()=>document.body.classList.toggle('page-scrolled',scrollY>24),{passive:true});
   const aliases={'tekna':'visio-tekna','visio_tekna':'visio-tekna','Visio_Tekna':'visio-tekna','areas/materiais':'material-reciclagem','ceramica-utilitarios':'pecas/ceramica-utilitarios','nautica-componentes':'pecas/nautica-componentes','cubas-lavabos':'pecas/cubas-lavabos','pets-design':'pecas/pets-design','revestimentos-fachadas':'pecas/revestimentos-fachadas','jardins-areas-externas':'pecas/jardins-areas-externas','arte-esculturas':'pecas/arte-esculturas','paineis-divisorias':'pecas/paineis-divisorias','pecas/objetos':'pecas/vasos-decoracao',objetos:'pecas/vasos-decoracao','vasos-decoracao':'pecas/vasos-decoracao',colecoes:'pecas',luminarias:'pecas/luminarias','modelos-luminarias':'pecas/luminarias',reciclagem:'material-reciclagem','processo-reciclagem':'material-reciclagem',materiais:'material-reciclagem',tecnologia:'maquinas','areas-tecnologia':'maquinas','conexoes-tecnologia':'maquinas'};
+  const sectionRoutes={teknaToolsTitle:'visio-tekna','colecoes-casa':'areas/casa-decoracao','aplicacoes-arq':'areas/arquitetura','solucoes-tec':'areas/tecnologia',projectForm:'projetos','areas-colecoes':'pecas','ficha-maquina':'a-maquina'};
   function route(){
-    const raw=location.hash.slice(1)||'inicio',mapped=aliases[raw]||raw;
+    const raw=location.hash.slice(1)||'inicio',sectionId=Object.hasOwn(sectionRoutes,raw)?raw:null,mapped=sectionRoutes[sectionId]||aliases[raw]||raw;
     let [page,category]=mapped.split('/');
     if(!pages.includes(page)||(page==='areas'&&!groups.some(g=>g.slug===category))){page='inicio';category=undefined;}
     const destination=page+(category?'/'+category:'');
-    if(destination!==raw)history.replaceState(null,'','#'+destination);
+    if(!sectionId&&destination!==raw)history.replaceState(null,'','#'+destination);
     const changed=activeDestination!==destination;activeDestination=destination;activePage=page;
     all('[data-page]').forEach(el=>el.hidden=el.dataset.page!==page);
     all('[data-area]').forEach(el=>el.hidden=page!=='areas'||el.dataset.area!==category);
@@ -199,10 +200,23 @@
       Object.values(detailPages).forEach(p=>{$(p.id).hidden=!detail||p.id!==detail.id;});
       if(detail)document.title=detail.title+' — VISIOARTE';
     }
-    requestAnimationFrame(()=>{if(page==='inicio')measure();syncHeroVideo();scrollTo({top:0,behavior:'instant'});if(changed)$('page-'+page).focus({preventScroll:true});if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});});pauseAuto();
+    requestAnimationFrame(()=>{
+      if(page==='inicio')measure();
+      syncHeroVideo();
+      scrollTo({top:0,behavior:'instant'});
+      if(changed)$('page-'+page).focus({preventScroll:true});
+      if(page==='inicio'&&category==='sobre')$('quem-somos').scrollIntoView({block:'start',behavior:'instant'});
+      // Reveal the owning page before scrolling or focusing a section in the SPA.
+      const section=sectionId&&$(sectionId);
+      if(section&&!section.closest('[hidden]')){
+        section.setAttribute('tabindex','-1');
+        section.focus({preventScroll:true});
+        section.scrollIntoView({block:'start',behavior:'instant'});
+      }
+    });pauseAuto();
   }
   function navigate(destination){const hash='#'+destination;if(location.hash!==hash)history.pushState(null,'',hash);route();}
-  all('a[href^="#"]').filter(a=>a.id!=='skipLink').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();navigate(a.getAttribute('href').slice(1));}));
+  all('a[href^="#"]').filter(a=>a.id!=='skipLink').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();navigate(a.hasAttribute('data-tekna-ir')?'teknaToolsTitle':a.getAttribute('href').slice(1));}));
   $('skipLink').addEventListener('click',e=>{e.preventDefault();$('page-'+activePage).focus();});
 
   // Preserve the approved warm contour and the orbital carousel interaction.
