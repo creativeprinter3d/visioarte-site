@@ -24,3 +24,16 @@ html:is(.tema-refinado,.tema-premium) #page-inicio .neo-lead{
     font-size:clamp(28px,7.2vw,34px)!important;
   }
 }
+
+/* Casa e Decoração: imagem real aprovada, enquadramento desktop. */
+@media (min-width:901px) {
+  #area-casa-decoracao .neo-pag-foto {
+    inset:0 0 0 auto;
+    width:54%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 47%;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 12%,#000 30%);
+    mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 12%,#000 30%);
+  }
+}
