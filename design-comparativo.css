@@ -304,3 +304,23 @@ html.tema-refinado .footer {
                linear-gradient(0deg,rgba(6,18,25,.36),transparent 28%);
   }
 }
+
+/* 07/11/2026 — Integração suave da fotografia ao fundo do hero desktop.
+   Elimina a emenda vertical em 41% sem mover ou recortar a luminária.
+   Mantém o layout mobile e as variantes premium/original intactos. */
+@media (min-width: 901px) {
+  html.tema-refinado #page-inicio .neo-hero-foto {
+    -webkit-mask-image:linear-gradient(90deg,
+      transparent 0%,
+      rgba(0,0,0,.10) 10%,
+      rgba(0,0,0,.46) 26%,
+      rgba(0,0,0,.82) 43%,
+      #000 58%);
+    mask-image:linear-gradient(90deg,
+      transparent 0%,
+      rgba(0,0,0,.10) 10%,
+      rgba(0,0,0,.46) 26%,
+      rgba(0,0,0,.82) 43%,
+      #000 58%);
+  }
+}
