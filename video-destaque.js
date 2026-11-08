@@ -10,12 +10,12 @@
     const lighting = video.id === 'luminariaFilme';
     const automatic = video.id === 'visioFilme' || lighting;
     let inView = false;
-    const playLighting = () => {
+    const resumeFilm = () => {
       if (!inView || document.hidden || video.closest('[hidden]') || video.ended || !video.paused) return;
       video.play().catch(() => {});
     };
+    if (automatic) document.addEventListener('visibilitychange', resumeFilm);
     if (lighting) {
-      document.addEventListener('visibilitychange', playLighting);
       const nextImage = document.querySelector('button[aria-controls="luminariaFilme"]');
       nextImage.addEventListener('click', () => {
         // Cada uma das três cenas ocupa 2,5 segundos.
@@ -26,7 +26,6 @@
         video.play().catch(() => {});
       });
     }
-    let attempted = false;
     if (automatic) {
       video.defaultMuted = true;
       video.muted = true;
@@ -43,26 +42,9 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(entries => {
         const entry = entries[0];
-        if (lighting) {
-          inView = entry.isIntersecting && entry.intersectionRatio >= 0.35;
-          if (inView) playLighting();
-          else video.pause();
-          return;
-        }
-        if (!entry.isIntersecting) {
-          video.pause();
-          return;
-        }
-        if (automatic && !attempted && entry.intersectionRatio >= 0.35 &&
-            !document.hidden && !video.closest('[hidden]')) {
-          attempted = true;
-          // Uma única tentativa preserva a pausa manual e o fim do filme.
-          // Se o navegador bloquear, os controles continuam disponíveis.
-          if (video.currentTime === 0 && video.paused) {
-            const playback = video.play();
-            if (playback && typeof playback.catch === 'function') playback.catch(() => {});
-          }
-        }
+        inView = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+        if (!entry.isIntersecting || (lighting && !inView)) video.pause();
+        if (automatic) resumeFilm();
       }, {threshold:[0, 0.35]}).observe(video);
     }
   });
