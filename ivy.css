@@ -1,0 +1,19 @@
+/* Ivy, assistente virtual (IA): apresenta a página inicial. Só aparece no desktop (>= 1000px).
+   O vídeo tem fundo preto e usa mix-blend-mode:screen, então o preto some e ela parece flutuar sobre a foto. */
+/* a camada NAO pode criar contexto de empilhamento (sem z-index), senão o mix-blend-mode do vídeo não enxerga a foto atrás */
+.ivy-camada{position:absolute;inset:0;pointer-events:none;display:none}
+@media (min-width:1000px){.ivy-camada{display:block}}
+.ivy-video{position:absolute;z-index:6;display:block;mix-blend-mode:screen;opacity:0;filter:brightness(1.8) blur(3px);transition:opacity .9s ease,filter .9s ease}
+.ivy-video.ivy-em-cena{opacity:1;filter:none}
+.ivy-video.ivy-saindo{opacity:0;filter:brightness(2.2) blur(6px);transition:opacity 1.6s ease,filter 1.6s ease}
+.ivy-legenda{position:absolute;z-index:7;left:8%;right:8%;bottom:14px;text-align:center;font:500 clamp(14px,1.15vw,17px)/1.35 var(--fonte-corpo,system-ui,sans-serif);color:#eef6ff;text-shadow:0 2px 12px #000,0 0 3px #000;opacity:0;transition:opacity .3s}
+.ivy-legenda.ivy-visivel{opacity:1}
+.ivy-rotulo{position:absolute;z-index:7;left:clamp(16px,2vw,32px);bottom:10px;font:500 11px/1 system-ui,sans-serif;letter-spacing:.04em;color:#9db6d0;opacity:0;transition:opacity .4s}
+.ivy-rotulo.ivy-visivel{opacity:.9}
+.ivy-botao,.ivy-pular{pointer-events:auto;cursor:pointer;font:600 clamp(13px,1vw,15px)/1 system-ui,sans-serif;color:#d6ecff;background:rgba(7,18,30,.82);border:1px solid #2f6aa3;border-radius:999px;padding:.8em 1.4em;backdrop-filter:blur(6px);box-shadow:0 0 22px rgba(40,120,220,.35);transition:background .2s,box-shadow .2s}
+.ivy-botao:hover,.ivy-pular:hover{background:rgba(12,34,56,.92);box-shadow:0 0 30px rgba(60,150,255,.5)}
+.ivy-botao:focus-visible,.ivy-pular:focus-visible{outline:2px solid #6fd6dc;outline-offset:3px}
+.ivy-botao{position:absolute;z-index:7;right:clamp(16px,2.4vw,40px);bottom:clamp(16px,2.4vw,36px)}
+.ivy-pular{position:absolute;z-index:7;right:clamp(16px,2.4vw,40px);bottom:clamp(16px,2.4vw,36px);padding:.6em 1.1em;font-weight:500;opacity:0;visibility:hidden;transition:opacity .3s}
+.ivy-pular.ivy-visivel{opacity:1;visibility:visible}
+@media (prefers-reduced-motion:reduce){.ivy-video,.ivy-video.ivy-saindo{transition:none;filter:none}}
