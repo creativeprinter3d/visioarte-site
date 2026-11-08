@@ -14,7 +14,18 @@
       if (!inView || document.hidden || video.closest('[hidden]') || video.ended || !video.paused) return;
       video.play().catch(() => {});
     };
-    if (lighting) document.addEventListener('visibilitychange', playLighting);
+    if (lighting) {
+      document.addEventListener('visibilitychange', playLighting);
+      const nextImage = document.querySelector('button[aria-controls="luminariaFilme"]');
+      nextImage.addEventListener('click', () => {
+        // Cada uma das três cenas ocupa 2,5 segundos.
+        const sceneDuration = 2.5;
+        const lastScene = 2;
+        const scene = Math.min(Math.floor(video.currentTime / sceneDuration), lastScene);
+        video.currentTime = scene === lastScene ? 0 : (scene + 1) * sceneDuration;
+        video.play().catch(() => {});
+      });
+    }
     let attempted = false;
     if (automatic) {
       video.defaultMuted = true;

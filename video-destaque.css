@@ -15,3 +15,8 @@
 .visio-filme details p{margin:12px 0 0}
 @media(max-width:760px){.visio-filme{grid-template-columns:minmax(0,1fr);gap:24px;padding:40px 20px}.visio-filme__copy>p:not(.visio-filme__eyebrow){max-width:none}.visio-filme h2{font-size:2rem}.visio-filme video{border-radius:8px}}
 @media(max-width:760px){.visio-filme--luminaria{padding-inline:0}}
+
+.visio-filme__advance{position:relative}
+.visio-filme__advance>button{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:12px;border:0;border-radius:12px;background:none;cursor:pointer}
+.visio-filme__advance>button:focus-visible{outline:3px solid #83d6da;outline-offset:4px}
+.visio-filme__advance>button>span[aria-hidden]{display:grid;place-items:center;width:36px;height:36px;border:1px solid #83d6da;border-radius:50%;background:#09151ce6;color:#83d6da;font-size:20px}
