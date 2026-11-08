@@ -7,7 +7,14 @@
     if (document.hidden) videos.forEach(video => video.pause());
   });
   videos.forEach(video => {
-    const automatic = video.id === 'visioFilme';
+    const lighting = video.id === 'luminariaFilme';
+    const automatic = video.id === 'visioFilme' || lighting;
+    let inView = false;
+    const playLighting = () => {
+      if (!inView || document.hidden || video.closest('[hidden]') || video.ended || !video.paused) return;
+      video.play().catch(() => {});
+    };
+    if (lighting) document.addEventListener('visibilitychange', playLighting);
     let attempted = false;
     if (automatic) {
       video.defaultMuted = true;
@@ -25,6 +32,12 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(entries => {
         const entry = entries[0];
+        if (lighting) {
+          inView = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+          if (inView) playLighting();
+          else video.pause();
+          return;
+        }
         if (!entry.isIntersecting) {
           video.pause();
           return;
