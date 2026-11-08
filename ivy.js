@@ -1,10 +1,34 @@
 /* Ivy, assistente virtual (IA) na página inicial: tour gravado (sem conversa), só começa depois do clique.
    Parada 1: no topo da Início (assets/ivy/ivy-inicio.mp4). Parada 2: caminha pelos cartões de "Conheça nossas criações"
-   (assets/ivy/ivy-criacoes.mp4). Parada 3: ao lado do filme "O universo VISIOARTE" (assets/ivy/ivy-universo.mp4, 30 s, o filme toca junto). Em cada arquivo a voz vai junto com o vídeo, então ficam sempre em sincronia. */
+   (assets/ivy/ivy-criacoes.mp4). No celular: um video horizontal numa janela (assets/ivy/ivy-apresentacao-celular.mp4). Parada 3: ao lado do filme "O universo VISIOARTE" (assets/ivy/ivy-universo.mp4, 30 s, o filme toca junto). Em cada arquivo a voz vai junto com o vídeo, então ficam sempre em sincronia. */
 (function(){
   'use strict';
   var hero=document.getElementById('neo-inicio');
-  if(!hero||!window.matchMedia||!matchMedia('(min-width:1000px)').matches)return;
+  if(!hero||!window.matchMedia)return;
+  /* ---------- celular (< 1000 px): um unico video horizontal da Ivy numa janela propria, aberta pelo botao ---------- */
+  if(!matchMedia('(min-width:1000px)').matches){
+    var ARQ_M='assets/ivy/ivy-apresentacao-celular.mp4', POSTER_M='assets/ivy/ivy-apresentacao-celular.jpg';
+    var jan=document.createElement('div');jan.className='ivy-janela';jan.hidden=true;jan.setAttribute('role','dialog');jan.setAttribute('aria-modal','true');jan.setAttribute('aria-label','Apresentação com a Ivy, assistente virtual (IA)');
+    var vm=document.createElement('video');vm.className='ivy-janela-video';vm.controls=true;vm.playsInline=true;vm.setAttribute('playsinline','');vm.preload='none';vm.poster=POSTER_M;
+    var fx=document.createElement('button');fx.type='button';fx.className='ivy-janela-fechar';fx.setAttribute('aria-label','Fechar a apresentação');fx.textContent='×';
+    var dica=document.createElement('div');dica.className='ivy-janela-dica';
+    dica.innerHTML='<span class="ivy-giro" aria-hidden="true">⟳</span><p>Dica: <strong>gire o celular</strong> para ver a apresentação maior.</p><button type="button">Tela cheia</button>';
+    jan.append(vm,fx,dica);document.body.appendChild(jan);
+    dica.querySelector('button').addEventListener('click',function(){
+      var rf=jan.requestFullscreen||jan.webkitRequestFullscreen;
+      if(rf){var r=rf.call(jan);var ok=function(){try{screen.orientation.lock('landscape').catch(function(){})}catch(e){}};if(r&&r.then)r.then(ok).catch(function(){});else ok()}
+      else if(vm.webkitEnterFullscreen){vm.webkitEnterFullscreen()}
+    });
+    var abre=document.createElement('button');abre.type='button';abre.className='ivy-botao ivy-fixa ivy-botao-movel';abre.textContent='▶ Tour com a Ivy';abre.setAttribute('aria-label','Assistir à apresentação da Ivy');
+    document.body.appendChild(abre);
+    function abrir(){if(!vm.getAttribute('src'))vm.src=ARQ_M;jan.hidden=false;document.documentElement.classList.add('ivy-janela-aberta');vm.currentTime=0;var p=vm.play();if(p&&p.catch)p.catch(function(){});try{fx.focus({preventScroll:true})}catch(e){}}
+    function fechar(){vm.pause();jan.hidden=true;document.documentElement.classList.remove('ivy-janela-aberta');try{abre.focus({preventScroll:true})}catch(e){}}
+    abre.addEventListener('click',abrir);fx.addEventListener('click',fechar);
+    jan.addEventListener('click',function(e){if(e.target===jan)fechar()});
+    addEventListener('keydown',function(e){if(e.key==='Escape'&&!jan.hidden)fechar()});
+    return;
+  }
+  /* ---------- computador (>= 1000 px): tour pela pagina ---------- */
 
   /* ---------- parada 1: topo da página ---------- */
   var ARQ1='assets/ivy/ivy-inicio.mp4';

@@ -22,5 +22,34 @@
 .ivy-legenda.ivy-fixa{z-index:41;left:50%;right:auto;transform:translateX(-50%);width:min(760px,88vw);bottom:64px}
 .ivy-rotulo.ivy-fixa{z-index:41;left:clamp(16px,2vw,32px);bottom:16px}
 .ivy-pular.ivy-fixa{z-index:41;right:clamp(16px,2.4vw,40px);bottom:clamp(16px,2.4vw,36px)}
-@media (max-width:999px){.ivy-fixa,.ivy-video-fixo{display:none}}
+/* celular: botao do tour fixo, grande o bastante para o toque; legenda e rotulo menores */
+@media (max-width:999px){
+  .ivy-botao-movel{z-index:45;right:14px;bottom:62px;left:auto;font-size:15px;padding:.9em 1.3em}
+  .ivy-legenda.ivy-fixa{width:calc(100vw - 24px);bottom:12px;font-size:14px}
+  .ivy-rotulo.ivy-fixa{display:none}
+  .ivy-pular.ivy-fixa{right:14px;bottom:62px}
+  .ivy-video-fixo{z-index:40}
+}
+.ivy-no-tour .aviso-dev{display:none}
 @media (prefers-reduced-motion:reduce){.ivy-video,.ivy-video.ivy-saindo{transition:none;filter:none}}
+
+/* celular: janela propria com o video vertical da Ivy */
+.ivy-janela{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(3,10,14,.97)}
+.ivy-janela[hidden]{display:none}
+.ivy-janela{flex-direction:column;gap:18px}
+.ivy-janela-video{display:block;width:100vw;max-height:100dvh;aspect-ratio:16/9;background:#050e14}
+.ivy-janela-dica{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:300px;padding:0 20px;text-align:center;color:#c9d6d6;font:400 15px/1.45 system-ui,sans-serif}
+.ivy-janela-dica p{margin:0}.ivy-janela-dica strong{color:#83d6da;font-weight:600}
+.ivy-giro{font-size:34px;line-height:1;color:#83d6da;display:inline-block;animation:ivy-gira 3.2s ease-in-out infinite}
+@keyframes ivy-gira{0%,15%{transform:rotate(0)}55%,100%{transform:rotate(-90deg)}}
+.ivy-janela-dica button{border:1px solid #2f6aa3;border-radius:999px;background:rgba(7,18,30,.85);color:#d6ecff;font:600 14px/1 system-ui,sans-serif;padding:.8em 1.4em;cursor:pointer}
+@media (orientation:landscape){
+  .ivy-janela{gap:0}
+  .ivy-janela-video{width:min(100vw,calc(100dvh * 16 / 9));height:100dvh;max-height:none}
+  .ivy-janela-dica{display:none}
+}
+@media (prefers-reduced-motion:reduce){.ivy-giro{animation:none}}
+.ivy-janela-fechar{position:absolute;top:max(10px,env(safe-area-inset-top));right:12px;width:46px;height:46px;border:1px solid #2f6aa3;border-radius:50%;background:rgba(7,18,30,.85);color:#d6ecff;font:600 28px/1 system-ui,sans-serif;cursor:pointer;z-index:2}
+.ivy-janela-fechar:focus-visible{outline:2px solid #6fd6dc;outline-offset:3px}
+.ivy-janela-aberta{overflow:hidden}
+.ivy-janela-aberta .aviso-dev{display:none}
