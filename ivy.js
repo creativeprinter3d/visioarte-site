@@ -1,6 +1,6 @@
 /* Ivy, assistente virtual (IA) na página inicial: tour gravado (sem conversa), só começa depois do clique.
    Parada 1: no topo da Início (assets/ivy/ivy-inicio.mp4). Parada 2: caminha pelos cartões de "Conheça nossas criações"
-   (assets/ivy/ivy-criacoes.mp4). Em cada arquivo a voz vai junto com o vídeo, então ficam sempre em sincronia. */
+   (assets/ivy/ivy-criacoes.mp4). Parada 3: ao lado do filme "O universo VISIOARTE" (assets/ivy/ivy-universo.mp4, 30 s, o filme toca junto). Em cada arquivo a voz vai junto com o vídeo, então ficam sempre em sincronia. */
 (function(){
   'use strict';
   var hero=document.getElementById('neo-inicio');
@@ -21,6 +21,12 @@
   var P1='As nossas soluções englobam diversos tipos de materiais', P2=' e tecnologias', P3=' que dão forma às nossas ideias.';
   var FIM_FALA2=8.05, SAI2=7.5;
 
+  /* ---------- parada 3: ao lado do filme "O universo VISIOARTE" ---------- */
+  var ARQ3='assets/ivy/ivy-universo.mp4';
+  var FALAS3=[[0.3,'Esta é a nossa história: do polímero reciclado até a peça pronta.'],[4.6,'Tudo começa no polímero reciclado: limpo, triturado e transformado em material para imprimir.'],[11.4,'Camada por camada, a peça nasce nas nossas máquinas.'],[20.1,'Do software à fabricação, tudo é desenvolvido por nós.'],[24.6,'Peças autorais, uma a uma.'],[27.0,'Visioarte. Damos forma às suas ideias.']];
+  var FIM_FALA3=30.0, SAI3=29.2;
+  var PROP3=640/720, ALT3=1.135, ESQ3=.392, PES3=.93;   // janela do vídeo (largura/altura), altura = 1,135 x altura do filme, recuo à esquerda do filme, onde ficam os pés
+
   var camada=document.createElement('div');camada.className='ivy-camada';camada.setAttribute('aria-label','Ivy, assistente virtual');
   var v=document.createElement('video');v.className='ivy-video';v.preload='none';v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('aria-hidden','true');
   var leg=document.createElement('div');leg.className='ivy-legenda';leg.setAttribute('aria-live','polite');
@@ -35,6 +41,12 @@
   var rot2=document.createElement('div');rot2.className='ivy-rotulo ivy-fixa';rot2.textContent='Ivy · assistente virtual (IA)';
   var pu2=document.createElement('button');pu2.type='button';pu2.className='ivy-pular ivy-fixa';pu2.textContent='Pular';pu2.setAttribute('aria-label','Pular a apresentação da Ivy');
   document.body.append(v2,leg2,rot2,pu2);
+  var v3=document.createElement('video');v3.className='ivy-video ivy-video-fixo';v3.preload='none';v3.playsInline=true;v3.setAttribute('playsinline','');v3.setAttribute('aria-hidden','true');
+  var leg3=document.createElement('div');leg3.className='ivy-legenda ivy-fixa';leg3.setAttribute('aria-live','polite');
+  var rot3=document.createElement('div');rot3.className='ivy-rotulo ivy-fixa';rot3.textContent='Ivy · assistente virtual (IA)';
+  var pu3=document.createElement('button');pu3.type='button';pu3.className='ivy-pular ivy-fixa';pu3.textContent='Pular';pu3.setAttribute('aria-label','Pular a apresentação da Ivy');
+  document.body.append(v3,leg3,rot3,pu3);
+  var filme=document.getElementById('visioFilme');
 
   function posiciona(){
     var H=hero.clientHeight,W=hero.clientWidth,h=H*ALTURA,w=h*PROP;
@@ -52,20 +64,32 @@
     v2.style.top=(base+6-PES_Y*h)+'px';
     return true;
   }
-  posiciona();addEventListener('resize',function(){posiciona();if(etapa===2)posiciona2()});
+  function posiciona3(){
+    if(!filme)return false;
+    var r=filme.getBoundingClientRect();if(!r.width)return false;
+    var h=ALT3*r.height,w=h*PROP3;
+    v3.style.width=w+'px';v3.style.height=h+'px';
+    v3.style.left=(r.left-ESQ3*r.width)+'px';
+    v3.style.top=(r.bottom+.005*r.width-PES3*h)+'px';
+    return true;
+  }
+  posiciona();addEventListener('resize',function(){posiciona();if(etapa===2)posiciona2();if(etapa===3)posiciona3()});
 
-  var etapa=0, tm=[];                                          // 0 parado, 1 parada 1, 2 parada 2
+  var etapa=0, tm=[];                                          // 0 parado, 1 parada 1, 2 parada 2, 3 parada 3
   function limpaTm(){tm.forEach(clearTimeout);tm=[]}
   function texto1(t){var s='';for(var i=0;i<FALAS1.length;i++)if(t>=FALAS1[i][0])s=FALAS1[i][1];return t>FIM_FALA1?'':s}
+  function texto3(t){var s='';for(var i=0;i<FALAS3.length;i++)if(t>=FALAS3[i][0])s=FALAS3[i][1];return t>FIM_FALA3?'':s}
   function texto2(t){return t<.2||t>FIM_FALA2?'':(t<4.05?P1:t<5.87?P1+P2+'…':P1+P2+P3)}
 
   function paraTudo(rotuloBotao){
     limpaTm();etapa=0;
-    [v,v2].forEach(function(x){x.pause()});
+    [v,v2,v3].forEach(function(x){x.pause()});
     leg.classList.remove('ivy-visivel');rot.classList.remove('ivy-visivel');pu.classList.remove('ivy-visivel');
     leg2.classList.remove('ivy-visivel');rot2.classList.remove('ivy-visivel');pu2.classList.remove('ivy-visivel');
+    leg3.classList.remove('ivy-visivel');rot3.classList.remove('ivy-visivel');pu3.classList.remove('ivy-visivel');
     v.classList.remove('ivy-em-cena');v.classList.add('ivy-saindo');
     v2.classList.remove('ivy-em-cena');v2.classList.add('ivy-saindo');
+    v3.classList.remove('ivy-em-cena');v3.classList.add('ivy-saindo');
     tm.push(setTimeout(function(){bt.textContent=rotuloBotao;bt.style.display='';try{bt.focus({preventScroll:true})}catch(e){}},900));
   }
   function inicia(){
@@ -73,6 +97,8 @@
     limpaTm();
     if(!v.getAttribute('src'))v.src=ARQ1;
     if(!v2.getAttribute('src')){v2.preload='auto';v2.src=ARQ2}     // baixa a parada 2 enquanto a 1 toca (274 KB)
+    if(!v3.getAttribute('src')){v3.preload='auto';v3.src=ARQ3}     // e a parada 3 (590 KB) e o filme (3 MB)
+    if(filme&&filme.preload!=='auto')filme.preload='auto';
     bt.style.display='none';etapa=1;
     v.classList.remove('ivy-saindo');v.currentTime=0;
     var p=v.play();
@@ -111,6 +137,34 @@
       rot2.classList.add('ivy-visivel');leg2.classList.add('ivy-visivel');pu2.classList.add('ivy-visivel');
     });
   }
+  function paradaTres(){
+    if(etapa!==2)return;
+    etapa=3;limpaTm();v2.pause();
+    leg2.classList.remove('ivy-visivel');rot2.classList.remove('ivy-visivel');pu2.classList.remove('ivy-visivel');
+    v2.classList.remove('ivy-em-cena');v2.classList.add('ivy-saindo');
+    var secao=filme&&filme.closest('.visio-filme');
+    if(!secao){paraTudo('↻ Rever o tour');return}
+    var r0=filme.getBoundingClientRect();
+    var DEST=Math.max(0,Math.round(scrollY+r0.top-Math.max(110,(innerHeight-r0.height)/2-30)));   // filme no meio da janela, com folga em cima para a cabeça da Ivy e embaixo para a legenda
+    rolarAte(DEST,function(){
+      if(etapa!==3)return;
+      if(!posiciona3()){paraTudo('↻ Rever o tour');return}
+      try{filme.currentTime=0}catch(e){}
+      var pf=filme.play();if(pf&&pf.catch)pf.catch(function(){});
+      v3.classList.remove('ivy-saindo');v3.currentTime=0;
+      var p=v3.play();if(p&&p.catch)p.catch(function(){paraTudo('▶ Tour com a Ivy')});
+      requestAnimationFrame(function(){v3.classList.add('ivy-em-cena')});
+      rot3.classList.add('ivy-visivel');leg3.classList.add('ivy-visivel');pu3.classList.add('ivy-visivel');
+    });
+  }
+  v3.addEventListener('timeupdate',function(){
+    if(etapa!==3)return;
+    var t=v3.currentTime;leg3.textContent=texto3(t);
+    if(filme&&!v3.seeking&&Math.abs(filme.currentTime-t)>.4){try{filme.currentTime=t}catch(e){}}   // o filme acompanha a voz
+    if(filme&&filme.paused&&t<FIM_FALA3&&!filme.ended)filme.play().catch(function(){});
+    if(t>=SAI3&&!v3.classList.contains('ivy-saindo')){v3.classList.remove('ivy-em-cena');v3.classList.add('ivy-saindo');leg3.classList.remove('ivy-visivel');rot3.classList.remove('ivy-visivel');pu3.classList.remove('ivy-visivel')}
+  });
+  v3.addEventListener('ended',function(){if(etapa===3)paraTudo('↻ Rever o tour')});
   v.addEventListener('timeupdate',function(){
     if(etapa!==1)return;
     leg.textContent=texto1(v.currentTime);
@@ -121,11 +175,13 @@
     if(etapa!==2)return;
     var t=v2.currentTime;leg2.textContent=texto2(t);
     if(t>=SAI2&&!v2.classList.contains('ivy-saindo')){v2.classList.remove('ivy-em-cena');v2.classList.add('ivy-saindo');leg2.classList.remove('ivy-visivel');rot2.classList.remove('ivy-visivel');pu2.classList.remove('ivy-visivel')}
+    if(t>=FIM_FALA2+.35)paradaTres();
   });
-  v2.addEventListener('ended',function(){if(etapa===2)paraTudo('↻ Rever o tour')});
+  v2.addEventListener('ended',function(){if(etapa===2)paradaTres()});
   bt.addEventListener('click',function(){if(scrollY>8)scrollTo({top:0,behavior:'instant'});inicia()});
   pu.addEventListener('click',function(){paraTudo('▶ Tour com a Ivy')});
   pu2.addEventListener('click',function(){paraTudo('▶ Tour com a Ivy')});
-  addEventListener('scroll',function(){if(etapa===2&&v2.classList.contains('ivy-em-cena'))posiciona2()},{passive:true});   // se a pessoa rolar a página, a Ivy acompanha os cartões
+  pu3.addEventListener('click',function(){paraTudo('▶ Tour com a Ivy')});
+  addEventListener('scroll',function(){if(etapa===2&&v2.classList.contains('ivy-em-cena'))posiciona2();if(etapa===3&&v3.classList.contains('ivy-em-cena'))posiciona3()},{passive:true});   // se a pessoa rolar a página, a Ivy acompanha os cartões
   addEventListener('hashchange',function(){if(etapa)paraTudo('▶ Tour com a Ivy')});
 })();
