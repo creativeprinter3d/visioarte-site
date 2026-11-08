@@ -1,0 +1,8 @@
+/* Aviso discreto: o site ainda está em desenvolvimento. Fica abaixo da Ivy (z-index 40) e pode ser fechado. */
+.aviso-dev{position:fixed;z-index:30;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;max-width:min(560px,calc(100vw - 24px));padding:8px 8px 8px 16px;border:1px solid rgba(131,214,218,.35);border-radius:999px;background:rgba(6,18,25,.92);backdrop-filter:blur(8px);color:#d8e6e8;font:500 13px/1.35 system-ui,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.aviso-dev strong{color:#83d6da;font-weight:600;white-space:nowrap}
+.aviso-dev button{flex:none;width:28px;height:28px;border:0;border-radius:50%;background:rgba(255,255,255,.08);color:#d8e6e8;font:600 16px/1 system-ui,sans-serif;cursor:pointer}
+.aviso-dev button:hover{background:rgba(255,255,255,.18)}
+.aviso-dev button:focus-visible{outline:2px solid #83d6da;outline-offset:2px}
+.aviso-dev[hidden]{display:none}
+@media (max-width:640px){.aviso-dev{bottom:10px;font-size:12px;padding-left:12px}.aviso-dev span{display:none}}
