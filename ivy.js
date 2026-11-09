@@ -1,6 +1,6 @@
 /* Ivy, assistente virtual (IA) na página inicial: tour gravado (sem conversa), só começa depois do clique.
    Parada 1: no topo da Início (assets/ivy/ivy-inicio.mp4). Parada 2: caminha pelos cartões de "Conheça nossas criações"
-   (assets/ivy/ivy-criacoes.mp4). No celular: um video horizontal numa janela (assets/ivy/ivy-apresentacao-celular.mp4). Parada 3: ao lado do filme "O universo VISIOARTE" (assets/ivy/ivy-universo.mp4, 30 s, o filme toca junto). Em cada arquivo a voz vai junto com o vídeo, então ficam sempre em sincronia. */
+   (assets/ivy/ivy-criacoes.mp4). No celular: um video horizontal numa janela (assets/ivy/ivy-apresentacao-celular.mp4). Parada 4: o vídeo "Tecnologia feita por nós" abre sozinho ao fim da parada 3. Parada 3: ao lado do filme "O universo VISIOARTE" (assets/ivy/ivy-universo.mp4, 30 s, o filme toca junto). Em cada arquivo a voz vai junto com o vídeo, então ficam sempre em sincronia. */
 (function(){
   'use strict';
   var hero=document.getElementById('neo-inicio');
@@ -24,6 +24,7 @@
     function abrir(){if(!vm.getAttribute('src'))vm.src=ARQ_M;jan.hidden=false;document.documentElement.classList.add('ivy-janela-aberta');vm.currentTime=0;var p=vm.play();if(p&&p.catch)p.catch(function(){});try{fx.focus({preventScroll:true})}catch(e){}}
     function fechar(){vm.pause();jan.hidden=true;document.documentElement.classList.remove('ivy-janela-aberta');try{abre.focus({preventScroll:true})}catch(e){}}
     abre.addEventListener('click',abrir);fx.addEventListener('click',fechar);
+    vm.addEventListener('ended',function(){fechar();var pv=document.querySelector('.vt-play');if(pv)setTimeout(function(){pv.click()},400)});   // no celular, ao acabar o video da Ivy, abre o video da tecnologia
     jan.addEventListener('click',function(e){if(e.target===jan)fechar()});
     addEventListener('keydown',function(e){if(e.key==='Escape'&&!jan.hidden)fechar()});
     return;
@@ -181,6 +182,19 @@
       rot3.classList.add('ivy-visivel');leg3.classList.add('ivy-visivel');pu3.classList.add('ivy-visivel');
     });
   }
+  /* parada 4: quando a Ivy sai, a página desce até o destaque "Tecnologia feita por nós" e o vídeo abre e começa a tocar.
+     Quando a pessoa fecha o vídeo, o tour termina (video-tecnologia.js avisa com o evento "vt:fechou"). */
+  function paradaQuatro(){
+    if(etapa!==3)return;
+    etapa=4;limpaTm();v3.pause();
+    leg3.classList.remove('ivy-visivel');rot3.classList.remove('ivy-visivel');pu3.classList.remove('ivy-visivel');
+    var dest=document.querySelector('.neo-destaque'),botaoVideo=document.querySelector('.vt-play');
+    if(!dest||!botaoVideo){paraTudo('↻ Rever o tour');return}
+    var r0=dest.getBoundingClientRect();
+    var DEST=Math.max(0,Math.round(scrollY+r0.top-Math.max(90,(innerHeight-r0.height)/2)));
+    rolarAte(DEST,function(){if(etapa===4)botaoVideo.click()});
+  }
+  document.addEventListener('vt:fechou',function(){if(etapa===4)paraTudo('↻ Rever o tour')});
   v3.addEventListener('timeupdate',function(){
     if(etapa!==3)return;
     var t=v3.currentTime;leg3.textContent=texto3(t);
@@ -188,7 +202,7 @@
     if(filme&&filme.paused&&t<FIM_FALA3&&!filme.ended)filme.play().catch(function(){});
     if(t>=SAI3&&!v3.classList.contains('ivy-saindo')){v3.classList.remove('ivy-em-cena');v3.classList.add('ivy-saindo');leg3.classList.remove('ivy-visivel');rot3.classList.remove('ivy-visivel');pu3.classList.remove('ivy-visivel')}
   });
-  v3.addEventListener('ended',function(){if(etapa===3)paraTudo('↻ Rever o tour')});
+  v3.addEventListener('ended',function(){if(etapa===3)paradaQuatro()});
   v.addEventListener('timeupdate',function(){
     if(etapa!==1)return;
     leg.textContent=texto1(v.currentTime);

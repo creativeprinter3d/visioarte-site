@@ -20,6 +20,7 @@
   function fechar(){
     v.pause();m.hidden=true;document.documentElement.classList.remove('vt-aberto');
     try{if(gatilho)gatilho.focus({preventScroll:true})}catch(err){}
+    document.dispatchEvent(new CustomEvent('vt:fechou'));
   }
   [].forEach.call(botoes,function(b){b.addEventListener('click',abrir)});
   x.addEventListener('click',fechar);
