@@ -74,3 +74,7 @@
 .ivc-ab-aberta{overflow:hidden}
 .ivc-ab-aberta .aviso-dev,.ivc-ab-aberta .ivc-lancador{display:none}
 @media (prefers-reduced-motion:reduce){.ivc-ab-op{transition:none}}
+
+/* botão "Apresentação" no menu: inicia a Ivy a qualquer momento */
+.top .main-nav a.nav-apresentacao{color:#6fe3ea;display:inline-flex;align-items:center;gap:.45em}
+.top .main-nav a.nav-apresentacao span{font-size:.8em}

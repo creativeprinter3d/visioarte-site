@@ -137,9 +137,10 @@
     var p=abV.play();
     if(p&&p.catch)p.catch(function(){abV.muted=true;abSom.hidden=false;var q=abV.play();if(q&&q.catch)q.catch(function(){})});
   }
-  function abreAbertura(){
+  function abreAbertura(forcar){
     if(!ab.hidden)return;
-    if(!jan.hidden||document.documentElement.classList.contains('ivy-janela-aberta'))return;
+    if(forcar){if(!jan.hidden)fechaJanela();document.querySelectorAll('.ivy-pular.ivy-visivel').forEach(function(b){b.click()})}   // botão "Apresentação": vale sempre; fecha o chat e interrompe o tour, se estiverem abertos
+    else if(!jan.hidden||document.documentElement.classList.contains('ivy-janela-aberta'))return;
     if(!abV.getAttribute('src'))abV.src=ARQ_AB;
     medeAbertura();ab.hidden=false;document.documentElement.classList.add('ivc-ab-aberta');
     abChat.classList.remove('ivc-on');abTour.classList.remove('ivc-on');abV.currentTime=0;tocaAbertura();
@@ -160,6 +161,13 @@
   abSom.addEventListener('click',function(){abV.muted=false;abSom.hidden=true});
   addEventListener('resize',function(){if(!ab.hidden)medeAbertura()});
   addEventListener('keydown',function(e){if(e.key==='Escape'){if(!ab.hidden)fechaAbertura(false);else if(!jan.hidden)fechaJanela()}});
+
+  var bApres=document.getElementById('navApresentacao');
+  if(bApres)bApres.addEventListener('click',function(e){
+    e.preventDefault();
+    var t=document.getElementById('menuToggle');if(t&&t.getAttribute('aria-expanded')==='true')t.click();   // no celular, fecha o menu
+    abreAbertura(true);
+  });
 
   /* a apresentação aparece uma vez por visita, pouco depois de a página abrir (não aparece com "reduzir movimento") */
   var reduz=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
