@@ -1,21 +1,11 @@
 /* Chat e apresentação da Ivy. Cores seguem o tour (azul holograma sobre fundo escuro). */
 .ivc-av{--av:40px;display:inline-block;flex:none;width:var(--av);height:var(--av);border-radius:50%;background:#06141c url(assets/ivy/ivy-apresentacao-celular.jpg) no-repeat;background-size:calc(var(--av)*8) auto;background-position:calc(var(--av)*-3.875) calc(var(--av)*-.43);box-shadow:0 0 0 2px #2f6aa3,0 0 18px rgba(60,150,255,.45)}
-.ivc-av-grande{--av:64px}
 
 .ivc-lancador{position:fixed;left:clamp(14px,2vw,28px);bottom:clamp(14px,2vw,28px);z-index:60;display:flex;align-items:center;gap:10px;padding:6px 18px 6px 6px;border:1px solid #2f6aa3;border-radius:999px;background:rgba(7,18,30,.88);color:#d6ecff;font:600 14px/1 system-ui,sans-serif;cursor:pointer;backdrop-filter:blur(6px);box-shadow:0 0 22px rgba(40,120,220,.35);transition:box-shadow .2s,background .2s}
 .ivc-lancador:hover{background:rgba(12,34,56,.94);box-shadow:0 0 30px rgba(60,150,255,.5)}
 .ivc-lancador[hidden]{display:none}
-.ivc-lancador:focus-visible,.ivc-btn:focus-visible,.ivc-chip:focus-visible,.ivc-x:focus-visible,.ivc-enviar:focus-visible{outline:2px solid #6fd6dc;outline-offset:3px}
+.ivc-lancador:focus-visible,.ivc-chip:focus-visible,.ivc-x:focus-visible,.ivc-enviar:focus-visible{outline:2px solid #6fd6dc;outline-offset:3px}
 
-.ivc-cartao{position:fixed;left:clamp(14px,2vw,28px);bottom:calc(clamp(14px,2vw,28px) + 62px);z-index:61;display:flex;gap:14px;width:min(380px,calc(100vw - 28px));padding:16px 40px 16px 16px;border:1px solid #2f6aa3;border-radius:18px;background:rgba(7,18,30,.95);color:#e5f1fb;box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 28px rgba(40,120,220,.3);font:400 14px/1.45 system-ui,sans-serif;animation:ivc-entra .5s ease both}
-.ivc-cartao[hidden]{display:none}
-@keyframes ivc-entra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.ivc-cartao-nome{display:block;margin:0 0 4px;color:#83d6da;font:600 12px/1.2 system-ui,sans-serif;letter-spacing:.03em}
-.ivc-cartao-txt{margin:0 0 12px}
-.ivc-cartao-acoes{display:flex;flex-wrap:wrap;gap:8px}
-.ivc-btn{border:1px solid #2f6aa3;border-radius:999px;background:transparent;color:#d6ecff;font:600 13px/1 system-ui,sans-serif;padding:.75em 1.2em;cursor:pointer}
-.ivc-btn:hover{background:rgba(47,106,163,.25)}
-.ivc-btn-cheio{background:#2f6aa3;color:#fff}.ivc-btn-cheio:hover{background:#3a7bbd}
 .ivc-x{position:absolute;top:8px;right:8px;width:30px;height:30px;border:0;border-radius:50%;background:transparent;color:#9db6d0;font:400 22px/1 system-ui,sans-serif;cursor:pointer}
 .ivc-x:hover{background:rgba(255,255,255,.08);color:#fff}
 
@@ -56,5 +46,28 @@
 .ivc-aberto{overflow:hidden}
 @media (min-width:641px){.ivc-aberto{overflow:auto}}
 .ivc-aberto .aviso-dev{display:none}
-.ivy-janela-aberta .ivc-lancador,.ivy-janela-aberta .ivc-cartao{display:none}
-@media (prefers-reduced-motion:reduce){.ivc-cartao{animation:none}.ivc-pensa span{animation:none;opacity:.7}}
+.ivy-janela-aberta .ivc-lancador{display:none}
+@media (prefers-reduced-motion:reduce){.ivc-pensa span{animation:none;opacity:.7}}
+
+/* abertura em vídeo: a Ivy se apresenta. O container não pode criar contexto de empilhamento (display:contents),
+   senão o mix-blend-mode do vídeo não enxerga a página atrás e o fundo preto aparece como um retângulo. */
+.ivc-ab{display:contents}
+.ivc-ab[hidden]{display:none}
+.ivc-ab-veu{position:fixed;inset:0;z-index:120;background:rgba(2,8,14,.78)}
+.ivc-ab-video{position:fixed;z-index:121;display:block;max-width:none;mix-blend-mode:screen;filter:brightness(1.55) contrast(1.2) saturate(1.15);pointer-events:none}
+.ivc-ab-palco{position:fixed;z-index:122;pointer-events:none}
+.ivc-ab-op{position:absolute;top:42%;transform:translateX(-50%) translateY(6px);pointer-events:none;opacity:0;white-space:nowrap;padding:.85em 1.3em;border:1px solid #2f6aa3;border-radius:999px;background:rgba(7,18,30,.92);color:#d6ecff;font:600 1em/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 0 22px rgba(40,120,220,.45);transition:opacity .5s,transform .5s,background .2s}
+.ivc-ab-op.ivc-on{opacity:1;pointer-events:auto;transform:translateX(-50%)}
+.ivc-ab-op:hover{background:#2f6aa3}
+.ivc-ab-op:focus-visible,.ivc-ab-x:focus-visible,.ivc-ab-som:focus-visible{outline:2px solid #6fd6dc;outline-offset:3px}
+.ivc-ab-tour{left:33%}
+.ivc-ab-chat{left:68%}
+.ivc-ab-x{position:fixed;top:max(14px,env(safe-area-inset-top));right:16px;width:46px;height:46px;border:1px solid #2f6aa3;border-radius:50%;background:rgba(7,18,30,.88);color:#d6ecff;font:400 28px/1 system-ui,sans-serif;cursor:pointer;pointer-events:auto}
+.ivc-ab-x:hover{background:#2f6aa3}
+.ivc-ab-leg{position:fixed;left:50%;bottom:clamp(54px,8vh,90px);transform:translateX(-50%);width:min(90vw,720px);text-align:center;color:#eef6ff;font:500 clamp(14px,1.5vw,20px)/1.35 system-ui,sans-serif;text-shadow:0 2px 12px #000,0 0 3px #000;min-height:1.4em}
+.ivc-ab-rot{position:fixed;left:clamp(16px,2vw,32px);bottom:18px;color:#9db6d0;font:500 11px/1 system-ui,sans-serif;letter-spacing:.04em}
+.ivc-ab-som{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);border:1px solid #2f6aa3;border-radius:999px;background:rgba(7,18,30,.92);color:#d6ecff;font:600 13px/1 system-ui,sans-serif;padding:.8em 1.3em;cursor:pointer;pointer-events:auto}
+.ivc-ab-som[hidden]{display:none}
+.ivc-ab-aberta{overflow:hidden}
+.ivc-ab-aberta .aviso-dev,.ivc-ab-aberta .ivc-lancador{display:none}
+@media (prefers-reduced-motion:reduce){.ivc-ab-op{transition:none}}

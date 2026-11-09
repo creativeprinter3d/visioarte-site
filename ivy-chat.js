@@ -1,4 +1,4 @@
-/* Ivy, assistente virtual (IA): apresentação na abertura e chat de dúvidas sobre a Visioarte.
+/* Ivy, assistente virtual (IA): abertura em vídeo (ela se apresenta e oferece tour ou dúvidas) e chat de dúvidas sobre a Visioarte.
    - Perguntas prontas: respostas fixas, sem IA e sem custo.
    - Pergunta livre: só funciona se o endereço do servidor estiver configurado (meta "ivy-chat-url" ou window.IVY_CHAT_URL).
    - Nenhuma conversa é guardada; o navegador só lembra que a apresentação já foi vista nesta visita. */
@@ -17,7 +17,6 @@
     {p:'Vocês têm máquinas e software próprios?',r:'Sim. Desenvolvemos as máquinas de impressão 3D de grande escala, o Visio Slicer (fatiador no navegador), o Visio_Tekna (modelagem e preparação para fabricação) e o firmware das máquinas.',acao:{t:'Ver a tecnologia',h:'#areas/tecnologia'}},
     {p:'Quanto custa e qual o prazo?',r:'Valor e prazo são combinados caso a caso, conforme a peça e o desenvolvimento necessário. Ainda não temos tabela publicada. O primeiro passo é contar a sua ideia.',acao:{t:'Começar meu projeto',h:'#projetos'}}
   ];
-  var BOAS_VINDAS='Oi! Eu sou a Ivy, a inteligência artificial da Visioarte. Posso mostrar o site num tour rápido ou tirar dúvidas sobre como a Visioarte trabalha.';
 
   function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
   function guarda(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}
@@ -30,16 +29,6 @@
   var lanc=el('button','ivc-lancador');lanc.type='button';lanc.setAttribute('aria-haspopup','dialog');lanc.setAttribute('aria-label','Conversar com a Ivy, assistente virtual (IA)');
   var avL=el('span','ivc-av');avL.setAttribute('aria-hidden','true');lanc.append(avL,el('span','ivc-lancador-txt','Pergunte à Ivy'));
 
-  var cartao=el('div','ivc-cartao');cartao.setAttribute('role','region');cartao.setAttribute('aria-label','Apresentação da Ivy');cartao.hidden=true;
-  var avC=el('span','ivc-av ivc-av-grande');avC.setAttribute('aria-hidden','true');
-  var corpoC=el('div','ivc-cartao-corpo');
-  corpoC.append(el('strong','ivc-cartao-nome','Ivy · assistente virtual (IA)'),el('p','ivc-cartao-txt',BOAS_VINDAS));
-  var acoesC=el('div','ivc-cartao-acoes');
-  var bTour=el('button','ivc-btn ivc-btn-cheio','▶ Fazer o tour');bTour.type='button';
-  var bDuvida=el('button','ivc-btn','Tirar dúvidas');bDuvida.type='button';
-  acoesC.append(bTour,bDuvida);corpoC.append(acoesC);
-  var fechaC=el('button','ivc-x','×');fechaC.type='button';fechaC.setAttribute('aria-label','Fechar a apresentação da Ivy');
-  cartao.append(avC,corpoC,fechaC);
 
   /* ---------- janela do chat ---------- */
   var jan=el('section','ivc-janela');jan.setAttribute('role','dialog');jan.setAttribute('aria-label','Conversa com a Ivy, assistente virtual (IA)');jan.hidden=true;
@@ -55,7 +44,7 @@
   var env=el('button','ivc-enviar','Enviar');env.type='submit';
   form.append(campo,env);
   jan.append(cab,aviso,lista,chips,form);
-  document.body.append(lanc,cartao,jan);
+  document.body.append(lanc,jan);
 
   var historico=[], ocupada=false, iniciou=false;
   if(!URL_CHAT){campo.disabled=true;env.disabled=true;campo.placeholder='Escolha uma pergunta acima';}
@@ -99,26 +88,78 @@
   }
   form.addEventListener('submit',function(e){e.preventDefault();var t=campo.value.trim();if(!t||!URL_CHAT)return;campo.value='';perguntar(t)});
 
-  /* ---------- abrir / fechar ---------- */
-  function escondeCartao(){cartao.hidden=true;guarda('ivyIntroVista','1')}
+  /* ---------- abrir / fechar o chat ---------- */
   function abreJanela(){
-    escondeCartao();lanc.hidden=true;jan.hidden=false;document.documentElement.classList.add('ivc-aberto');
+    fechaAbertura(true);lanc.hidden=true;jan.hidden=false;document.documentElement.classList.add('ivc-aberto');
     if(!iniciou){iniciou=true;bolha('ivy','Oi! Eu sou a Ivy, a inteligência artificial da Visioarte. Pode escolher uma pergunta abaixo'+(URL_CHAT?' ou escrever a sua.':'.'))}
     try{(URL_CHAT?campo:fechaJ).focus({preventScroll:true})}catch(e){}
   }
   function fechaJanela(){jan.hidden=true;lanc.hidden=false;document.documentElement.classList.remove('ivc-aberto');try{lanc.focus({preventScroll:true})}catch(e){}}
-  function iniciaTour(){
-    escondeCartao();
-    var b=document.querySelector('.ivy-botao');
-    if(b)b.click();
-    else{cartao.hidden=false;}
-  }
-  lanc.addEventListener('click',abreJanela);bDuvida.addEventListener('click',abreJanela);
-  bTour.addEventListener('click',iniciaTour);fechaC.addEventListener('click',escondeCartao);fechaJ.addEventListener('click',fechaJanela);
-  addEventListener('keydown',function(e){if(e.key==='Escape'){if(!jan.hidden)fechaJanela();else if(!cartao.hidden)escondeCartao()}});
+  lanc.addEventListener('click',abreJanela);fechaJ.addEventListener('click',fechaJanela);
 
-  /* a apresentação aparece uma vez por visita, pouco depois de a página abrir */
-  if(!le('ivyIntroVista')){
-    setTimeout(function(){if(jan.hidden&&!document.documentElement.classList.contains('ivy-janela-aberta'))cartao.hidden=false},1400);
+  /* ---------- abertura: a Ivy se apresenta (vídeo com voz) e oferece as duas opções ---------- */
+  var ARQ_AB='assets/ivy/ivy-abertura.mp4', POSTER_AB='assets/ivy/ivy-abertura.jpg', PROP_AB=1284/716;
+  var LEG_AB=[[1.0,'Oi! Eu sou a Ivy, a inteligência artificial da Visioarte.'],[5.2,'Posso tirar as suas dúvidas…'],[7.2,'…ou te levar num tour pelo site.'],[9.2,'']];
+  var T_CHAT=7.0, T_TOUR=9.0;                                  // instantes em que cada braço está aberto
+  var ab=el('div','ivc-ab');ab.hidden=true;ab.setAttribute('role','dialog');ab.setAttribute('aria-label','Apresentação da Ivy, assistente virtual (IA)');
+  var abVeu=el('div','ivc-ab-veu');
+  var abV=el('video','ivc-ab-video');abV.playsInline=true;abV.setAttribute('playsinline','');abV.preload='none';abV.poster=POSTER_AB;abV.setAttribute('aria-hidden','true');
+  var abPalco=el('div','ivc-ab-palco');
+  var abX=el('button','ivc-ab-x','×');abX.type='button';abX.setAttribute('aria-label','Fechar a apresentação da Ivy');
+  var abTour=el('button','ivc-ab-op ivc-ab-tour','▶ Fazer o tour');abTour.type='button';
+  var abChat=el('button','ivc-ab-op ivc-ab-chat','💬 Tirar dúvidas');abChat.type='button';
+  var abLeg=el('div','ivc-ab-leg');abLeg.setAttribute('aria-live','polite');
+  var abSom=el('button','ivc-ab-som','🔊 Ativar som');abSom.type='button';abSom.hidden=true;
+  var abRot=el('div','ivc-ab-rot','Ivy · assistente virtual (IA)');
+  abPalco.append(abX,abTour,abChat,abLeg,abSom,abRot);
+  ab.append(abVeu,abV,abPalco);document.body.appendChild(ab);
+
+  function medeAbertura(){
+    var vw=innerWidth,vh=innerHeight,W=vw<700?vw*1.5:Math.min(vw,vh*PROP_AB),h=W/PROP_AB;
+    if(h>vh){W=vh*PROP_AB;h=vh}
+    var st={left:(vw-W)/2+'px',top:(vh-h)/2+'px',width:W+'px',height:h+'px'};
+    for(var k in st){abV.style[k]=st[k];abPalco.style[k]=st[k]}
+    abPalco.style.fontSize=Math.max(12,Math.min(16,W*.0125))+'px';
+  }
+  function legAbertura(){
+    var t=abV.currentTime,s='';LEG_AB.forEach(function(f){if(t>=f[0])s=f[1]});abLeg.textContent=s;
+    abChat.classList.toggle('ivc-on',t>=T_CHAT);abTour.classList.toggle('ivc-on',t>=T_TOUR);
+  }
+  abV.addEventListener('timeupdate',legAbertura);
+  abV.addEventListener('ended',function(){abChat.classList.add('ivc-on');abTour.classList.add('ivc-on');abLeg.textContent=''});
+  function tocaAbertura(){
+    abV.muted=false;abSom.hidden=true;
+    var p=abV.play();
+    if(p&&p.catch)p.catch(function(){abV.muted=true;abSom.hidden=false;var q=abV.play();if(q&&q.catch)q.catch(function(){})});
+  }
+  function abreAbertura(){
+    if(!ab.hidden)return;
+    if(!jan.hidden||document.documentElement.classList.contains('ivy-janela-aberta'))return;
+    if(!abV.getAttribute('src'))abV.src=ARQ_AB;
+    medeAbertura();ab.hidden=false;document.documentElement.classList.add('ivc-ab-aberta');
+    abChat.classList.remove('ivc-on');abTour.classList.remove('ivc-on');abV.currentTime=0;tocaAbertura();
+    try{abX.focus({preventScroll:true})}catch(e){}
+  }
+  function fechaAbertura(silencioso){
+    if(ab.hidden)return;
+    abV.pause();ab.hidden=true;document.documentElement.classList.remove('ivc-ab-aberta');guarda('ivyIntroVista','1');
+    if(!silencioso){try{lanc.focus({preventScroll:true})}catch(e){}}
+  }
+  function iniciaTour(){
+    fechaAbertura(true);
+    var b=document.querySelector('.ivy-botao');           // computador: botão do tour; celular: botão que abre o vídeo em janela
+    if(b)b.click();
+  }
+  abX.addEventListener('click',function(){fechaAbertura(false)});
+  abChat.addEventListener('click',abreJanela);abTour.addEventListener('click',iniciaTour);
+  abSom.addEventListener('click',function(){abV.muted=false;abSom.hidden=true});
+  addEventListener('resize',function(){if(!ab.hidden)medeAbertura()});
+  addEventListener('keydown',function(e){if(e.key==='Escape'){if(!ab.hidden)fechaAbertura(false);else if(!jan.hidden)fechaJanela()}});
+
+  /* a apresentação aparece uma vez por visita, pouco depois de a página abrir (não aparece com "reduzir movimento") */
+  var reduz=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!le('ivyIntroVista')&&!reduz){
+    setTimeout(function(){abV.preload='auto';abV.src=ARQ_AB},300);
+    setTimeout(abreAbertura,1600);
   }
 })();
