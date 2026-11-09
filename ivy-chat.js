@@ -98,7 +98,7 @@
   lanc.addEventListener('click',abreJanela);fechaJ.addEventListener('click',fechaJanela);
 
   /* ---------- abertura: a Ivy se apresenta (vídeo com voz) e oferece as duas opções ---------- */
-  var ARQ_AB='assets/ivy/ivy-abertura-2.mp4', POSTER_AB='assets/ivy/ivy-abertura.jpg', PROP_AB=1284/716;
+  var ARQ_AB='assets/ivy/ivy-abertura-3.mp4', POSTER_AB='assets/ivy/ivy-abertura.jpg', PROP_AB=1284/716;
   var LEG_AB=[[1.0,'Oi! Eu sou a Ivy, a inteligência artificial da Visioarte.'],[5.2,'Posso tirar as suas dúvidas…'],[7.2,'…ou te levar num tour pelo site.'],[9.2,'']];
   var T_CHAT=7.0, T_TOUR=9.0;                                  // instantes em que cada braço está aberto
   var ab=el('div','ivc-ab');ab.hidden=true;ab.setAttribute('role','dialog');ab.setAttribute('aria-label','Apresentação da Ivy, assistente virtual (IA)');
