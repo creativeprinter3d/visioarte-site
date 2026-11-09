@@ -1,0 +1,19 @@
+name = "ivy-chat-visioarte"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Limites e modelo (ajuste aqui sem mexer no código)
+[vars]
+ORIGENS_PERMITIDAS = "https://www.visioarte.com.br,https://visioarte.com.br"
+MODELO = "claude-haiku-5-5"
+MAX_IP_DIA = "15"      # mensagens por visitante por dia
+MAX_DIA = "150"        # mensagens no total por dia (teto de gasto)
+MAX_TOKENS = "300"     # tamanho máximo de cada resposta
+
+# Contador de limites: crie com `npx wrangler kv namespace create LIMITES` e cole o id abaixo.
+# [[kv_namespaces]]
+# binding = "LIMITES"
+# id = "COLE_O_ID_AQUI"
+
+# Chaves (NUNCA colocar aqui): `npx wrangler secret put ANTHROPIC_API_KEY`
+# Opcional (anti-robô): `npx wrangler secret put TURNSTILE_SECRET`
