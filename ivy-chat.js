@@ -15,6 +15,7 @@
     {p:'Que materiais vocês usam?',r:'Trabalhamos com impressão 3D em pellet e plástico reciclado, além de argila, misturas cimentícias e madeira em alguns projetos. O material é escolhido para o uso de cada peça.'},
     {p:'Como começa um projeto?',r:'Você conta a ideia e envia uma foto, um desenho ou uma referência, com as medidas e o local de uso. A partir disso desenvolvemos uma proposta com você.',acao:{t:'Começar meu projeto',h:'#projetos'}},
     {p:'Vocês têm máquinas e software próprios?',r:'Sim. Desenvolvemos as máquinas de impressão 3D de grande escala, o Visio Slicer (fatiador no navegador), o Visio_Tekna (modelagem e preparação para fabricação) e o firmware das máquinas.',acao:{t:'Ver a tecnologia',h:'#areas/tecnologia'}},
+    {p:'Tem um vídeo da tecnologia?',r:'Tem sim: um vídeo de cerca de 4 minutos mostra o Visio Slicer, o Visio_Tekna, o firmware modular e a Sala dos Agentes, e termina comigo falando de mim.',acao:{t:'Assistir ao vídeo',h:'#',video:true}},
     {p:'Quanto custa e qual o prazo?',r:'Valor e prazo são combinados caso a caso, conforme a peça e o desenvolvimento necessário. Ainda não temos tabela publicada. O primeiro passo é contar a sua ideia.',acao:{t:'Começar meu projeto',h:'#projetos'}}
   ];
 
@@ -53,7 +54,7 @@
   function rola(){lista.scrollTop=lista.scrollHeight}
   function bolha(quem,txt,acao){
     var b=el('div','ivc-msg ivc-'+quem);b.appendChild(el('p',null,txt));
-    if(acao){var a=el('a','ivc-link',acao.t+' →');a.href=acao.h;a.addEventListener('click',function(){fechaJanela()});b.appendChild(a)}
+    if(acao){var a=el('a','ivc-link',acao.t+' →');a.href=acao.h;a.addEventListener('click',function(e){fechaJanela();if(acao.video){e.preventDefault();var pv=document.querySelector('.vt-play');if(pv)setTimeout(function(){pv.click()},150)}});b.appendChild(a)}
     lista.appendChild(b);rola();return b;
   }
   function digitando(){var b=el('div','ivc-msg ivc-ivy ivc-pensa');b.setAttribute('aria-label','A Ivy está escrevendo');b.append(el('span'),el('span'),el('span'));lista.appendChild(b);rola();return b}

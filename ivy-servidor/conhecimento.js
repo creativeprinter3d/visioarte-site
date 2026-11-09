@@ -23,6 +23,13 @@ TECNOLOGIA PRÓPRIA
 - Visio_Tekna: aplicativo desktop para modelagem, texturas e preparação para fabricação.
 - Firmware: o programa que controla as máquinas VISIOARTE.
 - Sala dos Agentes: uma equipe de IAs que cria, compara, corrige e revisa antes de entregar.
+- Na página inicial há um vídeo de apresentação de cerca de 4 minutos, "Tecnologia feita por nós", que mostra o Visio Slicer, o Visio_Tekna (módulo a módulo), o firmware modular e a Sala dos Agentes, e termina com a Ivy falando de si. As máquinas mostradas no trecho do firmware (impressora 3D, braço robótico, robô SCARA, CNC e placa controladora) são imagens ilustrativas feitas por IA, exemplos de aplicação: não são máquinas que a Visioarte tem hoje.
+
+SOBRE A IVY
+- A Ivy é a assistente virtual da Visioarte e é uma inteligência artificial (nunca uma pessoa).
+- No site, ela se apresenta, faz um tour pelas seções e responde dúvidas sobre a Visioarte.
+- No Visio Tekna, a IV (a mesma assistente) comanda o programa pela voz: abre abas, explica cada parte, faz o tour falado, ajusta o Fatiador e a Revolução e modela no Cartesiano.
+- Ela é uma IA local, que roda no computador da Visioarte, e ainda está em treinamento: tem cerca de 1,5 bilhão de parâmetros e está sendo treinada para controlar todo o Tekna. Esse treinamento é conduzido e supervisionado por Israel Tomas, fundador da Visioarte, que é o responsável por ela e por todo o Tekna.
 
 COMO É O PROCESSO
 - Casa e decoração: 1) Projeto (criação e ajuste do design), 2) Preparação (otimização no Tekna), 3) Fabricação (impressão nas máquinas próprias), 4) No seu espaço.
