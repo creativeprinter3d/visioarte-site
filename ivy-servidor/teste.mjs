@@ -61,7 +61,7 @@ let ai = []; const AI = { run: async (modelo, entrada) => { ai.push({ modelo, en
 const envAi = { AI, LIMITES: KV2 };
 r = await worker.fetch(req(msg('O que é a Visioarte?'), O, '5.5.5.5'), envAi);
 assert.equal(r.status, 200); assert.equal((await r.json()).resposta, 'Resposta do Workers AI.');
-assert.equal(ai[0].modelo, '@cf/google/gemma-3-12b-it');
+assert.equal(ai[0].modelo, '@cf/meta/llama-3.3-70b-instruct-fp8-fast');
 assert.equal(ai[0].entrada.messages[0].role, 'system'); assert.ok(ai[0].entrada.messages[0].content.includes('Israel Tomas'));
 assert.equal(ai[0].entrada.messages.at(-1).content, 'O que é a Visioarte?'); assert.equal(ai[0].entrada.max_tokens, 300);
 // formato alternativo (estilo OpenAI)

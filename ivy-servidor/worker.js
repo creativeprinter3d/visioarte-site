@@ -18,7 +18,7 @@ Regras:
 CONHECIMENTO:
 ${CONHECIMENTO}`;
 
-const PADROES = { MAX_MENSAGENS: 6, MAX_CHARS: 300, MAX_IP_DIA: 15, MAX_DIA: 150, MAX_TOKENS: 300, MODELO: 'claude-haiku-5-5', MODELO_AI: '@cf/google/gemma-3-12b-it' };
+const PADROES = { MAX_MENSAGENS: 6, MAX_CHARS: 300, MAX_IP_DIA: 15, MAX_DIA: 150, MAX_TOKENS: 300, MODELO: 'claude-haiku-5-5', MODELO_AI: '@cf/meta/llama-3.3-70b-instruct-fp8-fast' };
 
 function cors(env, origem) {
   const lista = (env.ORIGENS_PERMITIDAS || 'https://www.visioarte.com.br,https://visioarte.com.br').split(',').map(s => s.trim());
@@ -81,7 +81,7 @@ async function viaWorkersAi(env, mensagens) {
       messages: [{ role: 'system', content: INSTRUCOES }, ...mensagens],
       max_tokens: num(env, 'MAX_TOKENS'),
     });
-  } catch (e) { const err = new Error('ai'); err.pausa = /limit|quota|neuron|capacity|429/i.test(String(e && e.message)); throw err; }
+  } catch (e) { console.error('workers-ai:', String(e && e.message)); const err = new Error('ai'); err.pausa = /limit|quota|neuron|capacity|429/i.test(String(e && e.message)); throw err; }
   const t = saida && (typeof saida.response === 'string' ? saida.response : saida.choices && saida.choices[0] && saida.choices[0].message && saida.choices[0].message.content);
   return String(t || '').trim();
 }
@@ -98,7 +98,7 @@ async function viaAnthropic(env, mensagens) {
       messages: mensagens,
     }),
   });
-  if (!r.ok) { const err = new Error('api'); err.pausa = r.status === 402 || r.status === 429; throw err; }
+  if (!r.ok) { console.error('anthropic:', r.status); const err = new Error('api'); err.pausa = r.status === 402 || r.status === 429; throw err; }
   const j = await r.json().catch(() => null);
   return j && Array.isArray(j.content) ? j.content.filter(b => b.type === 'text').map(b => b.text).join(' ').trim() : '';
 }

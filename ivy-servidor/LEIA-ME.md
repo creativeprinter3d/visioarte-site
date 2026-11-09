@@ -25,7 +25,7 @@ O Workers AI dá 10.000 "neurons" por dia de graça (reinicia à 00:00 UTC). Pas
 - `MAX_IP_DIA`: mensagens por visitante por dia (inicial 15).
 - `MAX_DIA`: teto de mensagens por dia no site todo (inicial 150).
 - `MAX_TOKENS`: tamanho máximo da resposta (inicial 300).
-- `PROVEDOR` e `MODELO_AI`: IA usada (inicial Workers AI com `@cf/google/gemma-3-12b-it`). `MODELO` vale só para o provedor Anthropic.
+- `PROVEDOR` e `MODELO_AI`: IA usada (inicial Workers AI com `@cf/meta/llama-3.3-70b-instruct-fp8-fast`). `MODELO` vale só para o provedor Anthropic.
 Teto extra de segurança: a cota gratuita diária (ou o saldo pré-pago, se usar a Anthropic). Ao acabar, a Ivy diz que está descansando.
 
 ## O que a Ivy sabe
