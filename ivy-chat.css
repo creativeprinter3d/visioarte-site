@@ -9,7 +9,7 @@
 .ivc-x{position:absolute;top:8px;right:8px;width:30px;height:30px;border:0;border-radius:50%;background:transparent;color:#9db6d0;font:400 22px/1 system-ui,sans-serif;cursor:pointer}
 .ivc-x:hover{background:rgba(255,255,255,.08);color:#fff}
 
-.ivc-janela{position:fixed;right:clamp(14px,2vw,28px);bottom:clamp(14px,2vw,28px);z-index:62;display:flex;flex-direction:column;width:min(400px,calc(100vw - 28px));height:min(600px,calc(100dvh - 28px));border:1px solid #2f6aa3;border-radius:18px;overflow:hidden;background:#06121a;color:#e5f1fb;box-shadow:0 16px 50px rgba(0,0,0,.55),0 0 30px rgba(40,120,220,.3);font:400 14px/1.45 system-ui,sans-serif}
+.ivc-janela{position:fixed;right:clamp(14px,2vw,28px);bottom:clamp(14px,2vw,28px);z-index:150;display:flex;flex-direction:column;width:min(400px,calc(100vw - 28px));height:min(600px,calc(100dvh - 28px));border:1px solid #2f6aa3;border-radius:18px;overflow:hidden;background:#06121a;color:#e5f1fb;box-shadow:0 16px 50px rgba(0,0,0,.55),0 0 30px rgba(40,120,220,.3);font:400 14px/1.45 system-ui,sans-serif}
 .ivc-janela[hidden]{display:none}
 .ivc-cab{position:relative;display:flex;align-items:center;gap:12px;padding:12px 48px 12px 12px;border-bottom:1px solid #153447;background:#0a1d29}
 .ivc-cab-tit{display:flex;flex-direction:column;gap:2px}.ivc-cab-tit strong{font-size:15px}.ivc-cab-tit span{font-size:12px;color:#9db6d0}
@@ -38,6 +38,9 @@
 /* celular: janela ocupa a tela toda; o texto do campo precisa de 16px para o iOS não dar zoom */
 @media (max-width:640px){
   .ivc-janela{right:0;bottom:0;left:0;width:100%;height:100dvh;border-radius:0;border:0}
+  .ivc-cab{padding-top:max(12px,env(safe-area-inset-top))}
+  .ivc-cab .ivc-x{top:calc(50% + max(0px,env(safe-area-inset-top)) / 2)}
+  .ivc-cab .ivc-x{width:44px;height:44px;right:10px;font-size:30px;border:1px solid #2f6aa3}
   .ivc-campo{font-size:16px}
   .ivc-lancador{bottom:14px}
   .ivc-lancador-txt{display:none}
