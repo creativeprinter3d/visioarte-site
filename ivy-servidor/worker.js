@@ -18,7 +18,7 @@ Regras:
 CONHECIMENTO:
 ${CONHECIMENTO}`;
 
-const PADROES = { MAX_MENSAGENS: 6, MAX_CHARS: 300, MAX_IP_DIA: 15, MAX_DIA: 150, MAX_TOKENS: 300, MODELO: 'claude-haiku-5-5' };
+const PADROES = { MAX_MENSAGENS: 6, MAX_CHARS: 300, MAX_IP_DIA: 15, MAX_DIA: 150, MAX_TOKENS: 300, MODELO: 'claude-haiku-5-5', MODELO_AI: '@cf/google/gemma-3-12b-it' };
 
 function cors(env, origem) {
   const lista = (env.ORIGENS_PERMITIDAS || 'https://www.visioarte.com.br,https://visioarte.com.br').split(',').map(s => s.trim());
@@ -73,6 +73,36 @@ function valida(corpo, env) {
   return alt;
 }
 
+/* Provedor 1 (padrão, gratuito até a cota diária): Cloudflare Workers AI, sem chave de API (binding "AI"). */
+async function viaWorkersAi(env, mensagens) {
+  let saida;
+  try {
+    saida = await env.AI.run(env.MODELO_AI || PADROES.MODELO_AI, {
+      messages: [{ role: 'system', content: INSTRUCOES }, ...mensagens],
+      max_tokens: num(env, 'MAX_TOKENS'),
+    });
+  } catch (e) { const err = new Error('ai'); err.pausa = /limit|quota|neuron|capacity|429/i.test(String(e && e.message)); throw err; }
+  const t = saida && (typeof saida.response === 'string' ? saida.response : saida.choices && saida.choices[0] && saida.choices[0].message && saida.choices[0].message.content);
+  return String(t || '').trim();
+}
+
+/* Provedor 2 (pago, pré-pago): API da Anthropic. Ative com PROVEDOR = "anthropic" e o segredo ANTHROPIC_API_KEY. */
+async function viaAnthropic(env, mensagens) {
+  const r = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
+    body: JSON.stringify({
+      model: env.MODELO || PADROES.MODELO,
+      max_tokens: num(env, 'MAX_TOKENS'),
+      system: [{ type: 'text', text: INSTRUCOES, cache_control: { type: 'ephemeral' } }],
+      messages: mensagens,
+    }),
+  });
+  if (!r.ok) { const err = new Error('api'); err.pausa = r.status === 402 || r.status === 429; throw err; }
+  const j = await r.json().catch(() => null);
+  return j && Array.isArray(j.content) ? j.content.filter(b => b.type === 'text').map(b => b.text).join(' ').trim() : '';
+}
+
 export default {
   async fetch(req, env) {
     const origem = req.headers.get('Origin');
@@ -80,7 +110,8 @@ export default {
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: (({ ok, ...c }) => c)(h) });
     if (req.method !== 'POST') return resp({ erro: 'metodo' }, 405, h);
     if (!h.ok) return resp({ erro: 'origem' }, 403, h);
-    if (!env.ANTHROPIC_API_KEY) return resp({ erro: 'indisponivel' }, 503, h);
+    const usaAnthropic = (env.PROVEDOR || 'workers-ai') === 'anthropic';
+    if (usaAnthropic ? !env.ANTHROPIC_API_KEY : !env.AI) return resp({ erro: 'indisponivel' }, 503, h);
 
     let corpo;
     try { corpo = await req.json(); } catch { return resp({ erro: 'formato' }, 400, h); }
@@ -94,22 +125,10 @@ export default {
     if (!(await conta(env, `ip:${dia}:${await hash(ip)}`, num(env, 'MAX_IP_DIA')))) return resp({ erro: 'limite' }, 429, h);
     if (!(await conta(env, `total:${dia}`, num(env, 'MAX_DIA')))) return resp({ erro: 'pausa' }, 429, h);
 
-    let r;
+    let texto = '';
     try {
-      r = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
-        body: JSON.stringify({
-          model: env.MODELO || PADROES.MODELO,
-          max_tokens: num(env, 'MAX_TOKENS'),
-          system: [{ type: 'text', text: INSTRUCOES, cache_control: { type: 'ephemeral' } }],
-          messages: mensagens,
-        }),
-      });
-    } catch { return resp({ erro: 'indisponivel' }, 502, h); }
-    if (!r.ok) return resp({ erro: r.status === 402 || r.status === 429 ? 'pausa' : 'indisponivel' }, 502, h);
-    const j = await r.json().catch(() => null);
-    const texto = j && Array.isArray(j.content) ? j.content.filter(b => b.type === 'text').map(b => b.text).join(' ').trim() : '';
+      texto = usaAnthropic ? await viaAnthropic(env, mensagens) : await viaWorkersAi(env, mensagens);
+    } catch (e) { return resp({ erro: e && e.pausa ? 'pausa' : 'indisponivel' }, 502, h); }
     if (!texto) return resp({ erro: 'indisponivel' }, 502, h);
     return resp({ resposta: texto.slice(0, 700) }, 200, h);
   },

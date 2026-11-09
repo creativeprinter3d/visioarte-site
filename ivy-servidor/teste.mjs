@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 
 const kv = new Map();
 const KV = { get: async k => kv.get(k) ?? null, put: async (k, v) => { kv.set(k, v); } };
-const env = { ANTHROPIC_API_KEY: 'chave-falsa', LIMITES: KV, MAX_IP_DIA: '3', MAX_DIA: '5' };
+const env = { PROVEDOR: 'anthropic', ANTHROPIC_API_KEY: 'chave-falsa', LIMITES: KV, MAX_IP_DIA: '3', MAX_DIA: '5' };
 let chamadas = [];
 globalThis.fetch = async (url, opt) => {
   chamadas.push({ url, corpo: JSON.parse(opt.body) });
@@ -53,5 +53,25 @@ r = await worker.fetch(req(msg('oi')), { ...env, ANTHROPIC_API_KEY: '' }); asser
 globalThis.fetch = async () => new Response('{"error":{"message":"segredo"}}', { status: 500 });
 r = await worker.fetch(req(msg('oi'), O, '4.4.4.4'), { ...env, LIMITES: undefined });
 const j = await r.json(); assert.equal(r.status, 502); assert.equal(JSON.stringify(j).includes('segredo'), false);
+
+
+// ---- provedor padrao: Workers AI (gratuito) ----
+const kv2 = new Map(); const KV2 = { get: async k => kv2.get(k) ?? null, put: async (k, v) => { kv2.set(k, v); } };
+let ai = []; const AI = { run: async (modelo, entrada) => { ai.push({ modelo, entrada }); return { response: '  Resposta do Workers AI.  ' }; } };
+const envAi = { AI, LIMITES: KV2 };
+r = await worker.fetch(req(msg('O que é a Visioarte?'), O, '5.5.5.5'), envAi);
+assert.equal(r.status, 200); assert.equal((await r.json()).resposta, 'Resposta do Workers AI.');
+assert.equal(ai[0].modelo, '@cf/google/gemma-3-12b-it');
+assert.equal(ai[0].entrada.messages[0].role, 'system'); assert.ok(ai[0].entrada.messages[0].content.includes('Israel Tomas'));
+assert.equal(ai[0].entrada.messages.at(-1).content, 'O que é a Visioarte?'); assert.equal(ai[0].entrada.max_tokens, 300);
+// formato alternativo (estilo OpenAI)
+envAi.AI = { run: async () => ({ choices: [{ message: { content: 'via choices' } }] }) };
+r = await worker.fetch(req(msg('oi'), O, '6.6.6.6'), envAi); assert.equal((await r.json()).resposta, 'via choices');
+// cota esgotada da Cloudflare -> pausa; outro erro -> indisponivel; sem binding -> 503
+envAi.AI = { run: async () => { throw new Error('daily neuron limit exceeded'); } };
+r = await worker.fetch(req(msg('oi'), O, '7.7.7.7'), envAi); assert.equal((await r.json()).erro, 'pausa');
+envAi.AI = { run: async () => { throw new Error('boom segredo'); } };
+r = await worker.fetch(req(msg('oi'), O, '8.8.8.8'), envAi); const j2 = await r.json(); assert.equal(j2.erro, 'indisponivel'); assert.equal(JSON.stringify(j2).includes('segredo'), false);
+r = await worker.fetch(req(msg('oi'), O, '9.8.7.6'), { LIMITES: KV2 }); assert.equal(r.status, 503);
 
 console.log('servidor da Ivy: todos os testes passaram');
