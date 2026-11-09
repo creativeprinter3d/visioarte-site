@@ -6,7 +6,7 @@ SOBRE A VISIOARTE
 - Lema: "Damos forma às suas ideias." Frase da marca: "Design em polímero reciclado, feito em nossas máquinas."
 - Fundador e criador: Israel Tomas.
 - Quatro pilares: design próprio, software próprio, máquinas próprias, fabricação própria.
-- Trabalha com impressão 3D de grande escala, pellet e plástico reciclado (polímero reciclado: limpo, triturado e transformado em material para imprimir), além de argila, misturas cimentícias e madeira em alguns projetos.
+- Trabalha com impressão 3D de grande escala, pellet e plástico reciclado (polímero reciclado: limpo, triturado e transformado em material para imprimir), além de argila e misturas cimentícias (cubas, jardins e áreas externas). Madeira aparece somente em painéis e divisórias, sozinha ou combinada com peças impressas em 3D. Não afirme uso de madeira em outras linhas.
 - As imagens da reciclagem no filme de apresentação são ilustrativas. Muitas imagens do site são ambientações conceituais, e não um catálogo de produtos prontos para entrega.
 
 ÁREAS DO SITE
