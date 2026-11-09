@@ -114,6 +114,10 @@
   abPalco.append(abX,abTour,abChat,abLeg,abSom,abRot);
   ab.append(abVeu,abV,abPalco);document.body.appendChild(ab);
 
+  /* a abertura aparece de novo depois de algumas horas (e sempre com ?ivy=abertura no endereço) */
+  var HORAS_ENTRE_ABERTURAS=6;
+  function marcaVista(){try{localStorage.setItem('ivyIntroVista',String(Date.now()))}catch(e){guarda('ivyIntroVista',String(Date.now()))}}
+  function vistaRecente(){var t=0;try{t=+localStorage.getItem('ivyIntroVista')||0}catch(e){}if(!t)t=+le('ivyIntroVista')||0;return t>1e12&&Date.now()-t<HORAS_ENTRE_ABERTURAS*36e5}
   function medeAbertura(){
     var vw=innerWidth,vh=innerHeight,W=vw<700?vw*1.5:Math.min(vw,vh*PROP_AB),h=W/PROP_AB;
     if(h>vh){W=vh*PROP_AB;h=vh}
@@ -142,7 +146,7 @@
   }
   function fechaAbertura(silencioso){
     if(ab.hidden)return;
-    abV.pause();ab.hidden=true;document.documentElement.classList.remove('ivc-ab-aberta');guarda('ivyIntroVista','1');
+    abV.pause();ab.hidden=true;document.documentElement.classList.remove('ivc-ab-aberta');marcaVista();
     if(!silencioso){try{lanc.focus({preventScroll:true})}catch(e){}}
   }
   function iniciaTour(){
@@ -159,7 +163,7 @@
   /* a apresentação aparece uma vez por visita, pouco depois de a página abrir (não aparece com "reduzir movimento") */
   var reduz=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
   var forca=/[?&]ivy=abertura(&|$)/.test(location.search);   // endereço com ?ivy=abertura mostra a abertura de novo, mesmo já vista
-  if((forca||!le('ivyIntroVista'))&&!reduz){
+  if((forca||!vistaRecente())&&!reduz){
     setTimeout(function(){abV.preload='auto';abV.src=ARQ_AB},300);
     setTimeout(abreAbertura,1600);
   }
