@@ -158,7 +158,8 @@
 
   /* a apresentação aparece uma vez por visita, pouco depois de a página abrir (não aparece com "reduzir movimento") */
   var reduz=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
-  if(!le('ivyIntroVista')&&!reduz){
+  var forca=/[?&]ivy=abertura(&|$)/.test(location.search);   // endereço com ?ivy=abertura mostra a abertura de novo, mesmo já vista
+  if((forca||!le('ivyIntroVista'))&&!reduz){
     setTimeout(function(){abV.preload='auto';abV.src=ARQ_AB},300);
     setTimeout(abreAbertura,1600);
   }
