@@ -1,5 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /comparar-
-Disallow: /previas/
 Sitemap: https://www.visioarte.com.br/sitemap.xml

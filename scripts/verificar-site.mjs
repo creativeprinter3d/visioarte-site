@@ -122,8 +122,7 @@ ok('Integridade das 13 rotas principais e das 5 áreas');
 
 for (const path of ['assets/brand/visioarte-logo.svg','assets/luminarias/onda.webp',
                     'assets/reciclagem/coleta.webp','assets/reciclagem/pellets.webp',
-                    'assets/reciclagem/impressao.webp','comparar-animacoes-site.html',
-                    'comparar-experiencias.html','comparar-iluminacao.html',
+                    'assets/reciclagem/impressao.webp',
                     'site-animacoes.js','experiencias-visioarte.js']) {
   if (!existsSync(join(root,path))) fail('Arquivo essencial ausente: '+path);
 }
