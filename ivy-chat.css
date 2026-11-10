@@ -1,5 +1,5 @@
 /* Chat e apresentação da Ivy. Cores seguem o tour (azul holograma sobre fundo escuro). */
-.ivc-av{--av:40px;display:inline-block;flex:none;width:var(--av);height:var(--av);border-radius:50%;background:#06141c url(assets/ivy/ivy-apresentacao-celular.jpg) no-repeat;background-size:calc(var(--av)*8) auto;background-position:calc(var(--av)*-3.875) calc(var(--av)*-.43);box-shadow:0 0 0 2px #2f6aa3,0 0 18px rgba(60,150,255,.45)}
+.ivc-av{--av:40px;display:inline-block;flex:none;width:var(--av);height:var(--av);border-radius:50%;background:#02060b url(assets/ivy/ivy-avatar.webp) center/cover no-repeat;box-shadow:0 0 0 2px #2f6aa3,0 0 18px rgba(60,150,255,.45)}
 
 .ivc-lancador{position:fixed;left:clamp(14px,2vw,28px);bottom:clamp(14px,2vw,28px);z-index:60;display:flex;align-items:center;gap:10px;padding:6px 18px 6px 6px;border:1px solid #2f6aa3;border-radius:999px;background:rgba(7,18,30,.88);color:#d6ecff;font:600 14px/1 system-ui,sans-serif;cursor:pointer;backdrop-filter:blur(6px);box-shadow:0 0 22px rgba(40,120,220,.35);transition:box-shadow .2s,background .2s}
 .ivc-lancador:hover{background:rgba(12,34,56,.94);box-shadow:0 0 30px rgba(60,150,255,.5)}
