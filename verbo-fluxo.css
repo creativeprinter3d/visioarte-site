@@ -1,0 +1,6 @@
+/* A peça "A Ive não só responde. Ela opera." na página Tecnologia e Máquinas (imagem SVG animada: PC e celular). */
+.verbo-fluxo{margin:clamp(28px,5vw,56px) 0}
+.verbo-fluxo picture{display:block}
+.verbo-fluxo img{display:block;width:100%;height:auto;aspect-ratio:1200/834;border-radius:18px;background:#04090f}
+@media (max-width:760px){.verbo-fluxo img{aspect-ratio:600/1514}}
+.vf-so-leitor{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
