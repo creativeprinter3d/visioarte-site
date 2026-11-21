@@ -1,0 +1,92 @@
+/* VISIOARTE — motion graphics (teste 21/11/2026).
+   3 pontos: (1) hero + logo, (2) "Tecnologia feita por nós", (3) "Como Funciona".
+   Tudo só liga com html.mx (colocado por motion.js). Sem JS, ou com movimento reduzido, nada muda.
+   Desligar para comparar: ?motion=off */
+
+html.mx {
+  --mx-cy: 100, 230, 245;                       /* ciano da marca */
+  --mx-ease: cubic-bezier(.16, 1, .3, 1);       /* expo-out */
+}
+
+/* usado só para zerar o hero sem animar o "voltar" (replay depois da abertura da Ive) */
+html.mx.mx-reset .neo-hero *, html.mx.mx-reset .neo-hero { transition: none !important; }
+
+/* ---------- 1. HERO ---------- */
+/* as palavras herdam EXATAMENTE a fonte do título (o site tem regra global de span que trocava para Inter) */
+html.mx .mx-w, html.mx .mx-wi { font: inherit; font-family: inherit; font-weight: inherit; font-style: inherit; font-size: inherit;
+  line-height: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; }
+/* o neon.css manda Inter em todo "main *" com !important e só abre exceção para o h1/h2 em si, não para spans dentro dele */
+html.mx main :is(h1, h2, h3, h4) :is(.mx-w, .mx-wi) { font-family: var(--f-serif) !important; font-size-adjust: .52; }
+/* palavras do título: sobem de dentro de uma máscara, uma depois da outra */
+html.mx .mx-w { display: inline-block; overflow: hidden; vertical-align: top; padding: .06em .02em .14em; margin: -.06em -.02em -.14em; }
+html.mx .mx-wi { display: inline-block; transform: translateY(112%); filter: blur(5px); opacity: 0;
+  transition: transform 1.05s var(--mx-ease), filter .9s ease, opacity .6s ease; transition-delay: calc(var(--i) * 75ms + var(--d, 0ms)); }
+html.mx .mx-go .mx-wi { transform: none; filter: none; opacity: 1; }
+
+/* itens que entram em fila (lead, botão, pilares...) */
+html.mx .mx-up { opacity: 0; transform: translateY(18px); transition: opacity .9s ease, transform 1s var(--mx-ease); transition-delay: calc(var(--i, 0) * 90ms + var(--d, 0ms)); }
+html.mx .mx-go .mx-up, html.mx .mx-up.mx-go { opacity: 1; transform: none; }
+
+/* linha de luz que se desenha embaixo do título */
+html.mx .mx-line { display: block; height: 2px; width: min(180px, 40%); margin: 22px 0 6px; border-radius: 2px;
+  background: linear-gradient(90deg, rgba(var(--mx-cy), 1), rgba(var(--mx-cy), 0));
+  box-shadow: 0 0 16px rgba(var(--mx-cy), .7); transform: scaleX(0); transform-origin: left; transition: transform 1.3s var(--mx-ease) .55s; }
+html.mx .mx-go .mx-line, html.mx .mx-line.mx-go { transform: scaleX(1); }
+
+/* foto do hero: assenta de um zoom leve e anda um pouco com a rolagem */
+html.mx .neo-hero-foto { overflow: hidden; }
+html.mx .neo-hero-foto img { transform: translate3d(0, var(--mx-par, 0px), 0) scale(1.09); transition: transform 2.4s var(--mx-ease); will-change: transform; }
+html.mx .neo-hero.mx-go .neo-hero-foto img { transform: translate3d(0, var(--mx-par, 0px), 0) scale(1.02); }
+
+/* reflexo de luz que passa pelo logo do cabeçalho (só sobre o desenho do logo) */
+html.mx .brand { position: relative; }
+html.mx .brand::after {
+  content: ""; position: absolute; left: 0; top: 50%; width: 68px; height: 68px; margin-top: -34px; pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(220, 248, 255, .95) 50%, transparent 62%) -140% 0 / 260% 100% no-repeat;
+  -webkit-mask: url("assets/brand/visioarte-logo.svg?v=transparente-20261026") center / contain no-repeat;
+          mask: url("assets/brand/visioarte-logo.svg?v=transparente-20261026") center / contain no-repeat;
+  animation: mx-shine 1.9s ease-in-out 1.2s 1 both, mx-shine 1.9s ease-in-out 11s infinite both;
+}
+@keyframes mx-shine { from { background-position: 140% 0; } to { background-position: -140% 0; } }
+@media (max-width: 760px) { html.mx .brand::after { width: 52px; height: 52px; margin-top: -26px; } }
+
+/* ---------- 2. TECNOLOGIA FEITA POR NÓS ---------- */
+html.mx .neo-destaque-foto { overflow: hidden; position: relative; }
+html.mx .neo-destaque-foto img { clip-path: inset(0 100% 0 0); transform: scale(1.12); transition: clip-path 1.4s var(--mx-ease), transform 2.2s var(--mx-ease); }
+html.mx .neo-destaque.mx-go .neo-destaque-foto img { clip-path: inset(0 0 0 0); transform: scale(1); }
+html.mx .neo-destaque-txt .mx-line { margin: 20px 0 18px; transition-delay: .7s; }
+/* o botão de assistir pulsa 3 vezes, chamando o olhar sem ficar piscando */
+html.mx .neo-destaque-foto .vt-play-ico { position: relative; }
+html.mx .neo-destaque-foto .vt-play-ico::after {
+  content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1.5px solid rgba(var(--mx-cy), .8); opacity: 0; pointer-events: none; }
+html.mx .neo-destaque.mx-go .neo-destaque-foto .vt-play-ico::after { animation: mx-ping 2.2s ease-out 1.6s 3; }
+@keyframes mx-ping { 0% { transform: scale(.7); opacity: .9; } 100% { transform: scale(2.4); opacity: 0; } }
+
+/* ---------- 3. COMO FUNCIONA (processo) ---------- */
+html.mx #page-como-fazemos .neo-etapas > li { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .9s var(--mx-ease); transition-delay: calc(var(--i) * 110ms); }
+html.mx #page-como-fazemos .neo-etapas.mx-go > li { opacity: 1; transform: none; }
+html.mx #page-como-fazemos .neo-etapas.mx-go .neo-etapa-ico { animation: mx-pop .7s var(--mx-ease) both; animation-delay: calc(var(--i) * 110ms + 150ms); }
+@keyframes mx-pop { 0% { box-shadow: 0 0 0 0 rgba(var(--mx-cy), .55); } 100% { box-shadow: 0 0 0 16px rgba(var(--mx-cy), 0); } }
+
+/* trilho vertical que acende conforme a rolagem */
+html.mx #page-como-fazemos .process-steps { position: relative; }
+html.mx #page-como-fazemos .process-steps li:not(:last-child):before { display: none; }
+html.mx .mx-rail { position: absolute; left: 23px; width: 2px; margin-left: -1px; top: 24px; background: rgba(197, 215, 197, .16); border-radius: 2px; pointer-events: none; }
+html.mx .mx-rail i { position: absolute; inset: 0; border-radius: 2px; transform-origin: top; transform: scaleY(var(--p, 0));
+  background: linear-gradient(180deg, rgba(var(--mx-cy), .5), rgb(var(--mx-cy))); box-shadow: 0 0 14px rgba(var(--mx-cy), .8); }
+html.mx .mx-rail i::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%;
+  background: #eaffff; box-shadow: 0 0 14px 4px rgba(var(--mx-cy), .9); opacity: var(--head, 0); }
+html.mx #page-como-fazemos .process-steps li > div { opacity: .35; transform: translateX(12px); transition: opacity .7s ease, transform .9s var(--mx-ease); }
+html.mx #page-como-fazemos .process-steps li.mx-on > div { opacity: 1; transform: none; }
+html.mx #page-como-fazemos .process-number { transition: background .5s ease, color .5s ease, border-color .5s ease, box-shadow .6s ease, transform .6s var(--mx-ease); }
+html.mx #page-como-fazemos .process-steps li.mx-on .process-number {
+  background: rgb(var(--mx-cy)); color: #04202a; border-color: rgb(var(--mx-cy)); transform: scale(1.06);
+  box-shadow: 0 0 0 6px rgba(var(--mx-cy), .12), 0 0 26px rgba(var(--mx-cy), .55); }
+
+/* ---------- movimento reduzido ou desligado: tudo no lugar, sem animar ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html.mx .mx-wi, html.mx .mx-up, html.mx .mx-line, html.mx .neo-hero-foto img, html.mx .neo-destaque-foto img,
+  html.mx #page-como-fazemos .neo-etapas > li, html.mx #page-como-fazemos .process-steps li > div {
+    opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; transition: none !important; animation: none !important; }
+  html.mx .brand::after { display: none; }
+}
