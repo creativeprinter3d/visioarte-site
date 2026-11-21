@@ -1,0 +1,12 @@
+/* VISIOARTE — capas animadas dos cartões Software e Visio_Tekna */
+.area-card-media.ct-on { background: #07100d !important; }
+.area-card-media.ct-on > img { opacity: 0 !important; }
+.ct-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* brilho interno azul no cartão do Visio Slicer */
+a.area-card[href="#software"] .area-card-media.ct-on { border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(70,170,255,.55), inset 0 0 26px rgba(50,150,255,.28); }
+
+/* Tekna: miolo da capa claro (o véu escuro fica só embaixo, onde está o texto) e moldura azul neon, como nas referências */
+a.tekna-area-card::after { background: linear-gradient(0deg, rgba(3,14,20,.94) 0, rgba(3,14,20,.62) 30%, rgba(3,14,20,0) 56%) !important; }
+a.tekna-area-card { border-color: rgba(70,190,255,.6) !important; box-shadow: 0 0 18px rgba(40,150,255,.25); }
+a.tekna-area-card .area-card-media.ct-on { border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(70,190,255,.7), inset 0 0 24px rgba(50,160,255,.32); }
+a.area-card[href="#software"] { border-color: rgba(70,190,255,.6) !important; box-shadow: 0 0 18px rgba(40,150,255,.25); }
