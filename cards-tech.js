@@ -27,10 +27,9 @@
   const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
   document.addEventListener('visibilitychange', kick);
 
-  function mount(card, draw, logoSrc) {
-    if (!card || card.dataset.ct) return;
-    const media = card.querySelector('.area-card-media'); if (!media) return;
-    card.dataset.ct = '1';
+  function mountIn(media, draw, logoSrc) {
+    if (!media || media.dataset.ct) return;
+    media.dataset.ct = '1';
     const cv = document.createElement('canvas'); cv.className = 'ct-canvas'; cv.setAttribute('aria-hidden', 'true');
     media.append(cv); media.classList.add('ct-on');
     const j = { cv, ctx: cv.getContext('2d'), draw, w: 0, h: 0, vis: false, t0: performance.now(), logo: null, drawn: false };
@@ -44,6 +43,7 @@
     new IntersectionObserver(es => { j.vis = es[0].isIntersecting; if (j.vis) { j.t0 = performance.now() - 800; kick(); } }, { threshold: 0.05 }).observe(cv);
     jobs.push(j);
   }
+  const mount = (card, draw, logoSrc) => card && mountIn(card.querySelector('.area-card-media'), draw, logoSrc);
 
   /* ---------- Visio Slicer: camadas em onda + logo com reflexo ---------- */
   const shine = document.createElement('canvas');
@@ -89,7 +89,7 @@
     // logo oficial (cores originais) com brilho azul e reflexo
     let lbottom = h * 0.3;
     if (j.logo) {
-      const lw = Math.min(w * 0.6, h * 0.46 * (j.logo.width / j.logo.height)), lh = lw * j.logo.height / j.logo.width;
+      const lw = Math.min(w * 0.6, h * 0.5 * (j.logo.width / j.logo.height)), lh = lw * j.logo.height / j.logo.width;
       const cx = w / 2, cy = h * 0.3 + Math.sin(t * 0.9) * 3, a = smooth(0, 0.9, t);
       const sw = Math.ceil(lw), sh = Math.ceil(lh); lbottom = cy + sh / 2;
       if (shine.width !== sw || shine.height !== sh) { shine.width = sw; shine.height = sh; }
@@ -306,4 +306,10 @@
   const slicer = () => document.querySelectorAll('a.area-card[href="#software"]').forEach(a => mount(a, drawSlicer, 'assets/software/visio-slicer-logo-transp.png'));
   const tekna = () => document.querySelectorAll('a.tekna-area-card').forEach(a => mount(a, (new URLSearchParams(location.search).get('ct_app') ? drawTekna : drawTeknaFabrica), 'assets/software/visio-tekna-horizontal.svg'));
   slicer(); tekna();
+  // topo das páginas: Visio Slicer (figura) e Visio_Tekna (imagem do topo) ganham a mesma capa animada dos cartões
+  const wrapImg = (img, cls) => { if (!img || img.parentElement.classList.contains('ct-hero-media')) return null; const wr = document.createElement('div'); wr.className = 'ct-hero-media ' + cls; img.replaceWith(wr); wr.append(img); return wr; };
+  const wrS = wrapImg(document.querySelector('#page-software .slicer-product-visual img'), 'ct-slicer-hero');
+  if (wrS) mountIn(wrS, drawSlicer, 'assets/software/visio-slicer-logo-transp.png');
+  const wrT = wrapImg(document.querySelector('#page-visio-tekna img.neo-pag-foto--tela'), 'ct-tekna-hero');
+  if (wrT) mountIn(wrT, (new URLSearchParams(location.search).get('ct_app') ? drawTekna : drawTeknaFabrica), 'assets/software/visio-tekna-horizontal.svg');
 })();
