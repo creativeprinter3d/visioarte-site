@@ -9,5 +9,10 @@
 .dev-faixa-barra { display: block; height: 4px; background: rgba(42,26,0,.28); }
 .dev-faixa-barra i { display: block; height: 100%; width: var(--p); background: #2a1a00; border-radius: 0 3px 3px 0; animation: dev-fill 1.4s cubic-bezier(.16,1,.3,1) both; }
 @keyframes dev-fill { from { width: 0; } }
+/* cartão da home com faixa (sem porcentagem): empurra o ícone para baixo da faixa.
+   O seletor com html.tema-refinado é preciso: design-comparativo.css define o padding com essa especificidade. */
+.neo-card-dev .dev-faixa { border-radius: 17px 17px 0 0; }
+.neo-card-dev .neo-card-txt,
+html.tema-refinado .neo-card-dev .neo-card-txt { padding-top: calc(clamp(24px, 2.8vw, 34px) + 26px); }
 @media (prefers-reduced-motion: reduce) { .dev-faixa-barra i { animation: none; } }
 @media (max-width: 420px), (min-width: 900px) and (max-width: 1280px) { .dev-faixa-txt { font-size: 9.5px; letter-spacing: .03em; padding: 6px 9px 5px; } }
