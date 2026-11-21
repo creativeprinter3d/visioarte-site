@@ -1,0 +1,41 @@
+/* VISIOARTE — demonstrações do Visio Slicer (21/11/2026) */
+.slicer-demos { padding-top: 8px; }
+.sd { margin-top: 26px; }
+.sd-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.sd-tabs [role="tab"] {
+  appearance: none; cursor: pointer; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.03); color: #cfd8e3;
+  padding: 10px 16px; border-radius: 999px; font-size: 14px; line-height: 1; transition: background .25s ease, border-color .25s ease, color .25s ease;
+}
+.sd-tabs [role="tab"]:hover { border-color: rgba(100,230,245,.55); }
+.sd-tabs [role="tab"][aria-selected="true"] { background: rgba(100,230,245,.14); border-color: rgba(100,230,245,.75); color: #eaffff; }
+.sd-tabs [role="tab"]:focus-visible { outline: 2px solid #64e6f5; outline-offset: 3px; }
+.sd-panel[hidden] { display: none; }
+.sd-stage { position: relative; border-radius: 14px; overflow: hidden; background: rgba(8,12,18,.55); border: 1px solid rgba(255,255,255,.08); }
+.sd-stage canvas { display: block; width: 100%; }
+.sd-cap { margin: 14px 2px 0; font-size: 14px; color: #aeb9c7; max-width: 70ch; }
+.sd-note { margin: 18px 2px 0; font-size: 12px; color: #7f8b9b; }
+
+/* gerador de ondas */
+.sd-wave { display: grid; grid-template-columns: minmax(250px, 340px) 1fr; gap: 18px; align-items: start; }
+.sd-ctl { background: rgba(14,19,26,.92); border: 1px solid rgba(255,255,255,.09); border-radius: 14px; padding: 18px; display: grid; gap: 16px; }
+.sd-ctl fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; }
+.sd-ctl legend, .sd-ctl label.sd-lab { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #8a95a5; padding: 0; }
+.sd-seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: rgba(255,255,255,.04); border-radius: 9px; padding: 3px; }
+.sd-seg { position: relative; }
+.sd-seg input { position: absolute; left: 0; top: 0; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.sd-seg label { text-align: center; padding: 8px 4px; border-radius: 7px; font-size: 13px; color: #b8c2cf; cursor: pointer; transition: background .2s ease, color .2s ease; }
+.sd-seg input:checked + label { background: #f58a1f; color: #1c0e00; font-weight: 600; }
+.sd-seg input:focus-visible + label { outline: 2px solid #64e6f5; outline-offset: 2px; }
+.sd-row { display: grid; gap: 6px; }
+.sd-row .sd-head { display: flex; justify-content: space-between; align-items: baseline; }
+.sd-row output { font-size: 13px; color: #e8edf3; font-variant-numeric: tabular-nums; }
+.sd-ctl input[type="range"] { width: 100%; accent-color: #f58a1f; height: 22px; }
+.sd-reads { display: grid; gap: 9px; padding-top: 4px; border-top: 1px solid rgba(255,255,255,.08); font-size: 13px; color: #aeb9c7; }
+.sd-reads div { display: flex; justify-content: space-between; gap: 12px; }
+.sd-reads b { color: #e8edf3; font-weight: 600; font-variant-numeric: tabular-nums; }
+.sd-reads b.sd-bad { color: #ff6b81; }
+.sd-status { border-radius: 9px; padding: 10px 12px; font-size: 13px; line-height: 1.4; }
+.sd-st-ok { background: rgba(88,214,141,.1); border: 1px solid rgba(88,214,141,.3); color: #58d68d; }
+.sd-st-bad { background: rgba(255,107,129,.1); border: 1px solid rgba(255,107,129,.32); color: #ff8da0; }
+@media (max-width: 860px) { .sd-wave { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .sd-tabs [role="tab"] { padding: 9px 12px; font-size: 13px; } }

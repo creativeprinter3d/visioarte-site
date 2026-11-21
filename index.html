@@ -49,7 +49,7 @@
 <link rel="stylesheet" href="verbo-fluxo.css?v=1">
 <script src="ivy.js?v=tour4-1" defer></script>
 <script src="ivy-chat.js?v=9" defer></script>
-<link rel="stylesheet" href="motion.css?v=4"><script src="motion.js?v=2" defer></script><script src="aviso-desenvolvimento.js?v=1" defer></script>
+<link rel="stylesheet" href="motion.css?v=4"><link rel="stylesheet" href="demos-slicer.css?v=2"><script src="motion.js?v=2" defer></script><script src="demos-slicer.js?v=2" defer></script><script src="aviso-desenvolvimento.js?v=1" defer></script>
 <script src="video-tecnologia.js?v=2" defer></script>
 </head>
 <body>
@@ -541,7 +541,45 @@
     <article class="slicer-benefit"><span class="slicer-feature-number" aria-hidden="true">03 / NÃO PLANAR</span><h3>Camadas com movimento.</h3><p>Explore camadas que sobem e descem ao longo da peça, criando ondulações que fazem parte do desenho.</p></article>
    </div>
   </section>
-  <section class="slicer-section slicer-workflow" aria-labelledby="slicerWorkflowTitle">
+  <section class="slicer-section slicer-demos" aria-labelledby="slicerDemosTitle" id="slicer-demos">
+ <div class="slicer-section-heading"><p class="eyebrow">VEJA EM MOVIMENTO</p><h2 id="slicerDemosTitle">Camadas que acompanham a forma.</h2><p>Três demonstrações do que acontece por trás do Visio Slicer: fatiar sem degraus, conferir o espaço do cabeçote e desenhar ondas dentro de limites seguros.</p></div>
+ <div class="sd" data-sd>
+  <div class="sd-tabs" role="tablist" aria-label="Demonstrações do Visio Slicer">
+   <button type="button" role="tab" id="sd-t1" aria-controls="sd-p1" aria-selected="true">Planar × não planar</button>
+   <button type="button" role="tab" id="sd-t2" aria-controls="sd-p2" aria-selected="false" tabindex="-1">Folga do cabeçote</button>
+   <button type="button" role="tab" id="sd-t3" aria-controls="sd-p3" aria-selected="false" tabindex="-1">Gerador de ondas</button>
+  </div>
+  <div class="sd-panel" id="sd-p1" role="tabpanel" aria-labelledby="sd-t1">
+   <div class="sd-stage"><canvas data-demo="camadas" role="img" aria-label="Animação: duas peças sendo impressas lado a lado. No fatiamento tradicional, as camadas são planos e formam degraus. No não planar, as camadas acompanham a curva da peça."></canvas></div>
+   <p class="sd-cap">No fatiamento tradicional, cada camada é um plano e a curva vira degraus. No não planar, o bico sobe e desce enquanto avança, e a superfície copia a forma.</p>
+  </div>
+  <div class="sd-panel" id="sd-p2" role="tabpanel" aria-labelledby="sd-t2" hidden>
+   <div class="sd-stage"><canvas data-demo="folga" role="img" aria-label="Animação: o bico percorre uma superfície ondulada enquanto o programa mede o espaço sob o cabeçote e confere o limite de 4,0 mm e o ângulo de 34 graus."></canvas></div>
+   <p class="sd-cap">Em máquinas de 3 eixos o bico não se inclina. Antes de exportar, a checagem compara cada ponto do caminho com o volume do cabeçote.</p>
+  </div>
+  <div class="sd-panel" id="sd-p3" role="tabpanel" aria-labelledby="sd-t3" hidden>
+   <div class="sd-wave">
+    <div class="sd-ctl">
+     <fieldset><legend>Forma da onda</legend><div class="sd-seg">
+      <input type="radio" name="sd-forma" id="sd-f1" value="seno" checked><label for="sd-f1">Seno</label>
+      <input type="radio" name="sd-forma" id="sd-f2" value="tri"><label for="sd-f2">Triângulo</label>
+      <input type="radio" name="sd-forma" id="sd-f3" value="trap"><label for="sd-f3">Trapézio</label></div></fieldset>
+     <div class="sd-row"><div class="sd-head"><label class="sd-lab" for="sd-amp">Amplitude</label><output data-v="A" for="sd-amp"></output></div><input type="range" id="sd-amp" min="0.1" max="2.5" step="0.05" value="0.75"></div>
+     <div class="sd-row"><div class="sd-head"><label class="sd-lab" for="sd-onda">Comprimento de onda</label><output data-v="L" for="sd-onda"></output></div><input type="range" id="sd-onda" min="4" max="24" step="0.5" value="11"></div>
+     <div class="sd-row"><div class="sd-head"><label class="sd-lab" for="sd-camada">Altura de camada</label><output data-v="C" for="sd-camada"></output></div><input type="range" id="sd-camada" min="0.2" max="0.8" step="0.02" value="0.58"></div>
+     <div class="sd-reads" aria-live="polite">
+      <div>Inclinação máxima <b data-o="ang"></b></div><div>Desnível da onda <b data-o="des"></b></div>
+      <div>Ondas por volta (Ø60) <b data-o="ond"></b></div><div>Voltas em 30 mm <b data-o="vol"></b></div></div>
+     <div class="sd-status" data-o="status" role="status"></div>
+    </div>
+    <div class="sd-stage"><canvas data-demo="ondas" role="img" aria-label="Animação: parede de camadas onduladas que muda de forma conforme você mexe nos controles ao lado."></canvas></div>
+   </div>
+   <p class="sd-cap">Mexa nos controles: se a inclinação passar do limite, a peça fica em vermelho e o Visio Slicer avisa antes de exportar.</p>
+  </div>
+ </div>
+ <p class="sd-note">Demonstrações ilustrativas, com valores de exemplo.</p>
+</section>
+ <section class="slicer-section slicer-workflow" aria-labelledby="slicerWorkflowTitle">
    <div class="slicer-workflow-intro"><p class="eyebrow">DA REFERÊNCIA À EXPLORAÇÃO</p><h2 id="slicerWorkflowTitle">Seu próximo vaso pode começar aqui.</h2><p>Uma ferramenta própria para explorar novas possibilidades na impressão 3D. Comece com uma ideia e descubra como forma, textura e camadas podem trabalhar juntas.</p></div>
    <ol class="slicer-steps">
     <li><span aria-hidden="true">01</span><div><h3>Imagine a peça.</h3><p>Pense no perfil do vaso, nas proporções e na presença que você quer dar ao objeto.</p></div></li>
