@@ -41,3 +41,6 @@
 }
 @media (prefers-reduced-motion:reduce){.galeria__quadro{clip-path:none!important}.galeria__leg{opacity:1}}
 #page-areas{overflow-x:clip}
+
+.galeria__x{display:none;position:absolute;top:-14px;right:-14px;z-index:7;width:34px;height:34px;border-radius:50%;border:1px solid rgba(116,223,229,.6);background:#04101a;color:#fff;font:400 22px/1 Arial,sans-serif;cursor:pointer;padding:0}
+.galeria--dono .galeria__x{display:block}.galeria__x:hover{background:#d63a3a;border-color:#d63a3a}

@@ -56,7 +56,13 @@
     f.dataset.extra = '1';
     f.innerHTML = '<div class="galeria__quadro"><img alt=""><i class="galeria__bico"></i></div><figcaption class="galeria__leg"><b></b><span></span></figcaption>';
     f.querySelector('img').src = src; f.querySelector('img').alt = nome; f.querySelector('b').textContent = nome;
+    if (raiz.classList.contains('galeria--dono')) marcar(f);
     faixa.insertBefore(f, fecha); return f;
+  }
+  function marcar(f) {
+    if (f.querySelector('.galeria__x')) return;
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'galeria__x'; b.setAttribute('aria-label', 'Excluir esta foto'); b.textContent = '×';
+    f.appendChild(b);
   }
   function reduzir(arquivo) {
     return new Promise(function (ok, erro) {
@@ -86,6 +92,13 @@
     if (!pede && !lembra) return;
     raiz.classList.add('galeria--dono');
     var inp = raiz.querySelector('.galeria__arquivo'), add = raiz.querySelector('[data-gal-add]'), lim = raiz.querySelector('[data-gal-limpar]'), msg = raiz.querySelector('.galeria__dono span');
+    faixa.querySelectorAll('.galeria__peca').forEach(marcar);
+    faixa.addEventListener('click', function (e) {
+      var x = e.target.closest && e.target.closest('.galeria__x'); if (!x) return;
+      var f = x.parentNode;
+      if (!f.dataset.extra) { msg.textContent = 'Esta foto já está no site para todos: me peça para tirá-la.'; return; }
+      f.remove(); guardar(); montar(); medir(); msg.textContent = 'Foto excluída.';
+    });
     add.addEventListener('click', function () { inp.click(); });
     lim.addEventListener('click', function () {
       faixa.querySelectorAll('[data-extra]').forEach(function (f) { f.remove(); });
