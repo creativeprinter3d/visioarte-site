@@ -1,0 +1,43 @@
+/* VISIOARTE — galeria lateral de peças reais (Casa e Decoração). Prefixo .gal* */
+.galeria{position:relative;width:100vw;margin:34px 0 34px calc(50% - 50vw);background:#04101a;color:#e9f3f6}
+.galeria__palco{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:radial-gradient(1400px 800px at 60% 50%,#0a2231 0%,#04101a 72%)}
+.galeria__faixa{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:5vw;padding:0 8vw;will-change:transform}
+.galeria__abre{flex:0 0 auto;width:min(30vw,460px)}
+.galeria .galeria__k{margin:0 0 20px;font-size:13px;letter-spacing:.22em;color:#19d8ee;text-transform:uppercase;display:flex;align-items:center;gap:14px;font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif!important}
+.galeria .galeria__k::after{content:"";height:1px;width:70px;background:linear-gradient(90deg,#19d8ee,transparent)}
+.galeria h2{margin:0;font-family:"Cormorant Garamond",Georgia,serif!important;font-size:clamp(32px,3.8vw,60px);font-weight:500;line-height:1.04;color:#e9f3f6}
+.galeria h2 em{color:#74dfe5;font-style:italic}
+.galeria .galeria__abre p{margin:18px 0 0;font-size:clamp(14px,1.15vw,17px);line-height:1.65;color:#8fa8b3;max-width:420px;font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif!important}
+.galeria__peca{flex:0 0 auto;position:relative;margin:0}
+.galeria__peca.alto{width:min(28vw,420px);height:68vh}
+.galeria__peca.largo{width:min(44vw,660px);height:58vh}
+.galeria__peca.baixo{margin-top:12vh}.galeria__peca.cima{margin-bottom:12vh}
+.galeria__quadro{position:absolute;inset:0;overflow:hidden;border-radius:4px;background:#0a1c29;clip-path:inset(100% 0 0 0);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.galeria__quadro img{position:absolute;top:0;left:-9%;width:118%;height:100%;object-fit:cover;will-change:transform}
+.galeria__quadro::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(4,16,26,.55));pointer-events:none}
+.galeria__bico{position:absolute;left:-1px;right:-1px;height:2px;top:100%;background:#fff;box-shadow:0 0 12px 2px #19d8ee,0 0 40px 6px rgba(25,216,238,.55);opacity:0;pointer-events:none;z-index:3}
+.galeria__leg{position:absolute;left:0;right:0;bottom:-44px;display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:#8fa8b3;opacity:0;transition:opacity .6s;font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif!important}
+.galeria__leg b{font-weight:500;color:#e9f3f6;font-family:"Cormorant Garamond",Georgia,serif!important;font-size:22px}
+.galeria__peca.pronta .galeria__leg{opacity:1}
+.galeria__fecha{flex:0 0 auto;width:min(28vw,420px)}
+.galeria__fecha .neo-btn{margin-top:28px}
+.galeria__barra{position:absolute;left:8vw;right:8vw;bottom:4.5vh;z-index:5;display:flex;align-items:center;gap:20px;font-size:12px;letter-spacing:.14em;color:#8fa8b3;font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif!important}
+.galeria__tr{flex:1;height:1px;background:rgba(255,255,255,.14);position:relative}
+.galeria__fill{position:absolute;inset:0 auto 0 0;width:0;height:2px;top:-.5px;background:#19d8ee;box-shadow:0 0 10px #19d8ee}
+.galeria__cont{color:#74dfe5;min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
+/* botão do dono (só aparece com ?editar na endereço) */
+.galeria__dono{position:absolute;z-index:6;top:96px;right:24px;display:none;gap:10px;align-items:center}
+.galeria--dono .galeria__dono{display:flex}
+.galeria__dono button{cursor:pointer;font:600 14px "Segoe UI",Arial,sans-serif;color:#03212b;background:#19d8ee;border:0;border-radius:99px;padding:12px 22px;box-shadow:0 0 24px rgba(25,216,238,.45)}
+.galeria__dono button.ghost{background:rgba(4,16,26,.7);color:#e9f3f6;border:1px solid rgba(116,223,229,.5);box-shadow:none}
+.galeria__dono span{font:12px "Segoe UI",Arial,sans-serif;color:#8fa8b3}
+@media (max-width:820px){
+  .galeria__faixa{gap:9vw;padding:0 22px}
+  .galeria__abre,.galeria__fecha{width:78vw}
+  .galeria__peca.alto{width:68vw;height:56vh}.galeria__peca.largo{width:84vw;height:42vh}
+  .galeria__peca.baixo,.galeria__peca.cima{margin:0}
+  .galeria__barra{left:22px;right:22px;bottom:11vh}
+  .galeria__dono{top:78px;right:14px}
+}
+@media (prefers-reduced-motion:reduce){.galeria__quadro{clip-path:none!important}.galeria__leg{opacity:1}}
+#page-areas{overflow-x:clip}
