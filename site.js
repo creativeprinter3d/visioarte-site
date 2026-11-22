@@ -190,7 +190,7 @@
     all('[data-area]').forEach(el=>el.hidden=page!=='areas'||el.dataset.area!==category);
     const group=groupForDestination(destination);
     const currentNav=group?'#'+(group.members.length===1?group.members[0]:'areas/'+group.slug):'#'+page;
-    menu.querySelectorAll('a').forEach(a=>{if(a.hash===currentNav)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+    menu.querySelectorAll('a:not(.nav-cta)').forEach(a=>{if(a.hash===currentNav)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.title=(page==='areas'?group.name:titles[pages.indexOf(page)])+' — VISIOARTE';
     $('skipLink').href='#page-'+page;setMenu(false);
     if(page==='pecas'){
