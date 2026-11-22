@@ -118,6 +118,9 @@
   }
 
   carregar(); montar(); dono();
+  /* sem fotos e sem modo dono: a seção some para os visitantes */
+  function vazia() { var tem = faixa.querySelector('.galeria__peca'); raiz.hidden = !tem && !raiz.classList.contains('galeria--dono'); }
+  vazia();
   addEventListener('scroll', ler, { passive: true });
   addEventListener('resize', medir); addEventListener('load', medir);
   /* a página de Casa e Decoração começa escondida: mede quando a seção ficar visível */
