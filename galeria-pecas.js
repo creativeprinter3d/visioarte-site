@@ -80,7 +80,10 @@
     try { (JSON.parse(localStorage.getItem(CH) || '[]')).forEach(function (o) { nova(o.s, o.n); }); } catch (e) {}
   }
   function dono() {
-    if (!/[?&]editar\b/.test(location.search)) return;
+    var CF = "visioarte-galeria-dono"; var pede = /editar/.test(location.search + location.hash);
+    try { if (pede) localStorage.setItem(CF, "1"); } catch (e) {}
+    var lembra = false; try { lembra = localStorage.getItem(CF) === "1"; } catch (e) {}
+    if (!pede && !lembra) return;
     raiz.classList.add('galeria--dono');
     var inp = raiz.querySelector('.galeria__arquivo'), add = raiz.querySelector('[data-gal-add]'), lim = raiz.querySelector('[data-gal-limpar]'), msg = raiz.querySelector('.galeria__dono span');
     add.addEventListener('click', function () { inp.click(); });
