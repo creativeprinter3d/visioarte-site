@@ -46,3 +46,10 @@
 .galeria--dono .galeria__x{display:block}.galeria__x:hover{background:#d63a3a;border-color:#d63a3a}
 
 .galeria[hidden]{display:none}
+@media (max-width:820px){
+  .galeria__dono{top:76px;left:12px;right:12px;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+  .galeria__dono button{white-space:nowrap;font-size:13px;padding:9px 14px}
+  .galeria__dono span{order:3;width:100%;text-align:right;font-size:11px;line-height:1.3;text-shadow:0 1px 4px #000}
+  .galeria__dono span:empty{display:none}
+  .galeria__x{top:-10px;right:-6px;width:30px;height:30px;font-size:20px}
+}
