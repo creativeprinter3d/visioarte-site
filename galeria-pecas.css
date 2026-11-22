@@ -26,7 +26,7 @@
 .galeria__fill{position:absolute;inset:0 auto 0 0;width:0;height:2px;top:-.5px;background:#19d8ee;box-shadow:0 0 10px #19d8ee}
 .galeria__cont{color:#74dfe5;min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
 /* botão do dono (só aparece com ?editar na endereço) */
-.galeria__dono{position:absolute;z-index:6;top:96px;right:24px;display:none;gap:10px;align-items:center}
+.galeria__dono{position:fixed;z-index:60;top:96px;right:24px;display:none;gap:10px;align-items:center}
 .galeria--dono .galeria__dono{display:flex}
 .galeria__dono button{cursor:pointer;font:600 14px "Segoe UI",Arial,sans-serif;color:#03212b;background:#19d8ee;border:0;border-radius:99px;padding:12px 22px;box-shadow:0 0 24px rgba(25,216,238,.45)}
 .galeria__dono button.ghost{background:rgba(4,16,26,.7);color:#e9f3f6;border:1px solid rgba(116,223,229,.5);box-shadow:none}
