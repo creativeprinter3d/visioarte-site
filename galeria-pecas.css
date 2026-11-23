@@ -53,3 +53,5 @@
   .galeria__dono span:empty{display:none}
   .galeria__x{top:-10px;right:-6px;width:30px;height:30px;font-size:20px}
 }
+
+.galeria__quadro .dev-faixa{border-radius:4px 4px 0 0;z-index:6}
