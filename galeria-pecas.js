@@ -61,13 +61,14 @@
     /* ---- fotos do dono ---- */
     function nova(src, nome) {
       var f = document.createElement('figure');
-      var n = faixa.querySelectorAll('.galeria__peca').length;
-      f.className = 'galeria__peca ' + (n % 3 === 1 ? 'largo' : 'alto ' + (n % 2 ? 'baixo' : 'cima'));
+      var n = faixa.querySelectorAll('[data-extra]').length;
+      f.className = 'galeria__peca ' + ['alto cima', 'largo', 'alto baixo'][n % 3];
       f.dataset.extra = '1';
       f.innerHTML = '<div class="galeria__quadro"><img alt=""><i class="galeria__bico"></i></div><figcaption class="galeria__leg"><b></b><span></span></figcaption>';
       f.querySelector('img').src = src; f.querySelector('img').alt = nome; f.querySelector('b').textContent = nome;
       if (raiz.classList.contains('galeria--dono')) marcar(f);
-      faixa.insertBefore(f, fecha); return f;
+      /* as fotos reais vêm primeiro: as ilustrativas (com a faixa "Em desenvolvimento") ficam por último */
+      faixa.insertBefore(f, faixa.querySelector('.galeria__peca[data-ilustrativa]') || fecha); return f;
     }
     function marcar(f) {
       if (f.querySelector('.galeria__x')) return;
