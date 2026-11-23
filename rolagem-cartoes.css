@@ -28,3 +28,12 @@ html .rolag .rolag__faixa .area-card{flex:0 0 auto;width:min(30vw,430px);height:
   .rolag__barra{left:22px;right:22px;bottom:17vh}
 }
 @media (prefers-reduced-motion:reduce){html .rolag .rolag__faixa .area-card{clip-path:none!important}}
+
+#page-pecas{overflow-x:clip}
+.rolag--luz{margin-top:6px}
+html .rolag--luz .rolag__faixa .light-card{flex:0 0 auto;width:min(26vw,340px,calc((100vh - 300px)*.8));min-width:0;clip-path:inset(100% 0 0 0);position:relative}
+html .rolag--luz .rolag__faixa .light-card[hidden]{display:none}
+html .rolag--luz .rolag__faixa{gap:3vw!important}
+.rolag--luz .light-card h3{font-size:clamp(22px,1.8vw,28px)}
+@media (max-width:820px){html .rolag--luz .rolag__faixa .light-card{width:min(68vw,calc((100vh - 460px)*.8))}}
+@media (prefers-reduced-motion:reduce){html .rolag--luz .rolag__faixa .light-card{clip-path:none!important}}

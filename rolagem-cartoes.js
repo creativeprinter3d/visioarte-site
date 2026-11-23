@@ -6,9 +6,9 @@
   var blocos = [].map.call(document.querySelectorAll('.rolag'), function (raiz) {
     var faixa = raiz.querySelector('.rolag__faixa'), fill = raiz.querySelector('.rolag__fill'), cont = raiz.querySelector('.rolag__cont');
     var b = { raiz: raiz, faixa: faixa, fill: fill, cont: cont, largura: 0, alvo: 0, pos: 0, ultimo: -1, visivel: false, itens: [] };
-    b.itens = [].map.call(faixa.querySelectorAll('.area-card'), function (el) {
+    b.itens = [].map.call(faixa.querySelectorAll('.area-card, .light-card'), function (el) {
       var bico = document.createElement('i'); bico.className = 'rolag__bico'; el.appendChild(bico);
-      return { el: el, bico: bico, x: 0, w: 0 };
+      return { el: el, bico: bico, x: 0, w: 0, vis: true };
     });
     return b;
   });
@@ -20,7 +20,7 @@
     vw = innerWidth; vh = innerHeight; b.faixa.style.transform = 'none';
     b.largura = b.faixa.scrollWidth;
     b.raiz.style.height = (Math.max(0, b.largura - vw) * 1.5 + vh) + 'px';
-    b.itens.forEach(function (it) { it.x = it.el.offsetLeft; it.w = it.el.offsetWidth; });
+    b.itens.forEach(function (it) { it.vis = it.el.offsetParent !== null; it.x = it.el.offsetLeft; it.w = it.el.offsetWidth; });
     ler(b);
   }
   function ler(b) {
@@ -32,8 +32,10 @@
     b.pos += (b.alvo - b.pos) * (reduz ? 1 : .1);
     b.faixa.style.transform = 'translate3d(' + (-b.pos) + 'px,0,0)';
     b.fill.style.width = ((b.largura > vw ? b.pos / (b.largura - vw) : 0) * 100) + '%';
-    var vistas = 0;
+    var vistas = 0, total = 0;
     b.itens.forEach(function (it) {
+      if (!it.vis) return;
+      total++;
       var esq = it.x - b.pos;
       var r = reduz ? 1 : easeOut(clamp((vw * .92 - esq) / (vw * .47)));
       it.el.style.clipPath = r >= .999 ? 'none' : 'inset(' + ((1 - r) * 100) + '% 0 0 0)';
@@ -41,7 +43,7 @@
       it.bico.style.opacity = (r > .01 && r < .995) ? 1 : 0;
       if (r >= .97) vistas++;
     });
-    if (vistas !== b.ultimo) { b.ultimo = vistas; b.cont.textContent = ('0' + vistas).slice(-2) + ' / ' + ('0' + b.itens.length).slice(-2); }
+    if (vistas !== b.ultimo) { b.ultimo = vistas; b.cont.textContent = ('0' + vistas).slice(-2) + ' / ' + ('0' + total).slice(-2); }
   }
   function quadro() {
     blocos.forEach(function (b) { if (b.visivel && b.raiz.offsetParent) desenhar(b); });
@@ -50,6 +52,7 @@
   blocos.forEach(function (b) {
     if (window.ResizeObserver) new ResizeObserver(function () { medir(b); }).observe(b.raiz);
     if (window.IntersectionObserver) new IntersectionObserver(function (e) { b.visivel = e[0].isIntersecting; if (b.visivel) medir(b); }, { rootMargin: '300px 0px' }).observe(b.raiz); else b.visivel = true;
+    if (window.MutationObserver) new MutationObserver(function () { medir(b); }).observe(b.faixa, { subtree: true, attributes: true, attributeFilter: ['hidden'] });
     medir(b); b.pos = b.alvo;
   });
   addEventListener('scroll', function () { blocos.forEach(ler); }, { passive: true });
