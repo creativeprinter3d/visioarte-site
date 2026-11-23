@@ -6,7 +6,7 @@
   var blocos = [].map.call(document.querySelectorAll('.rolag'), function (raiz) {
     var faixa = raiz.querySelector('.rolag__faixa'), fill = raiz.querySelector('.rolag__fill'), cont = raiz.querySelector('.rolag__cont');
     var b = { raiz: raiz, faixa: faixa, fill: fill, cont: cont, largura: 0, alvo: 0, pos: 0, ultimo: -1, visivel: false, itens: [] };
-    b.itens = [].map.call(faixa.querySelectorAll('.area-card'), function (el) {
+    b.itens = [].map.call(faixa.querySelectorAll('.area-card, .neo-abas a'), function (el) {
       var bico = document.createElement('i'); bico.className = 'rolag__bico'; el.appendChild(bico);
       return { el: el, bico: bico, x: 0, w: 0 };
     });
